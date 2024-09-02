@@ -136,6 +136,11 @@ button{
     </style>
 </head>
 <body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+  <script>
    // JavaScript for form validation
 document.getElementById('login-form').addEventListener('submit', function(event) {
   var username = document.getElementById('username').value;
@@ -159,11 +164,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     alert('Passwords do not match.');
     event.preventDefault();
   }
-});
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
+});</script>
     <form id="login-form">
         <h3>Login Here</h3>
         <label for="username">Username</label>
