@@ -140,6 +140,18 @@ button{
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
+    <form id="login-form">
+        <h3>Login Here</h3>
+        <label for="username">Username</label>
+        <input type="text" placeholder="Email or Phone" id="username">
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password">
+        <button type="submit">Log in</button>
+        <div class="social">
+          <div class="go"><i class="fab fa-google"></i>  Google</div>
+          <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+        </div>
+    </form>
   <script>
    // JavaScript for form validation
 document.getElementById('login-form').addEventListener('submit', function(event) {
@@ -165,17 +177,6 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     event.preventDefault();
   }
 });</script>
-    <form id="login-form">
-        <h3>Login Here</h3>
-        <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
-        <button type="submit">Log in</button>
-        <div class="social">
-          <div class="go"><i class="fab fa-google"></i>  Google</div>
-          <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
-        </div>
-    </form>
+
 </body>
 </html>
