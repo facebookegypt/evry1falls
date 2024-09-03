@@ -21,6 +21,19 @@
 body{
     background-color: #080710;
 }
+      .container {
+            position: relative;
+            height: 100vh; /* Full viewport height */
+        }
+        .left-div {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%); /* Vertically centers the div */
+            width: 200px;
+            height: 100px;
+            background-color: lightcoral;
+        }
       .footer {
   position: fixed;
   left: 0;
@@ -145,6 +158,18 @@ button{
     </style>
 </head>
 <body>
+  <div class="container">
+        <div class="left-div"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8467996035546474"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-8467996035546474"
+     data-ad-slot="8689732245"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+    </div>
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
@@ -186,18 +211,6 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     event.preventDefault();
   }
 });</script>
-<div class="footer">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8467996035546474"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-8467996035546474"
-     data-ad-slot="8689732245"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-  <p>This is a surprise</p>
-</div>
+<div class="footer"><p>This is a surprise</p></div>
 </body>
 </html>
