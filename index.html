@@ -199,7 +199,14 @@
         <div class="social">
             <div class="go"><i class="fab fa-google"></i>  Google</div>
             <?php include 'facebook-oauth.php'; ?>
-            <div class="fb"><i class="fab fa-facebook"></i> Facebook</a></div>
+            <!-- <div class="fb"><i class="fab fa-facebook"></i> Facebook</a></div> -->
+            <!-- The JS SDK Login Button -->
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
         </div
     </form>
     <script>
@@ -274,16 +281,6 @@ document.getElementById('signup-form').addEventListener('submit', function(event
   }
 
 </script>
-
-
-<!-- The JS SDK Login Button -->
-
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
-
-<div id="status">
-</div>
-
 <!-- Load the JS SDK asynchronously -->
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </body>
