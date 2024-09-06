@@ -1,0 +1,20 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-index",
+      "appliesTo": "index.html",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-evry1falls",
+      "appliesTo": "/",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-evry1falls",
+      "appliesTo": "/",
+      "type": "launch"
+    }
+  ]
+}
