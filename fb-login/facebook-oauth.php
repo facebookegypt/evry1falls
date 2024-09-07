@@ -21,7 +21,7 @@ $facebook_oauth_app_id = '1238020140566279';
 
 $facebook_oauth_app_secret = 'b78942234d5f4d8d6de7e9648a234d7a';
 // Must be the direct URL to the facebook-oauth.php file
-$facebook_oauth_redirect_uri = 'https://facebookegypt.github.io/evry1falls/fb-login/facebook-oauth.php';
+$facebook_oauth_redirect_uri = 'https://facebookegypt.github.io/evry1falls/fb-login/index.html';
 $facebook_oauth_version = 'v20.0';
 // If the captured code param exists and is valid
 if (isset($_GET['code']) && !empty($_GET['code'])) {
