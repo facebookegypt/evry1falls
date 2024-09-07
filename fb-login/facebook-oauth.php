@@ -1,4 +1,18 @@
 <?php
+// Database connection variables
+$db_host = 'localhost';
+$db_name = 'sociallogin';
+$db_user = 'root';
+$db_pass = 'AhmedSamir1_';
+// Attempt to connect to database
+try {
+    // Connect to the MySQL database using PDO...
+    $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name . ';charset=utf8', $db_user, $db_pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $exception) {
+    // Could not connect to the MySQL database, if this error occurs make sure you check your db settings are correct!
+    exit('Failed to connect to database!');
+}
 // Initialize the session
 session_start();
 // Update the following variables
@@ -41,27 +55,34 @@ $response = json_decode($response, true);
 // Make sure access token is valid
 if (isset($response['access_token']) && !empty($response['access_token'])) {
     // Execute cURL request to retrieve the user info associated with the Facebook account
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/' . $facebook_oauth_version . '/me?fields=name,email,picture');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $response['access_token']]);
-    $response = curl_exec($ch);
-    curl_close($ch);
-    $profile = json_decode($response, true);
-        // Make sure the profile data exists
-    if (isset($profile['email'])) {
-        // Authenticate the user
-        session_regenerate_id();
-        $_SESSION['facebook_loggedin'] = TRUE;
-        $_SESSION['facebook_email'] = $profile['email'];
-        $_SESSION['facebook_name'] = $profile['name'];
-        $_SESSION['facebook_picture'] = $profile['picture']['data']['url'];
-        // Redirect to profile page
-        header('Location: profile.php');
-        exit;
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/' . $facebook_oauth_version . '/me?fields=name,email,picture');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $response['access_token']]);
+$response = curl_exec($ch);
+curl_close($ch);
+$profile = json_decode($response, true);
+    // Make sure the profile data exists
+if (isset($profile['email'])) {
+    // Check if the account exists in the database
+    $stmt = $pdo->prepare('SELECT * FROM accounts WHERE email = ?');
+    $stmt->execute([ $profile['email'] ]);
+    $account = $stmt->fetch(PDO::FETCH_ASSOC);
+    // If the account does not exist in the database, insert the account into the database
+    if (!$account) {
+        $stmt = $pdo->prepare('INSERT INTO accounts (email, name, picture, registered, method) VALUES (?, ?, ?, ?, ?)');
+        $stmt->execute([ $profile['email'], $profile['name'], $profile['picture']['data']['url'], date('Y-m-d H:i:s'), 'facebook' ]);
+        $id = $pdo->lastInsertId();
     } else {
-        exit('Could not retrieve profile information! Please try again later!');
+        $id = $account['id'];
     }
+    // Authenticate the account
+    session_regenerate_id();
+    $_SESSION['facebook_loggedin'] = TRUE;
+    $_SESSION['facebook_id'] = $id;
+    // Redirect to profile page
+    header('Location: profile.php');
+    exit;
 } else {
-    exit('Invalid access token! Please try again later!');
+    exit('Could not retrieve profile information! Please try again later!');
 }
