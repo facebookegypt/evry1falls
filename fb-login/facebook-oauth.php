@@ -83,6 +83,5 @@ if (isset($profile['email'])) {
     // Redirect to profile page
     header('Location: profile.php');
     exit;
-} else {
-    exit('Could not retrieve profile information! Please try again later!');
-}
+} else {exit('Could not retrieve profile information! Please try again later!');}
+
