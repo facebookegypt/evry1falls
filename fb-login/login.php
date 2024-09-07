@@ -7,7 +7,6 @@
 		<link href="style.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-
 		<div class="content home">
 
 			<h1>
