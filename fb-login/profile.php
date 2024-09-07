@@ -10,7 +10,7 @@ if (!isset($_SESSION['facebook_loggedin'])) {
 $db_host = 'localhost';
 $db_name = 'sociallogin';
 $db_user = 'root';
-$db_pass = '';
+$db_pass = 'AhmedSamir1_';
 // Attempt to connect to database
 try {
     // Connect to the MySQL database using PDO...
