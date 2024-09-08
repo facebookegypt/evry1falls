@@ -238,10 +238,10 @@ document.getElementById('signup-form').addEventListener('submit', function(event
 
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '{app-id}',
+      appId      : '1238020140566279',
       cookie     : true,                     // Enable cookies to allow the server to access the session.
       xfbml      : true,                     // Parse social plugins on this webpage.
-      version    : '{api-version}'           // Use this Graph API version for this call.
+      version    : 'v20.0'           // Use this Graph API version for this call.
     });
 
 
@@ -260,10 +260,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
   }
 
 </script>
-
-
 <!-- The JS SDK Login Button -->
-
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 
@@ -273,6 +270,5 @@ document.getElementById('signup-form').addEventListener('submit', function(event
 <!-- Load the JS SDK asynchronously -->
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 <!-- ends here-->
-    <div class="footer"><p>This is a surprise</p></div>
 </body>
 </html>
