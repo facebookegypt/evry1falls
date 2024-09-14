@@ -17,7 +17,8 @@ var GithubDB = require('..').default;
 var githubDB = new GithubDB(options);
 
 // Authenticate Github DB -> grab a token from here https://github.com/settings/tokens
-githubDB.auth(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);
+var personalAccessToken = process.env.TOKEN; // Set the variable here
+githubDB.auth(personalAccessToken);
 
 // Connect to repository
 githubDB.connectToRepo();
