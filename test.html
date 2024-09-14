@@ -4,11 +4,8 @@
   <body>
 
     <h2>Add Facebook Login to your webpage</h2>
-<!-- <div id="profile"></div> -->
       <!-- Set the element id for the JSON response -->
-    
       <p id="profile"></p>
-
       <script>
   
         <!-- Add the Facebook SDK for Javascript -->
@@ -39,7 +36,7 @@
                            });
                       } else { 
                            <!-- If you are not logged in, the login dialog will open for you to login asking for permission to get your public profile and email -->
-                           console.log('User cancelled login or did not fully authorize.'); }
+                           document.getElementById("profile").innerHTML= "User cancelled login or did not fully authorize."}
             });
         };
 
