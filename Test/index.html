@@ -90,76 +90,65 @@
         .background-shapes .oval:nth-child(33) { width: 100px; height: 60px; top: 30%; left: 50%; border-color: #e74c3c; }
         .background-shapes .oval:nth-child(34) { width: 80px; height: 50px; top: 70%; left: 80%; border-color: #3498db; }
         .background-shapes .oval:nth-child(35) { width: 90px; height: 60px; top: 40%; left: 10%; border-color: #2ecc71; }
-        .background-shapes .oval:nth-child(36) { width: 100px; height: 70px; top: 60%; left: 40%; border-color: #f39c12; }
-        .background-shapes .oval:nth-child(37) { width: 80px; height: 60px; top: 20%; left: 80%; border-color: #9b59b6; }
-        .background-shapes .oval:nth-child(38) { width: 120px; height: 80px; top: 50%; left: 30%; border-color: #16a085; }
-        .background-shapes .oval:nth-child(39) { width: 90px; height: 60px; top: 30%; left: 60%; border-color: #f1c40f; }
-        .background-shapes .oval:nth-child(40) { width: 110px; height: 70px; top: 70%; left: 20%; border-color: #e67e22; }
-        .background-shapes .oval:nth-child(41) { width: 100px; height: 60px; top: 10%; left: 30%; border-color: #e74c3c; }
-        .background-shapes .oval:nth-child(42) { width: 80px; height: 50px; top: 50%; left: 80%; border-color: #3498db; }
+        .background-shapes .oval:nth-child(36) { width: 120px; height: 80px; top: 10%; left: 40%; border-color: #f39c12; }
+        .background-shapes .oval:nth-child(37) { width: 100px; height: 70px; top: 50%; left: 20%; border-color: #9b59b6; }
+        .background-shapes .oval:nth-child(38) { width: 110px; height: 90px; top: 70%; left: 60%; border-color: #16a085; }
+        .background-shapes .oval:nth-child(39) { width: 90px; height: 50px; top: 30%; left: 80%; border-color: #f1c40f; }
+        .background-shapes .oval:nth-child(40) { width: 130px; height: 70px; top: 60%; left: 40%; border-color: #e67e22; }
+        .background-shapes .oval:nth-child(41) { width: 100px; height: 60px; top: 20%; left: 10%; border-color: #e74c3c; }
+        .background-shapes .oval:nth-child(42) { width: 120px; height: 80px; top: 50%; left: 70%; border-color: #3498db; }
 
         .container {
-            background-color: #ecf0f1; /* Light background for contrast */
-            border-radius: 10px;
+            background-color: #34495e; /* Slightly lighter dark background */
             padding: 20px;
+            border-radius: 8px;
             text-align: center;
-            width: 90%;
-            max-width: 400px;
+            max-width: 300px;
+            width: 100%;
         }
 
-        .profile-picture {
-            width: 120px;
-            height: 120px;
+        .container img {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #3498db; /* Blue border */
+            border: 3px solid #ecf0f1;
             margin-bottom: 20px;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
+        .container h1 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .container button {
+            background-color: #3498db; /* Blue button color */
             border: none;
-            border-radius: 5px;
             color: #fff;
-            background-color: #3498db;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
             cursor: pointer;
-            margin: 10px 5px;
+            margin: 10px;
+            transition: background-color 0.3s;
         }
 
-        .btn:hover {
-            background-color: #2980b9;
+        .container button:hover {
+            background-color: #2980b9; /* Darker blue on hover */
         }
 
-        .login-btn {
-            background-color: #2ecc71;
+        .container button:disabled {
+            background-color: #7f8c8d; /* Gray color for disabled button */
+            cursor: not-allowed;
         }
 
-        .login-btn:hover {
-            background-color: #27ae60;
+        .container .profile-pic {
+            border: 3px solid #ecf0f1;
         }
-
-        .logout-btn {
-            background-color: #e74c3c;
-        }
-
-        .logout-btn:hover {
-            background-color: #c0392b;
-        }
-
-        .welcome-message {
-            font-size: 18px;
-            margin: 20px 0;
-        }
-    </style>
-    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
+    </style>    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
 </head>
 <body>
     <div class="background-shapes">
-        <!-- Background shapes -->
+        <!-- Circles -->
         <div class="shape circle"></div>
         <div class="shape circle"></div>
         <div class="shape circle"></div>
@@ -168,6 +157,7 @@
         <div class="shape circle"></div>
         <div class="shape circle"></div>
         <div class="shape circle"></div>
+        <!-- Squares -->
         <div class="shape square"></div>
         <div class="shape square"></div>
         <div class="shape square"></div>
@@ -176,6 +166,7 @@
         <div class="shape square"></div>
         <div class="shape square"></div>
         <div class="shape square"></div>
+        <!-- Rectangles -->
         <div class="shape rectangle"></div>
         <div class="shape rectangle"></div>
         <div class="shape rectangle"></div>
@@ -184,10 +175,7 @@
         <div class="shape rectangle"></div>
         <div class="shape rectangle"></div>
         <div class="shape rectangle"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
+        <!-- Ovals -->
         <div class="shape oval"></div>
         <div class="shape oval"></div>
         <div class="shape oval"></div>
@@ -198,18 +186,18 @@
         <div class="shape oval"></div>
         <div class="shape oval"></div>
     </div>
+
     <div class="container">
-        <img src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-picture">
-        <div class="welcome-message">Welcome to your application</div>
-        <div id="status">
-            <!-- Buttons will be injected here by JavaScript -->
-        </div>
+        <img id="profile-pic" class="profile-pic" src="" alt="Profile Picture">
+        <h1 id="user-name">Welcome to your application</h1>
+        <button id="fb-login-btn">Login with Facebook</button>
+        <button id="fb-logout-btn" style="display: none;">Logout</button>
     </div>
 
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '1238020140566279',
+                appId      : '1238020140566279', // Your Facebook App ID
                 cookie     : true,
                 xfbml      : true,
                 version    : 'v20.0'
@@ -230,27 +218,29 @@
 
         function statusChangeCallback(response) {
             if (response.status === 'connected') {
-                document.getElementById('status').innerHTML = `
-                    <button class="btn logout-btn" onclick="logout()">Logout</button>
-                `;
+                document.getElementById('fb-login-btn').style.display = 'none';
+                document.getElementById('fb-logout-btn').style.display = 'inline';
+                FB.api('/me', {fields: 'name,picture'}, function(response) {
+                    document.getElementById('user-name').textContent = 'Welcome, ' + response.name;
+                    document.getElementById('profile-pic').src = response.picture.data.url;
+                });
             } else {
-                document.getElementById('status').innerHTML = `
-                    <button class="btn login-btn" onclick="login()">Login with Facebook</button>
-                `;
+                document.getElementById('fb-login-btn').style.display = 'inline';
+                document.getElementById('fb-logout-btn').style.display = 'none';
             }
         }
 
-        function login() {
+        document.getElementById('fb-login-btn').addEventListener('click', function() {
             FB.login(function(response) {
                 statusChangeCallback(response);
-            });
-        }
+            }, {scope: 'public_profile'});
+        });
 
-        function logout() {
+        document.getElementById('fb-logout-btn').addEventListener('click', function() {
             FB.logout(function(response) {
                 statusChangeCallback(response);
             });
-        }
+        });
     </script>
 </body>
 </html>
