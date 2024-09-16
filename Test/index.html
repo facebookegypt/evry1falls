@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Login with Facebook to access your profile and use our application. Enjoy a simple and engaging app experience with your favorite features. This app is designed to serve vast groups of people.">
+    <meta name="description" content="Login with Facebook to access your profile and use our application. Enjoy a simple and engaging app experience with your favorite features.">
     <title>Facebook Login</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #333333; /* Darker background color */
-            color: #ffffff; /* White text color for better contrast */
+            font-family: 'Roboto', sans-serif;
+            background-color: #2c3e50; /* Dark background for contrast */
+            color: #ecf0f1; /* Light text color */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -31,8 +32,8 @@
 
         .background-shapes .shape {
             position: absolute;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Darker shadow for better visibility */
-            border: 2px solid;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6); /* Enhanced shadow for a 3D effect */
+            border: 3px solid;
             pointer-events: none;
         }
 
@@ -52,250 +53,157 @@
             border-radius: 50%;
         }
 
-        .background-shapes .circle:nth-child(1) { width: 100px; height: 100px; top: 5%; left: 10%; border-color: #ff6f61; }
-        .background-shapes .circle:nth-child(2) { width: 90px; height: 90px; top: 20%; left: 70%; border-color: #4caf50; }
-        .background-shapes .circle:nth-child(3) { width: 110px; height: 110px; top: 40%; left: 30%; border-color: #2196f3; }
-        .background-shapes .circle:nth-child(4) { width: 80px; height: 80px; top: 70%; left: 50%; border-color: #ff9800; }
-        .background-shapes .circle:nth-child(5) { width: 70px; height: 70px; top: 80%; left: 10%; border-color: #9c27b0; }
-        .background-shapes .circle:nth-child(6) { width: 120px; height: 120px; top: 10%; left: 60%; border-color: #673ab7; }
-        .background-shapes .circle:nth-child(7) { width: 90px; height: 90px; top: 50%; left: 80%; border-color: #3f51b5; }
-        .background-shapes .circle:nth-child(8) { width: 100px; height: 100px; top: 60%; left: 20%; border-color: #e91e63; }
-        .background-shapes .square:nth-child(9) { width: 100px; height: 100px; top: 20%; left: 40%; border-color: #ff6f61; }
-        .background-shapes .square:nth-child(10) { width: 80px; height: 80px; top: 50%; left: 10%; border-color: #4caf50; }
-        .background-shapes .square:nth-child(11) { width: 90px; height: 90px; top: 60%; left: 80%; border-color: #2196f3; }
-        .background-shapes .square:nth-child(12) { width: 70px; height: 70px; top: 10%; left: 80%; border-color: #ff9800; }
-        .background-shapes .square:nth-child(13) { width: 120px; height: 120px; top: 70%; left: 40%; border-color: #9c27b0; }
-        .background-shapes .square:nth-child(14) { width: 110px; height: 110px; top: 30%; left: 20%; border-color: #673ab7; }
-        .background-shapes .square:nth-child(15) { width: 80px; height: 80px; top: 40%; left: 70%; border-color: #3f51b5; }
-        .background-shapes .square:nth-child(16) { width: 90px; height: 90px; top: 80%; left: 30%; border-color: #e91e63; }
-        .background-shapes .rectangle:nth-child(17) { width: 120px; height: 60px; top: 10%; left: 20%; border-color: #ff6f61; }
-        .background-shapes .rectangle:nth-child(18) { width: 140px; height: 70px; top: 30%; left: 60%; border-color: #4caf50; }
-        .background-shapes .rectangle:nth-child(19) { width: 100px; height: 50px; top: 50%; left: 10%; border-color: #2196f3; }
-        .background-shapes .rectangle:nth-child(20) { width: 130px; height: 80px; top: 70%; left: 80%; border-color: #ff9800; }
-        .background-shapes .rectangle:nth-child(21) { width: 110px; height: 90px; top: 20%; left: 50%; border-color: #9c27b0; }
-        .background-shapes .rectangle:nth-child(22) { width: 120px; height: 70px; top: 80%; left: 30%; border-color: #673ab7; }
-        .background-shapes .rectangle:nth-child(23) { width: 90px; height: 60px; top: 40%; left: 80%; border-color: #3f51b5; }
-        .background-shapes .rectangle:nth-child(24) { width: 140px; height: 90px; top: 60%; left: 10%; border-color: #e91e63; }
-        .background-shapes .oval:nth-child(25) { width: 100px; height: 60px; top: 30%; left: 10%; border-color: #ff6f61; }
-        .background-shapes .oval:nth-child(26) { width: 120px; height: 70px; top: 60%; left: 40%; border-color: #4caf50; }
-        .background-shapes .oval:nth-child(27) { width: 80px; height: 50px; top: 10%; left: 60%; border-color: #2196f3; }
-        .background-shapes .oval:nth-child(28) { width: 110px; height: 80px; top: 40%; left: 80%; border-color: #ff9800; }
-        .background-shapes .oval:nth-child(29) { width: 90px; height: 60px; top: 70%; left: 20%; border-color: #9c27b0; }
-        .background-shapes .oval:nth-child(30) { width: 130px; height: 90px; top: 20%; left: 30%; border-color: #673ab7; }
-        .background-shapes .oval:nth-child(31) { width: 70px; height: 40px; top: 80%; left: 50%; border-color: #3f51b5; }
-        .background-shapes .oval:nth-child(32) { width: 110px; height: 70px; top: 50%; left: 70%; border-color: #e91e63; }
-        .background-shapes .oval:nth-child(33) { width: 100px; height: 60px; top: 30%; left: 50%; border-color: #ff5722; }
-        .background-shapes .oval:nth-child(34) { width: 80px; height: 50px; top: 70%; left: 80%; border-color: #009688; }
-        .background-shapes .oval:nth-child(35) { width: 90px; height: 60px; top: 40%; left: 20%; border-color: #8bc34a; }
-        .background-shapes .oval:nth-child(36) { width: 120px; height: 80px; top: 10%; left: 80%; border-color: #ffeb3b; }
-        .background-shapes .oval:nth-child(37) { width: 100px; height: 60px; top: 60%; left: 10%; border-color: #cddc39; }
-        .background-shapes .oval:nth-child(38) { width: 110px; height: 70px; top: 20%; left: 70%; border-color: #ff9800; }
-        .background-shapes .oval:nth-child(39) { width: 90px; height: 60px; top: 40%; left: 40%; border-color: #607d8b; }
-        .background-shapes .oval:nth-child(40) { width: 120px; height: 70px; top: 70%; left: 20%; border-color: #f44336; }
-        .background-shapes .oval:nth-child(41) { width: 80px; height: 50px; top: 20%; left: 50%; border-color: #9e9e9e; }
-        .background-shapes .oval:nth-child(42) { width: 100px; height: 60px; top: 50%; left: 70%; border-color: #795548; }
+        /* Define shape positions and colors */
+        .background-shapes .circle:nth-child(1) { width: 100px; height: 100px; top: 5%; left: 10%; border-color: #e74c3c; }
+        .background-shapes .circle:nth-child(2) { width: 90px; height: 90px; top: 20%; left: 70%; border-color: #3498db; }
+        .background-shapes .circle:nth-child(3) { width: 110px; height: 110px; top: 40%; left: 30%; border-color: #2ecc71; }
+        .background-shapes .circle:nth-child(4) { width: 80px; height: 80px; top: 70%; left: 50%; border-color: #f39c12; }
+        .background-shapes .circle:nth-child(5) { width: 70px; height: 70px; top: 80%; left: 10%; border-color: #9b59b6; }
+        .background-shapes .circle:nth-child(6) { width: 120px; height: 120px; top: 10%; left: 60%; border-color: #16a085; }
+        .background-shapes .circle:nth-child(7) { width: 90px; height: 90px; top: 50%; left: 80%; border-color: #f1c40f; }
+        .background-shapes .circle:nth-child(8) { width: 100px; height: 100px; top: 60%; left: 20%; border-color: #e67e22; }
+        .background-shapes .square:nth-child(9) { width: 100px; height: 100px; top: 20%; left: 40%; border-color: #e74c3c; }
+        .background-shapes .square:nth-child(10) { width: 80px; height: 80px; top: 50%; left: 10%; border-color: #3498db; }
+        .background-shapes .square:nth-child(11) { width: 90px; height: 90px; top: 60%; left: 80%; border-color: #2ecc71; }
+        .background-shapes .square:nth-child(12) { width: 70px; height: 70px; top: 10%; left: 80%; border-color: #f39c12; }
+        .background-shapes .square:nth-child(13) { width: 120px; height: 120px; top: 70%; left: 40%; border-color: #9b59b6; }
+        .background-shapes .square:nth-child(14) { width: 110px; height: 110px; top: 30%; left: 20%; border-color: #16a085; }
+        .background-shapes .square:nth-child(15) { width: 80px; height: 80px; top: 40%; left: 70%; border-color: #f1c40f; }
+        .background-shapes .square:nth-child(16) { width: 90px; height: 90px; top: 80%; left: 30%; border-color: #e67e22; }
+        .background-shapes .rectangle:nth-child(17) { width: 120px; height: 60px; top: 10%; left: 20%; border-color: #e74c3c; }
+        .background-shapes .rectangle:nth-child(18) { width: 140px; height: 70px; top: 30%; left: 60%; border-color: #3498db; }
+        .background-shapes .rectangle:nth-child(19) { width: 100px; height: 50px; top: 50%; left: 10%; border-color: #2ecc71; }
+        .background-shapes .rectangle:nth-child(20) { width: 130px; height: 80px; top: 70%; left: 80%; border-color: #f39c12; }
+        .background-shapes .rectangle:nth-child(21) { width: 110px; height: 90px; top: 20%; left: 50%; border-color: #9b59b6; }
+        .background-shapes .rectangle:nth-child(22) { width: 120px; height: 70px; top: 80%; left: 30%; border-color: #16a085; }
+        .background-shapes .rectangle:nth-child(23) { width: 90px; height: 60px; top: 40%; left: 80%; border-color: #f1c40f; }
+        .background-shapes .rectangle:nth-child(24) { width: 140px; height: 90px; top: 60%; left: 10%; border-color: #e67e22; }
+        .background-shapes .oval:nth-child(25) { width: 100px; height: 60px; top: 30%; left: 10%; border-color: #e74c3c; }
+        .background-shapes .oval:nth-child(26) { width: 120px; height: 70px; top: 60%; left: 40%; border-color: #3498db; }
+        .background-shapes .oval:nth-child(27) { width: 80px; height: 50px; top: 10%; left: 60%; border-color: #2ecc71; }
+        .background-shapes .oval:nth-child(28) { width: 110px; height: 80px; top: 40%; left: 80%; border-color: #f39c12; }
+        .background-shapes .oval:nth-child(29) { width: 90px; height: 60px; top: 70%; left: 20%; border-color: #9b59b6; }
+        .background-shapes .oval:nth-child(30) { width: 130px; height: 90px; top: 20%; left: 30%; border-color: #16a085; }
+        .background-shapes .oval:nth-child(31) { width: 70px; height: 40px; top: 80%; left: 50%; border-color: #f1c40f; }
+        .background-shapes .oval:nth-child(32) { width: 110px; height: 70px; top: 50%; left: 70%; border-color: #e67e22; }
+        .background-shapes .oval:nth-child(33) { width: 100px; height: 60px; top: 30%; left: 50%; border-color: #e74c3c; }
+        .background-shapes .oval:nth-child(34) { width: 80px; height: 50px; top: 70%; left: 80%; border-color: #3498db; }
+        .background-shapes .oval:nth-child(35) { width: 90px; height: 60px; top: 40%; left: 20%; border-color: #2ecc71; }
+        .background-shapes .oval:nth-child(36) { width: 120px; height: 80px; top: 10%; left: 80%; border-color: #f39c12; }
+        .background-shapes .oval:nth-child(37) { width: 100px; height: 70px; top: 20%; left: 10%; border-color: #9b59b6; }
+        .background-shapes .oval:nth-child(38) { width: 120px; height: 60px; top: 50%; left: 40%; border-color: #16a085; }
+        .background-shapes .oval:nth-child(39) { width: 80px; height: 50px; top: 70%; left: 70%; border-color: #f1c40f; }
+        .background-shapes .oval:nth-child(40) { width: 110px; height: 80px; top: 40%; left: 30%; border-color: #e67e22; }
+        .background-shapes .oval:nth-child(41) { width: 90px; height: 60px; top: 60%; left: 60%; border-color: #e74c3c; }
+        .background-shapes .oval:nth-child(42) { width: 100px; height: 70px; top: 80%; left: 20%; border-color: #3498db; }
 
         .container {
-            position: relative;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            width: 90%;
-            max-width: 500px;
             text-align: center;
-            z-index: 1;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Slightly translucent background for contrast */
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333333; /* Darker color for better contrast */
-            margin-bottom: 20px;
-        }
-
-        .profile {
-            margin-bottom: 20px;
-        }
-
-        #profile-picture {
-            width: 100px;
-            height: 100px;
+        .container img {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        #profile-name {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333333; /* Darker color for better contrast */
-        }
-
-        .btn-container {
             margin-bottom: 20px;
         }
 
-        .btn-login, .btn-logout {
-            background-color: #1877f2;
+        .container button {
+            background-color: #3498db;
             border: none;
-            color: #ffffff; /* White text color for better contrast */
+            color: white;
             padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
             font-size: 16px;
+            margin: 5px;
             cursor: pointer;
             border-radius: 5px;
-            margin: 5px;
+            transition: background-color 0.3s ease;
         }
 
-        .btn-login:hover, .btn-logout:hover {
-            background-color: #165eab;
+        .container button:hover {
+            background-color: #2980b9;
         }
 
-        .btn-logout {
-            background-color: #f0284c;
-        }
-
-        .btn-logout:hover {
-            background-color: #c62839;
-        }
-
-        .application {
-            margin-top: 20px;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                width: 95%;
-                padding: 10px;
-            }
-
-            #profile-picture {
-                width: 80px;
-                height: 80px;
-            }
-
-            .btn-login, .btn-logout {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
+        .container h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
         }
     </style>
 </head>
+    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
 <body>
     <div class="background-shapes">
-        <!-- Circles -->
-        <div class="shape circle"></div>
-        <div class="shape circle"></div>
-        <div class="shape circle"></div>
-        <div class="shape circle"></div>
-        <div class="shape circle"></div>
-        <div class="shape circle"></div>
-        <div class="shape circle"></div>
-        <div class="shape circle"></div>
-        <!-- Squares -->
-        <div class="shape square"></div>
-        <div class="shape square"></div>
-        <div class="shape square"></div>
-        <div class="shape square"></div>
-        <div class="shape square"></div>
-        <div class="shape square"></div>
-        <div class="shape square"></div>
-        <div class="shape square"></div>
-        <!-- Rectangles -->
-        <div class="shape rectangle"></div>
-        <div class="shape rectangle"></div>
-        <div class="shape rectangle"></div>
-        <div class="shape rectangle"></div>
-        <div class="shape rectangle"></div>
-        <div class="shape rectangle"></div>
-        <div class="shape rectangle"></div>
-        <div class="shape rectangle"></div>
-        <!-- Ovals -->
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
-        <div class="shape oval"></div>
+        <!-- Shapes are dynamically created here -->
     </div>
     <div class="container">
-        <div class="logo">Facebook Login</div>
-        <div id="fb-root"></div>
-        <div class="profile">
-            <img id="profile-picture" src="" alt="Profile Picture" style="display:none;">
-            <div id="profile-name" style="display:none;"></div>
-        </div>
-        <div class="btn-container">
-            <button id="fb-login-btn" class="btn-login">Login with Facebook</button>
-            <button id="fb-logout-btn" class="btn-logout" style="display:none;">Logout</button>
-        </div>
-        <div class="application">
-            <h2>Welcome to Your Application!</h2>
-            <!-- Add your application content here -->
-        </div>
+        <img id="profile-pic" src="" alt="Profile Picture">
+        <h1 id="welcome-message">Welcome to Your Application</h1>
+        <button id="fb-login-btn">Login with Facebook</button>
+        <button id="fb-logout-btn" style="display:none;">Logout</button>
     </div>
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '1238020140566279',
-                cookie     : true,
-                xfbml      : true,
-                version    : 'v20.0'
+                appId: '1238020140566279',
+                cookie: true,
+                xfbml: true,
+                version: 'v20.0'
             });
 
             FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-
-            document.getElementById('fb-login-btn').addEventListener('click', function() {
-                FB.login(function(response) {
-                    statusChangeCallback(response);
-                }, {scope: 'public_profile,email'});
-            });
-
-            document.getElementById('fb-logout-btn').addEventListener('click', function() {
-                FB.logout(function(response) {
-                    statusChangeCallback(response);
-                });
+                if (response.status === 'connected') {
+                    document.getElementById('fb-login-btn').style.display = 'none';
+                    document.getElementById('fb-logout-btn').style.display = 'inline-block';
+                    FB.api('/me', {fields: 'name,picture'}, function(response) {
+                        document.getElementById('profile-pic').src = response.picture.data.url;
+                        document.getElementById('welcome-message').innerText = 'Welcome, ' + response.name;
+                    });
+                } else {
+                    document.getElementById('fb-login-btn').style.display = 'inline-block';
+                    document.getElementById('fb-logout-btn').style.display = 'none';
+                }
             });
         };
 
-        function statusChangeCallback(response) {
-            if (response.status === 'connected') {
-                FB.api('/me', {fields: 'name,picture'}, function(response) {
-                    document.getElementById('profile-picture').src = response.picture.data.url;
-                    document.getElementById('profile-name').innerText = response.name;
-                    document.getElementById('profile-picture').style.display = 'block';
-                    document.getElementById('profile-name').style.display = 'block';
-                    document.getElementById('fb-login-btn').style.display = 'none';
-                    document.getElementById('fb-logout-btn').style.display = 'block';
-                });
-            } else {
-                document.getElementById('profile-picture').style.display = 'none';
-                document.getElementById('profile-name').style.display = 'none';
-                document.getElementById('fb-login-btn').style.display = 'block';
-                document.getElementById('fb-logout-btn').style.display = 'none';
-            }
-        }
-
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
+            if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+        document.getElementById('fb-login-btn').addEventListener('click', function() {
+            FB.login(function(response) {
+                if (response.status === 'connected') {
+                    document.getElementById('fb-login-btn').style.display = 'none';
+                    document.getElementById('fb-logout-btn').style.display = 'inline-block';
+                    FB.api('/me', {fields: 'name,picture'}, function(response) {
+                        document.getElementById('profile-pic').src = response.picture.data.url;
+                        document.getElementById('welcome-message').innerText = 'Welcome, ' + response.name;
+                    });
+                }
+            });
+        });
+
+        document.getElementById('fb-logout-btn').addEventListener('click', function() {
+            FB.logout(function(response) {
+                document.getElementById('fb-login-btn').style.display = 'inline-block';
+                document.getElementById('fb-logout-btn').style.display = 'none';
+                document.getElementById('profile-pic').src = '';
+                document.getElementById('welcome-message').innerText = 'Welcome to Your Application';
+            });
+        });
     </script>
 </body>
 </html>
