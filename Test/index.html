@@ -43,13 +43,11 @@
             font-size: 1.5em;
             margin: 10px 0;
         }
-
         .container p {
             font-size: 1em;
             margin: 5px 0;
             color: #777;
         }
-
         .container button {
             background-color: #e0e0e0;
             border: none;
@@ -61,15 +59,12 @@
             margin: 10px;
             transition: box-shadow 0.3s ease;
         }
-
         .container button:hover {
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
         }
-
         .stats {
             margin-top: 20px;
         }
-
         .stats p {
             font-size: 0.9em;
             color: #333;
@@ -88,7 +83,6 @@
             <p id="user-friends">Friends: 0</p>
         </div>
     </div>
-
     <script>
         window.fbAsyncInit = function() {
             FB.init({
@@ -97,12 +91,10 @@
                 xfbml      : true,
                 version    : 'v20.0'
             });
-
             FB.getLoginStatus(function(response) {
                 statusChangeCallback(response);
             });
         };
-
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {return;}
@@ -110,7 +102,6 @@
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-
         function statusChangeCallback(response) {
             if (response.status === 'connected') {
                 document.getElementById('fb-login-btn').style.display = 'none';
@@ -124,18 +115,20 @@
                 document.getElementById('fb-logout-btn').style.display = 'none';
             }
         }
-
         document.getElementById('fb-login-btn').onclick = function() {
             FB.login(function(response) {
                 statusChangeCallback(response);
             }, {scope: 'public_profile'});
         };
-
         document.getElementById('fb-logout-btn').onclick = function() {
-            FB.logout(function(response) {
-                statusChangeCallback(response);
-            });
-        };
+    FB.logout(function(response) {
+        statusChangeCallback(response);
+        // Clear the user interface after logout
+        document.getElementById('profile-pic').src = 'https://via.placeholder.com/100'; // Placeholder image
+        document.getElementById('user-name').textContent = 'Welcome!';
+        document.getElementById('user-stats').style.display = 'none';
+    });
+};
     </script>
 </body>
 </html>
