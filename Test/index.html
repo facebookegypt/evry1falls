@@ -75,7 +75,7 @@
             color: #333;
         }
     </style>
-            <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
+                <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
 </head>
 <body>
     <div class="container">
@@ -116,30 +116,26 @@
                 document.getElementById('fb-login-btn').style.display = 'none';
                 document.getElementById('fb-logout-btn').style.display = 'inline';
                 FB.api('/me', {fields: 'name,picture'}, function(response) {
-                    document.getElementById('user-name').textContent = 'Welcome, ' + response.name;
+                    document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
                     document.getElementById('profile-pic').src = response.picture.data.url;
-                    document.getElementById('user-stats').style.display = 'block';
                 });
             } else {
                 document.getElementById('fb-login-btn').style.display = 'inline';
                 document.getElementById('fb-logout-btn').style.display = 'none';
-                document.getElementById('user-name').textContent = 'Welcome!';
-                document.getElementById('profile-pic').src = 'https://via.placeholder.com/100';
-                document.getElementById('user-stats').style.display = 'none';
             }
         }
 
-        document.getElementById('fb-login-btn').addEventListener('click', function() {
+        document.getElementById('fb-login-btn').onclick = function() {
             FB.login(function(response) {
                 statusChangeCallback(response);
-            }, {scope: 'public_profile,email'});
-        });
+            }, {scope: 'public_profile'});
+        };
 
-        document.getElementById('fb-logout-btn').addEventListener('click', function() {
+        document.getElementById('fb-logout-btn').onclick = function() {
             FB.logout(function(response) {
                 statusChangeCallback(response);
             });
-        });
+        };
     </script>
 </body>
 </html>
