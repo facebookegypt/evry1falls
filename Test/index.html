@@ -115,10 +115,9 @@
             if (response.status === 'connected') {
                 document.getElementById('fb-login-btn').style.display = 'none';
                 document.getElementById('fb-logout-btn').style.display = 'inline';
-                FB.api('/me', {fields: 'name,picture,friends'}, function(response) {
+                FB.api('/me', {fields: 'name,picture'}, function(response) {
                     document.getElementById('user-name').textContent = 'Welcome, ' + response.name;
                     document.getElementById('profile-pic').src = response.picture.data.url;
-                    document.getElementById('user-friends').textContent = 'Friends: ' + response.friends.summary.total_count;
                     document.getElementById('user-stats').style.display = 'block';
                 });
             } else {
@@ -133,7 +132,7 @@
         document.getElementById('fb-login-btn').addEventListener('click', function() {
             FB.login(function(response) {
                 statusChangeCallback(response);
-            }, {scope: 'public_profile,email,user_friends'});
+            }, {scope: 'public_profile,email'});
         });
 
         document.getElementById('fb-logout-btn').addEventListener('click', function() {
