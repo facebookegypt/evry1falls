@@ -35,6 +35,7 @@
             max-width: 500px;
             width: 100%;
             position: relative;
+            z-index: 1; /* Ensure container is above shapes */
         }
 
         #profile-pic {
@@ -53,14 +54,20 @@
             color: white;
             cursor: pointer;
             box-shadow: inset 4px 4px 6px #bdbdbd, inset -4px -4px 6px #ffffff;
+            background-color: #4267B2; /* Facebook blue */
+            transition: background-color 0.3s;
         }
 
-        #login-btn {
-            background-color: #4267B2;
+        #login-btn:hover {
+            background-color: #365899; /* Darker blue on hover */
         }
 
         #logout-btn {
-            background-color: #f28d6c;
+            background-color: #f28d6c; /* Logout button color */
+        }
+
+        #logout-btn:hover {
+            background-color: #e06c3c; /* Darker color on hover */
         }
 
         /* Dynamic background shapes */
