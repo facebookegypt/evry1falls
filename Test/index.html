@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,7 +75,7 @@
             color: #333;
         }
     </style>
-                    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
+    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
 </head>
 <body>
     <div class="container">
@@ -123,10 +122,6 @@
             } else {
                 document.getElementById('fb-login-btn').style.display = 'inline';
                 document.getElementById('fb-logout-btn').style.display = 'none';
-                // Reset to default state
-                document.getElementById('profile-pic').src = 'https://via.placeholder.com/100';
-                document.getElementById('user-name').textContent = 'Welcome!';
-                document.getElementById('user-stats').style.display = 'none';
             }
         }
 
@@ -140,7 +135,7 @@
             FB.logout(function(response) {
                 statusChangeCallback(response);
                 // Clear the user interface after logout
-                document.getElementById('profile-pic').src = 'https://via.placeholder.com/100'; // Reset profile pic
+                document.getElementById('profile-pic').src = 'https://via.placeholder.com/100'; // Placeholder image
                 document.getElementById('user-name').textContent = 'Welcome!';
                 document.getElementById('user-stats').style.display = 'none';
             });
