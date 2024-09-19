@@ -110,15 +110,15 @@
         </div>
     </div>
 
-    <!-- Firebase App (the core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+    <!-- Firebase App (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
+    <!-- Firebase Configuration -->
     <script>
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
+        // Your Firebase configuration
+        var firebaseConfig = {
             apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
             authDomain: "git-hub-test-34e5a.firebaseapp.com",
             databaseURL: "https://git-hub-test-34e5a-default-rtdb.firebaseio.com",
@@ -128,13 +128,13 @@
             appId: "1:824616741271:web:7d068b5de85ba781757cd2",
             measurementId: "G-TV39YCR646"
         };
-
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const firestore = firebase.firestore();
+        var firestore = firebase.firestore();
+    </script>
 
-        // Initialize Facebook SDK
+    <!-- Facebook SDK -->
+    <script>
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '1238020140566279', // Your Facebook App ID
@@ -200,12 +200,14 @@
                 document.getElementById('user-stats').style.display = 'none';
             });
         };
+    </script>
 
-        // Dynamic shapes background
+    <!-- Dynamic Background Shapes -->
+    <script>
         function generateShapes() {
             const shapesContainer = document.getElementById('shapes');
             const shapes = ['circle', 'rectangle', 'square'];
-            const colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700', '#FF69B4'];
+            const colors = ['#FFA500', '#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
 
             for (let i = 0; i < 42; i++) {
                 const shape = document.createElement('div');
