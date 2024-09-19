@@ -3,104 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Firebase Authentication and Database Integration">
-    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw">
-    <title>Firebase Integration</title>
-    
-    <!-- Firebase App (the core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <!-- Firebase Authentication -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <!-- Firebase Firestore (for database) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
+    <meta name="description" content="Login with Facebook to access your profile and view personalized stats.">
+    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
+    <title>Neumorphism Facebook Login</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #e0e0e0;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to right, #00aaff, #00ffcc); /* Gradient background for non-logged-in state */
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #87CEFA, #B0E0E6);
         }
 
         .container {
-            text-align: center;
-            background: #e0e0e0;
-            border-radius: 15px;
-            box-shadow: 8px 8px 15px #bdbdbd, -8px -8px 15px #ffffff;
+            background-color: #e0e0e0;
             padding: 20px;
-            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
+            text-align: center;
+            max-width: 350px;
             width: 100%;
             position: relative;
-            z-index: 1; /* Ensure container is above shapes */
+            z-index: 1;
         }
 
-        #profile-pic {
+        .container img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
+            border: 4px solid #fff;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
         }
 
-        #login-btn, #logout-btn {
-            margin: 10px;
-            padding: 10px 20px;
+        .container h1 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .container p {
+            font-size: 1em;
+            margin: 5px 0;
+            color: #777;
+        }
+
+        .container button {
+            background-color: #e0e0e0;
             border: none;
+            padding: 12px 20px;
+            font-size: 1em;
             border-radius: 20px;
-            color: white;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
             cursor: pointer;
-            box-shadow: inset 4px 4px 6px #bdbdbd, inset -4px -4px 6px #ffffff;
-            background-color: #4267B2; /* Facebook blue */
-            transition: background-color 0.3s;
+            margin: 10px;
+            transition: box-shadow 0.3s ease;
         }
 
-        #login-btn:hover {
-            background-color: #365899; /* Darker blue on hover */
+        .container button:hover {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
         }
 
-        #logout-btn {
-            background-color: #f28d6c; /* Logout button color */
+        .stats {
+            margin-top: 20px;
         }
 
-        #logout-btn:hover {
-            background-color: #e06c3c; /* Darker color on hover */
+        .stats p {
+            font-size: 0.9em;
+            color: #333;
         }
 
-        /* Dynamic background shapes */
-        .shape {
+        .shapes {
             position: absolute;
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shapes div {
+            position: absolute;
             border: 2px solid;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            pointer-events: none; /* Prevent shapes from interfering with interactions */
-        }
-
-        .shape.circle {
-            border-color: rgba(255, 0, 0, 0.8); /* Red outline */
-        }
-
-        .shape.square {
-            border-color: rgba(0, 255, 0, 0.8); /* Green outline */
-            border-radius: 0;
-        }
-
-        .shape.rectangle {
-            border-color: rgba(0, 0, 255, 0.8); /* Blue outline */
-            border-radius: 0;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
         }
     </style>
 </head>
 <body>
+    <div class="shapes" id="shapes"></div>
     <div class="container">
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
-        <h2 id="user-info">Please sign in</h2>
-        <button id="login-btn" onclick="login()">Login with Facebook</button>
-        <button id="logout-btn" onclick="logout()" style="display:none;">Logout</button>
+        <h1 id="user-name">Welcome!</h1>
+        <button id="fb-login-btn">Login with Facebook</button>
+        <button id="fb-logout-btn" style="display: none;">Logout</button>
+
+        <div class="stats" id="user-stats" style="display: none;">
+            <p id="user-friends">Friends: 0</p>
+        </div>
     </div>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
 
     <script>
         // Your web app's Firebase configuration
@@ -118,91 +132,101 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-        const db = firebase.firestore();
+        const firestore = firebase.firestore();
 
-        // Set up Firebase Authentication
-        const provider = new firebase.auth.FacebookAuthProvider();
-
-        function login() {
-            firebase.auth().signInWithPopup(provider)
-                .then((result) => {
-                    // User is signed in.
-                    console.log('User signed in:', result.user);
-                    document.getElementById('user-info').textContent = `Welcome, ${result.user.displayName}`;
-                    document.getElementById('profile-pic').src = result.user.photoURL;
-                    document.getElementById('login-btn').style.display = 'none';
-                    document.getElementById('logout-btn').style.display = 'block';
-                    updateBackground(true);
-                })
-                .catch((error) => {
-                    console.error('Error during sign-in:', error);
-                });
-        }
-
-        function logout() {
-            firebase.auth().signOut().then(() => {
-                console.log('User signed out');
-                document.getElementById('user-info').textContent = 'Please sign in';
-                document.getElementById('profile-pic').src = 'img/looking-good.gif';
-                document.getElementById('login-btn').style.display = 'block';
-                document.getElementById('logout-btn').style.display = 'none';
-                updateBackground(false);
-            }).catch((error) => {
-                console.error('Error during sign-out:', error);
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1238020140566279', // Your Facebook App ID
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v20.0'
             });
-        }
 
-        // Listen to authentication state changes
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in
-                document.getElementById('user-info').textContent = `Welcome, ${user.displayName}`;
-                document.getElementById('profile-pic').src = user.photoURL;
-                document.getElementById('login-btn').style.display = 'none';
-                document.getElementById('logout-btn').style.display = 'block';
-                updateBackground(true);
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                document.getElementById('fb-login-btn').style.display = 'none';
+                document.getElementById('fb-logout-btn').style.display = 'inline';
+                FB.api('/me', {fields: 'name,picture'}, function(response) {
+                    document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
+                    document.getElementById('profile-pic').src = response.picture.data.url;
+
+                    // Store user data in Firestore
+                    firestore.collection('users').doc(response.id).set({
+                        name: response.name,
+                        picture: response.picture.data.url
+                    });
+                });
             } else {
-                // User is signed out
-                document.getElementById('user-info').textContent = 'Please sign in';
+                document.getElementById('fb-login-btn').style.display = 'inline';
+                document.getElementById('fb-logout-btn').style.display = 'none';
                 document.getElementById('profile-pic').src = 'img/looking-good.gif';
-                document.getElementById('login-btn').style.display = 'block';
-                document.getElementById('logout-btn').style.display = 'none';
-                updateBackground(false);
-            }
-        });
-
-        function updateBackground(isLoggedIn) {
-            const body = document.body;
-            body.innerHTML = ''; // Clear existing shapes
-
-            if (isLoggedIn) {
-                // Add background shapes if logged in
-                for (let i = 0; i < 42; i++) {
-                    const shape = document.createElement('div');
-                    shape.className = 'shape';
-                    
-                    const size = Math.random() * 50 + 50; // Random size between 50px and 100px
-                    shape.style.width = `${size}px`;
-                    shape.style.height = `${size}px`;
-                    shape.style.top = `${Math.random() * 100}vh`;
-                    shape.style.left = `${Math.random() * 100}vw`;
-
-                    const shapeType = Math.random();
-                    if (shapeType < 0.33) {
-                        shape.classList.add('circle');
-                    } else if (shapeType < 0.66) {
-                        shape.classList.add('square');
-                    } else {
-                        shape.classList.add('rectangle');
-                    }
-                    
-                    body.appendChild(shape);
-                }
-            } else {
-                // Set gradient background if not logged in
-                body.style.background = 'linear-gradient(to right, #00aaff, #00ffcc)';
+                document.getElementById('user-name').textContent = 'Welcome!';
+                document.getElementById('user-stats').style.display = 'none';
             }
         }
+
+        document.getElementById('fb-login-btn').onclick = function() {
+            FB.login(function(response) {
+                statusChangeCallback(response);
+            }, {scope: 'public_profile'});
+        };
+
+        document.getElementById('fb-logout-btn').onclick = function() {
+            FB.logout(function(response) {
+                statusChangeCallback(response);
+                // Clear the user interface after logout
+                document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Your gif image
+                document.getElementById('user-name').textContent = 'Welcome!';
+                document.getElementById('user-stats').style.display = 'none';
+            });
+        };
+
+        // Dynamic shapes background
+        function generateShapes() {
+            const shapesContainer = document.getElementById('shapes');
+            const shapes = ['circle', 'rectangle', 'square'];
+            const colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700', '#FF69B4', '#00CED1'];
+
+            for (let i = 0; i < 30; i++) {
+                const shape = document.createElement('div');
+                const size = Math.random() * 50 + 30 + 'px';
+                shape.style.width = size;
+                shape.style.height = size;
+                shape.style.backgroundColor = 'transparent';
+                shape.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+                shape.style.borderStyle = 'solid';
+                shape.style.borderWidth = '2px';
+
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                if (shapeType === 'circle') {
+                    shape.style.borderRadius = '50%';
+                } else if (shapeType === 'rectangle') {
+                    shape.style.borderRadius = '0';
+                } else if (shapeType === 'square') {
+                    shape.style.borderRadius = '10%';
+                }
+
+                shape.style.top = Math.random() * 90 + '%';
+                shape.style.left = Math.random() * 90 + '%';
+
+                shapesContainer.appendChild(shape);
+            }
+        }
+
+        generateShapes();
     </script>
 </body>
 </html>
