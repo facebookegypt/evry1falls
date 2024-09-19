@@ -17,13 +17,13 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #00aaff, #00ffcc);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: linear-gradient(to right, #00aaff, #00ffcc); /* Gradient background for non-logged-in state */
         }
 
         .container {
@@ -34,6 +34,7 @@
             padding: 20px;
             max-width: 500px;
             width: 100%;
+            position: relative;
         }
 
         #profile-pic {
@@ -60,6 +61,31 @@
         #logout-btn {
             background-color: #f28d6c;
         }
+
+        /* Background shapes */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            pointer-events: none; /* Prevent shapes from interfering with interactions */
+        }
+
+        .shape.circle { /* Circle shapes */
+            border-color: rgba(255, 0, 0, 0.8); /* Red outline */
+        }
+
+        .shape.square { /* Square shapes */
+            border-color: rgba(0, 255, 0, 0.8); /* Green outline */
+            border-radius: 0;
+        }
+
+        .shape.rectangle { /* Rectangle shapes */
+            border-color: rgba(0, 0, 255, 0.8); /* Blue outline */
+            border-radius: 0;
+        }
+
+        /* Additional shapes as needed */
     </style>
 </head>
 <body>
@@ -100,6 +126,7 @@
                     document.getElementById('profile-pic').src = result.user.photoURL;
                     document.getElementById('login-btn').style.display = 'none';
                     document.getElementById('logout-btn').style.display = 'block';
+                    updateBackground(true);
                 })
                 .catch((error) => {
                     console.error('Error during sign-in:', error);
@@ -113,6 +140,7 @@
                 document.getElementById('profile-pic').src = '';
                 document.getElementById('login-btn').style.display = 'block';
                 document.getElementById('logout-btn').style.display = 'none';
+                updateBackground(false);
             }).catch((error) => {
                 console.error('Error during sign-out:', error);
             });
@@ -126,14 +154,49 @@
                 document.getElementById('profile-pic').src = user.photoURL;
                 document.getElementById('login-btn').style.display = 'none';
                 document.getElementById('logout-btn').style.display = 'block';
+                updateBackground(true);
             } else {
                 // User is signed out
                 document.getElementById('user-info').textContent = 'Please sign in';
                 document.getElementById('profile-pic').src = '';
                 document.getElementById('login-btn').style.display = 'block';
                 document.getElementById('logout-btn').style.display = 'none';
+                updateBackground(false);
             }
         });
+
+        function updateBackground(isLoggedIn) {
+            const body = document.body;
+            body.innerHTML = ''; // Clear existing shapes
+
+            if (isLoggedIn) {
+                // Add background shapes if logged in
+                for (let i = 0; i < 42; i++) {
+                    const shape = document.createElement('div');
+                    shape.className = 'shape';
+                    
+                    const size = Math.random() * 50 + 50; // Random size between 50px and 100px
+                    shape.style.width = `${size}px`;
+                    shape.style.height = `${size}px`;
+                    shape.style.top = `${Math.random() * 100}vh`;
+                    shape.style.left = `${Math.random() * 100}vw`;
+
+                    const shapeType = Math.random();
+                    if (shapeType < 0.25) {
+                        shape.classList.add('circle');
+                    } else if (shapeType < 0.5) {
+                        shape.classList.add('square');
+                    } else if (shapeType < 0.75) {
+                        shape.classList.add('rectangle');
+                    }
+                    
+                    body.appendChild(shape);
+                }
+            } else {
+                // Set gradient background if not logged in
+                body.style.background = 'linear-gradient(to right, #00aaff, #00ffcc)';
+            }
+        }
     </script>
 </body>
 </html>
