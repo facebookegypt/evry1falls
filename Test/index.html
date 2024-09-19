@@ -134,6 +134,7 @@
         const auth = firebase.auth();
         const firestore = firebase.firestore();
 
+        // Initialize Facebook SDK
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '1238020140566279', // Your Facebook App ID
@@ -167,6 +168,8 @@
                     firestore.collection('users').doc(response.id).set({
                         name: response.name,
                         picture: response.picture.data.url
+                    }).catch(function(error) {
+                        console.error('Error writing document: ', error);
                     });
                 });
             } else {
@@ -180,7 +183,11 @@
 
         document.getElementById('fb-login-btn').onclick = function() {
             FB.login(function(response) {
-                statusChangeCallback(response);
+                if (response.authResponse) {
+                    statusChangeCallback(response);
+                } else {
+                    console.log('User cancelled login or failed.');
+                }
             }, {scope: 'public_profile'});
         };
 
@@ -198,13 +205,12 @@
         function generateShapes() {
             const shapesContainer = document.getElementById('shapes');
             const shapes = ['circle', 'rectangle', 'square'];
-            const colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700', '#FF69B4', '#00CED1'];
+            const colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700', '#FF69B4'];
 
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 42; i++) {
                 const shape = document.createElement('div');
-                const size = Math.random() * 50 + 30 + 'px';
-                shape.style.width = size;
-                shape.style.height = size;
+                shape.style.width = Math.random() * 50 + 20 + 'px';
+                shape.style.height = shape.style.width;
                 shape.style.backgroundColor = 'transparent';
                 shape.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
                 shape.style.borderStyle = 'solid';
