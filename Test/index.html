@@ -79,7 +79,7 @@
 </head>
 <body>
     <div class="container">
-        <img id="profile-pic" src="https://via.placeholder.com/100" alt="Profile Picture">
+        <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
         <h1 id="user-name">Welcome!</h1>
         <button id="fb-login-btn">Login with Facebook</button>
         <button id="fb-logout-btn" style="display: none;">Logout</button>
@@ -135,7 +135,7 @@
             FB.logout(function(response) {
                 statusChangeCallback(response);
                 // Clear the user interface after logout
-                document.getElementById('profile-pic').src = 'https://via.placeholder.com/100'; // Placeholder image
+                document.getElementById('profile-pic').src = 'img/looing-good.gif'; // Placeholder image
                 document.getElementById('user-name').textContent = 'Welcome!';
                 document.getElementById('user-stats').style.display = 'none';
             });
