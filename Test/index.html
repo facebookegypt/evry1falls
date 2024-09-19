@@ -28,9 +28,9 @@
 
         .container {
             text-align: center;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #e0e0e0;
+            border-radius: 15px;
+            box-shadow: 8px 8px 15px #bdbdbd, -8px -8px 15px #ffffff;
             padding: 20px;
             max-width: 500px;
             width: 100%;
@@ -49,9 +49,10 @@
             margin: 10px;
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 20px;
             color: white;
             cursor: pointer;
+            box-shadow: inset 4px 4px 6px #bdbdbd, inset -4px -4px 6px #ffffff;
         }
 
         #login-btn {
@@ -62,7 +63,7 @@
             background-color: #f28d6c;
         }
 
-        /* Background shapes */
+        /* Dynamic background shapes */
         .shape {
             position: absolute;
             border-radius: 50%;
@@ -71,26 +72,24 @@
             pointer-events: none; /* Prevent shapes from interfering with interactions */
         }
 
-        .shape.circle { /* Circle shapes */
+        .shape.circle {
             border-color: rgba(255, 0, 0, 0.8); /* Red outline */
         }
 
-        .shape.square { /* Square shapes */
+        .shape.square {
             border-color: rgba(0, 255, 0, 0.8); /* Green outline */
             border-radius: 0;
         }
 
-        .shape.rectangle { /* Rectangle shapes */
+        .shape.rectangle {
             border-color: rgba(0, 0, 255, 0.8); /* Blue outline */
             border-radius: 0;
         }
-
-        /* Additional shapes as needed */
     </style>
 </head>
 <body>
     <div class="container">
-        <img id="profile-pic" src="" alt="Profile Picture">
+        <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
         <h2 id="user-info">Please sign in</h2>
         <button id="login-btn" onclick="login()">Login with Facebook</button>
         <button id="logout-btn" onclick="logout()" style="display:none;">Logout</button>
@@ -137,7 +136,7 @@
             firebase.auth().signOut().then(() => {
                 console.log('User signed out');
                 document.getElementById('user-info').textContent = 'Please sign in';
-                document.getElementById('profile-pic').src = '';
+                document.getElementById('profile-pic').src = 'img/looking-good.gif';
                 document.getElementById('login-btn').style.display = 'block';
                 document.getElementById('logout-btn').style.display = 'none';
                 updateBackground(false);
@@ -158,7 +157,7 @@
             } else {
                 // User is signed out
                 document.getElementById('user-info').textContent = 'Please sign in';
-                document.getElementById('profile-pic').src = '';
+                document.getElementById('profile-pic').src = 'img/looking-good.gif';
                 document.getElementById('login-btn').style.display = 'block';
                 document.getElementById('logout-btn').style.display = 'none';
                 updateBackground(false);
@@ -182,11 +181,11 @@
                     shape.style.left = `${Math.random() * 100}vw`;
 
                     const shapeType = Math.random();
-                    if (shapeType < 0.25) {
+                    if (shapeType < 0.33) {
                         shape.classList.add('circle');
-                    } else if (shapeType < 0.5) {
+                    } else if (shapeType < 0.66) {
                         shape.classList.add('square');
-                    } else if (shapeType < 0.75) {
+                    } else {
                         shape.classList.add('rectangle');
                     }
                     
