@@ -3,296 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- editted by Ahmed Samir - evry1falls -->
-    <title>Ahmed Samir Ebied Barghouth</title>
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <!--Stylesheet-->
-    <style media="screen">
-        *,
-        *:before,
-        *:after {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
+    <meta name="description" content="Login with Facebook to access your profile and view personalized stats.">
+    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
+    <title>Neumorphism Facebook Login</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <style>
         body {
-            background-color: #080710;
+            font-family: 'Poppins', sans-serif;
+            background-color: #e0e0e0;
+            color: #333;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
-            position: relative;
-            height: 100vh; /* Full viewport height */
-        }
-
-        .left-div {
             position: absolute;
-            left: 0;
-            top: 0%;
-            transform: translateY(-50%); /* Vertically centers the div */
-            width: 200px;
-            height: 100px;
-        }
-
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
+            top: 0;
             width: 100%;
-            background-color: rgba(255,255,255,0.13);
-            color: white;
-            text-align: center;
-        }
-
-        .background {
-            width: 430px;
-            height: 520px;
-            position: absolute;
-            transform: translate(-50%,-50%);
-            left: 50%;
-            top: 50%;
-        }
-
-            .background .shape {
-                height: 200px;
-                width: 200px;
-                position: absolute;
-                border-radius: 50%;
-            }
-
-        .shape:first-child {
-            background: linear-gradient( #1845ad, #23a2f6 );
-            left: -80px;
-            top: -80px;
-        }
-
-        .shape:last-child {
-            background: linear-gradient( to right, #ff512f, #f09819 );
-            right: -30px;
-            bottom: -80px;
-        }
-
-        form {
-            height: 520px;
-            width: 400px;
-            background-color: rgba(255,255,255,0.13);
-            position: absolute;
-            transform: translate(-50%,-50%);
-            top: 50%;
-            left: 50%;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 40px rgba(8,7,16,0.6);
-            padding: 50px 35px;
-        }
-
-            form * {
-                font-family: 'Poppins',sans-serif;
-                color: #ffffff;
-                letter-spacing: 0.5px;
-                outline: none;
-                border: none;
-            }
-
-            form h3 {
-                font-size: 32px;
-                font-weight: 500;
-                line-height: 42px;
-                text-align: center;
-            }
-
-        label {
-            display: block;
-            margin-top: 30px;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        input {
-            display: block;
-            height: 50px;
-            width: 100%;
-            background-color: rgba(255,255,255,0.07);
-            border-radius: 3px;
-            padding: 0 10px;
-            margin-top: 8px;
-            font-size: 14px;
-            font-weight: 300;
-        }
-
-        ::placeholder {
-            color: #e5e5e5;
-        }
-
-        button {
-            margin-top: 50px;
-            width: 100%;
-            background-color: #ffffff;
-            color: #080710;
-            padding: 15px 0;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .social {
-            margin-top: 30px;
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
             display: flex;
+            align-items: center;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
         }
 
-            .social div {
-                background: red;
-                width: 150px;
-                border-radius: 3px;
-                padding: 5px 10px 10px 5px;
-                background-color: rgba(255,255,255,0.27);
-                color: #eaf0fb;
-                text-align: center;
-            }
+        .container img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            margin-right: 10px;
+        }
 
-                .social div:hover {
-                    background-color: rgba(255,255,255,0.47);
-                }
+        .container .welcome-message {
+            font-size: 1em;
+            color: #333;
+        }
 
-            .social .fb {
-                margin-left: 25px;
-            }
+        .container button {
+            margin-left: auto;
+            background-color: #e0e0e0;
+            border: none;
+            padding: 8px 16px;
+            font-size: 1em;
+            border-radius: 20px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
 
-            .social i {
-                margin-right: 4px;
-            }
+        .container button:hover {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="display: none;">
+        <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture" onclick="openProfile()">
+        <div class="welcome-message" id="welcome-message">Welcome!</div>
+        <button id="fb-logout-btn" style="display: none;">Logout</button>
     </div>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
-    <form id="login-form">
-        <h3>Login Here</h3>
-        <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
-        <button type="submit">Log in</button>
-        <div class="social">
-            <div class="go"><i class="fab fa-google"></i>  Google</div>
-            <div class="fb"><i class="fab fa-facebook"></i> Facebook</a></div>
-<div id="status">
-</div>
-        </div
-    </form>
+
+    <button id="fb-login-btn" style="display: inline-block; margin: 100px auto;">Login with Facebook</button>
+
     <script>
-   // JavaScript for form validation
-document.getElementById('login-form').addEventListener('submit', function(event) {
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1238020140566279',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v20.0'
+            });
 
-  if (!username || !password) {
-    alert('Please enter both username/email and password.');
-    event.preventDefault();
-  }
-});
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        };
 
-document.getElementById('signup-form').addEventListener('submit', function(event) {
-  var newUsername = document.getElementById('new-username').value;
-  var newPassword = document.getElementById('new-password').value;
-  var confirmPassword = document.getElementById('confirm-password').value;
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
-  if (!newUsername || !newPassword || !confirmPassword) {
-    alert('Please fill in all fields.');
-    event.preventDefault();
-  } else if (newPassword !== confirmPassword) {
-    alert('Passwords do not match.');
-    event.preventDefault();
-  }
-});</script>
-    <!-- Facebook starts here-->
-        <script>
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                document.getElementById('fb-login-btn').style.display = 'none';
+                document.querySelector('.container').style.display = 'flex';
+                document.getElementById('fb-logout-btn').style.display = 'inline';
 
-  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback');
-    console.log(response);                   // The current login status of the person.
-    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-      testAPI();  
-    } else {                                 // Not logged into your webpage or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this webpage.';
-    }
-  }
+                FB.api('/me', {fields: 'name,picture,birthday,age_range,friends'}, function(response) {
+                    const age = response.age_range.min;
+                    const friendsCount = response.friends.summary.total_count;
+                    
+                    document.getElementById('welcome-message').innerHTML = 
+                        `Welcome, ${response.name}, you are ${age} years old now, and you have ${friendsCount} friend(s).`;
 
+                    document.getElementById('profile-pic').src = response.picture.data.url;
 
-  function checkLoginState() {               // Called when a person is finished with the Login Button.
-    FB.getLoginStatus(function(response) {   // See the onlogin handler
-      statusChangeCallback(response);
-    });
-  }
+                    updateFirestore(response);
+                });
+            } else {
+                document.getElementById('fb-login-btn').style.display = 'inline';
+                document.querySelector('.container').style.display = 'none';
+            }
+        }
 
+        function openProfile() {
+            FB.api('/me', {fields: 'link'}, function(response) {
+                window.open(response.link, '_blank');
+            });
+        }
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1238020140566279',
-      cookie     : true,                     // Enable cookies to allow the server to access the session.
-      xfbml      : true,                     // Parse social plugins on this webpage.
-      version    : 'v20.0'           // Use this Graph API version for this call.
-    });
+        document.getElementById('fb-login-btn').onclick = function() {
+            FB.login(function(response) {
+                statusChangeCallback(response);
+            }, {scope: 'public_profile,user_birthday,user_age_range,user_friends'});
+        };
 
+        document.getElementById('fb-logout-btn').onclick = function() {
+            FB.logout(function(response) {
+                statusChangeCallback(response);
+                document.getElementById('profile-pic').src = 'img/looking-good.gif';
+                document.getElementById('welcome-message').textContent = 'Welcome!';
+            });
+        };
 
-    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-      statusChangeCallback(response);        // Returns the login status.
-    });
-  };
- 
-  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-    });
-  }
+        function updateFirestore(userInfo) {
+            const firebaseConfig = {
+                apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
+                authDomain: "git-hub-test-34e5a.firebaseapp.com",
+                projectId: "git-hub-test-34e5a",
+                storageBucket: "git-hub-test-34e5a.appspot.com",
+                messagingSenderId: "824616741271",
+                appId: "1:824616741271:web:7d068b5de85ba781757cd2"
+            };
+            firebase.initializeApp(firebaseConfig);
 
-</script>
-<!-- The JS SDK Login Button -->
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
+            const db = firebase.firestore();
+            db.collection("users").doc(userInfo.id).set({
+                name: userInfo.name,
+                picture: userInfo.picture.data.url,
+                age: userInfo.age_range.min,
+                friends: userInfo.friends.summary.total_count
+            }).then(function() {
+                console.log("User information successfully written to Firestore!");
+            }).catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+        }
+    </script>
 
-<div id="status">
-</div>
-
-<!-- Load the JS SDK asynchronously -->
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-<!-- ends here-->
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
-    authDomain: "git-hub-test-34e5a.firebaseapp.com",
-    projectId: "git-hub-test-34e5a",
-    storageBucket: "git-hub-test-34e5a.appspot.com",
-    messagingSenderId: "824616741271",
-    appId: "1:824616741271:web:7d068b5de85ba781757cd2",
-    measurementId: "G-TV39YCR646"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-    
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 </body>
 </html>
