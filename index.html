@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Login with Facebook to access your profile and view personalized stats.">
     <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
-    <title>000Neumorphism Facebook Login</title>
+    <title>Neumorphism Facebook Login</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
     <style>
@@ -13,54 +13,56 @@
             font-family: 'Poppins', sans-serif;
             background-color: #e0e0e0;
             color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
             overflow: hidden;
+            background: linear-gradient(to bottom right, #87CEFA, #B0E0E6);
         }
 
         .container {
             background-color: #e0e0e0;
-            padding: 10px 20px;
+            padding: 20px;
             border-radius: 20px;
             box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
-            text-align: left;
-            position: fixed;
-            top: 0;
+            text-align: center;
+            max-width: 350px;
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .container img {
-            width: 50px;
-            height: 50px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid #fff;
+            border: 4px solid #fff;
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
-            cursor: pointer;
+            margin-bottom: 20px;
         }
 
         .container h1 {
-            font-size: 1em;
-            margin: 0;
+            font-size: 1.5em;
+            margin: 10px 0;
         }
 
         .container p {
-            font-size: 0.9em;
-            margin: 0;
-            color: #333;
+            font-size: 1em;
+            margin: 5px 0;
+            color: #777;
         }
 
         .container button {
             background-color: #e0e0e0;
             border: none;
-            padding: 8px 16px;
-            font-size: 0.9em;
+            padding: 12px 20px;
+            font-size: 1em;
             border-radius: 20px;
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
             cursor: pointer;
-            margin: 0;
+            margin: 10px;
             transition: box-shadow 0.3s ease;
         }
 
@@ -69,26 +71,69 @@
         }
 
         .stats {
-            display: flex;
-            align-items: center;
+            margin-top: 20px;
         }
 
         .stats p {
-            margin: 0 10px;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shapes div {
+            position: absolute;
+            border: 2px solid;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
         }
     </style>
 </head>
 <body>
+    <div class="shapes" id="shapes"></div>
     <div class="container">
-        <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture" onclick="openProfile()">
-        <div class="stats">
-            <h1 id="user-name">Welcome!</h1>
-            <p id="user-age"></p>
-            <p id="user-friends"></p>
-        </div>
+        <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
+        <h1 id="user-name">Welcome!</h1>
+        <button id="fb-login-btn">Login with Facebook</button>
         <button id="fb-logout-btn" style="display: none;">Logout</button>
+
+        <div class="stats" id="user-stats" style="display: none;">
+            <p id="user-friends">Friends: 0</p>
+        </div>
     </div>
 
+    <!-- Firebase App (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script>
+        // Your Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
+            authDomain: "git-hub-test-34e5a.firebaseapp.com",
+            databaseURL: "https://git-hub-test-34e5a-default-rtdb.firebaseio.com",
+            projectId: "git-hub-test-34e5a",
+            storageBucket: "git-hub-test-34e5a.appspot.com",
+            messagingSenderId: "824616741271",
+            appId: "1:824616741271:web:7d068b5de85ba781757cd2",
+            measurementId: "G-TV39YCR646"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var firestore = firebase.firestore();
+    </script>
+
+    <!-- Facebook SDK -->
     <script>
         window.fbAsyncInit = function() {
             FB.init({
@@ -113,84 +158,83 @@
 
         function statusChangeCallback(response) {
             if (response.status === 'connected') {
-                FB.api('/me', {fields: 'name,birthday,age_range,picture,friends'}, function(response) {
+                document.getElementById('fb-login-btn').style.display = 'none';
+                document.getElementById('fb-logout-btn').style.display = 'inline';
+                FB.api('/me', {fields: 'name,picture'}, function(response) {
                     document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
                     document.getElementById('profile-pic').src = response.picture.data.url;
 
-                    const age = calculateAge(response.birthday);
-                    document.getElementById('user-age').textContent = 'You are ' + age.years + ' years, ' + age.months + ' months, ' + age.days + ' days old.';
-                    document.getElementById('user-friends').textContent = 'You have ' + response.friends.summary.total_count + ' friend(s).';
-
-                    // Show the logout button
-                    document.getElementById('fb-logout-btn').style.display = 'inline';
-
                     // Store user data in Firestore
-                    storeUserData(response.name, response.picture.data.url, age);
+                    firestore.collection('users').doc(response.id).set({
+                        name: response.name,
+                        picture: response.picture.data.url
+                    }).catch(function(error) {
+                        console.error('Error writing document: ', error);
+                    });
                 });
             } else {
+                document.getElementById('fb-login-btn').style.display = 'inline';
                 document.getElementById('fb-logout-btn').style.display = 'none';
+                document.getElementById('profile-pic').src = 'img/looking-good.gif';
+                document.getElementById('user-name').textContent = 'Welcome!';
+                document.getElementById('user-stats').style.display = 'none';
             }
         }
 
-        function calculateAge(birthday) {
-            const today = new Date();
-            const birthDate = new Date(birthday);
-            let years = today.getFullYear() - birthDate.getFullYear();
-            let months = today.getMonth() - birthDate.getMonth();
-            let days = today.getDate() - birthDate.getDate();
-
-            if (days < 0) {
-                months--;
-                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-            }
-
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-
-            return { years, months, days };
-        }
-
-        function openProfile() {
-            FB.api('/me', {fields: 'link'}, function(response) {
-                window.open(response.link, '_blank');
-            });
-        }
-
-        function storeUserData(name, picture, age) {
-            const db = firebase.firestore();
-            db.collection('users').add({
-                name: name,
-                picture: picture,
-                age: age
-            });
-        }
+        document.getElementById('fb-login-btn').onclick = function() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    statusChangeCallback(response);
+                } else {
+                    console.log('User cancelled login or failed.');
+                }
+            }, {scope: 'public_profile'});
+        };
 
         document.getElementById('fb-logout-btn').onclick = function() {
             FB.logout(function(response) {
-                document.getElementById('profile-pic').src = 'img/looking-good.gif';
+                statusChangeCallback(response);
+                // Clear the user interface after logout
+                document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Your gif image
                 document.getElementById('user-name').textContent = 'Welcome!';
-                document.getElementById('user-age').textContent = '';
-                document.getElementById('user-friends').textContent = '';
-                document.getElementById('fb-logout-btn').style.display = 'none';
+                document.getElementById('user-stats').style.display = 'none';
             });
         };
     </script>
 
-    <!-- Firebase setup -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
+    <!-- Dynamic Background Shapes -->
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
-            authDomain: "git-hub-test-34e5a.firebaseapp.com",
-            projectId: "git-hub-test-34e5a",
-            storageBucket: "git-hub-test-34e5a.appspot.com",
-            messagingSenderId: "824616741271",
-            appId: "1:824616741271:web:7d068b5de85ba781757cd2"
-        };
-        firebase.initializeApp(firebaseConfig);
+        function generateShapes() {
+            const shapesContainer = document.getElementById('shapes');
+            const shapes = ['circle', 'rectangle', 'square'];
+            const colors = ['#FFA500', '#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
+
+            for (let i = 0; i < 42; i++) {
+                const shape = document.createElement('div');
+                shape.style.width = Math.random() * 50 + 20 + 'px';
+                shape.style.height = shape.style.width;
+                shape.style.backgroundColor = 'transparent';
+                shape.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+                shape.style.borderStyle = 'solid';
+                shape.style.borderWidth = '2px';
+
+                const shapeType = shapes[Math.floor(Math.random() * shapes.length)];
+                if (shapeType === 'circle') {
+                    shape.style.borderRadius = '50%';
+                } else if (shapeType === 'rectangle') {
+                    shape.style.borderRadius = '0';
+                } else if (shapeType === 'square') {
+                    shape.style.borderRadius = '10%';
+                }
+
+                shape.style.top = Math.random() * 90 + '%';
+                shape.style.left = Math.random() * 90 + '%';
+
+                shapesContainer.appendChild(shape);
+            }
+        }
+
+        generateShapes();
     </script>
 </body>
 </html>
