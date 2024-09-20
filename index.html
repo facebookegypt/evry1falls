@@ -15,65 +15,84 @@
             color: #333;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
         .container {
-            position: absolute;
+            background-color: #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
+            text-align: left;
+            position: fixed;
             top: 0;
             width: 100%;
-            background-color: #e0e0e0;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            text-align: left;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
         }
 
         .container img {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 2px solid #fff;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
             cursor: pointer;
-            margin-right: 10px;
         }
 
-        .container .welcome-message {
+        .container h1 {
             font-size: 1em;
+            margin: 0;
+        }
+
+        .container p {
+            font-size: 0.9em;
+            margin: 0;
             color: #333;
         }
 
         .container button {
-            margin-left: auto;
             background-color: #e0e0e0;
             border: none;
             padding: 8px 16px;
-            font-size: 1em;
+            font-size: 0.9em;
             border-radius: 20px;
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
             cursor: pointer;
+            margin: 0;
             transition: box-shadow 0.3s ease;
         }
 
         .container button:hover {
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
         }
+
+        .stats {
+            display: flex;
+            align-items: center;
+        }
+
+        .stats p {
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="container" style="display: none;">
+    <div class="container">
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture" onclick="openProfile()">
-        <div class="welcome-message" id="welcome-message">Welcome!</div>
+        <div class="stats">
+            <h1 id="user-name">Welcome!</h1>
+            <p id="user-age"></p>
+            <p id="user-friends"></p>
+        </div>
         <button id="fb-logout-btn" style="display: none;">Logout</button>
     </div>
-
-    <button id="fb-login-btn" style="display: inline-block; margin: 100px auto;">Login with Facebook</button>
 
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '1238020140566279',
+                appId      : '1238020140566279', // Your Facebook App ID
                 cookie     : true,
                 xfbml      : true,
                 version    : 'v20.0'
@@ -84,9 +103,9 @@
             });
         };
 
-        (function(d, s, id) {
+        (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
+            if (d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
@@ -94,25 +113,43 @@
 
         function statusChangeCallback(response) {
             if (response.status === 'connected') {
-                document.getElementById('fb-login-btn').style.display = 'none';
-                document.querySelector('.container').style.display = 'flex';
-                document.getElementById('fb-logout-btn').style.display = 'inline';
-
-                FB.api('/me', {fields: 'name,picture,birthday,age_range,friends'}, function(response) {
-                    const age = response.age_range.min;
-                    const friendsCount = response.friends.summary.total_count;
-                    
-                    document.getElementById('welcome-message').innerHTML = 
-                        `Welcome, ${response.name}, you are ${age} years old now, and you have ${friendsCount} friend(s).`;
-
+                FB.api('/me', {fields: 'name,birthday,age_range,picture,friends'}, function(response) {
+                    document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
                     document.getElementById('profile-pic').src = response.picture.data.url;
 
-                    updateFirestore(response);
+                    const age = calculateAge(response.birthday);
+                    document.getElementById('user-age').textContent = 'You are ' + age.years + ' years, ' + age.months + ' months, ' + age.days + ' days old.';
+                    document.getElementById('user-friends').textContent = 'You have ' + response.friends.summary.total_count + ' friend(s).';
+
+                    // Show the logout button
+                    document.getElementById('fb-logout-btn').style.display = 'inline';
+
+                    // Store user data in Firestore
+                    storeUserData(response.name, response.picture.data.url, age);
                 });
             } else {
-                document.getElementById('fb-login-btn').style.display = 'inline';
-                document.querySelector('.container').style.display = 'none';
+                document.getElementById('fb-logout-btn').style.display = 'none';
             }
+        }
+
+        function calculateAge(birthday) {
+            const today = new Date();
+            const birthDate = new Date(birthday);
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            return { years, months, days };
         }
 
         function openProfile() {
@@ -121,46 +158,39 @@
             });
         }
 
-        document.getElementById('fb-login-btn').onclick = function() {
-            FB.login(function(response) {
-                statusChangeCallback(response);
-            }, {scope: 'public_profile,user_birthday,user_age_range,user_friends'});
-        };
+        function storeUserData(name, picture, age) {
+            const db = firebase.firestore();
+            db.collection('users').add({
+                name: name,
+                picture: picture,
+                age: age
+            });
+        }
 
         document.getElementById('fb-logout-btn').onclick = function() {
             FB.logout(function(response) {
-                statusChangeCallback(response);
                 document.getElementById('profile-pic').src = 'img/looking-good.gif';
-                document.getElementById('welcome-message').textContent = 'Welcome!';
+                document.getElementById('user-name').textContent = 'Welcome!';
+                document.getElementById('user-age').textContent = '';
+                document.getElementById('user-friends').textContent = '';
+                document.getElementById('fb-logout-btn').style.display = 'none';
             });
         };
-
-        function updateFirestore(userInfo) {
-            const firebaseConfig = {
-                apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
-                authDomain: "git-hub-test-34e5a.firebaseapp.com",
-                projectId: "git-hub-test-34e5a",
-                storageBucket: "git-hub-test-34e5a.appspot.com",
-                messagingSenderId: "824616741271",
-                appId: "1:824616741271:web:7d068b5de85ba781757cd2"
-            };
-            firebase.initializeApp(firebaseConfig);
-
-            const db = firebase.firestore();
-            db.collection("users").doc(userInfo.id).set({
-                name: userInfo.name,
-                picture: userInfo.picture.data.url,
-                age: userInfo.age_range.min,
-                friends: userInfo.friends.summary.total_count
-            }).then(function() {
-                console.log("User information successfully written to Firestore!");
-            }).catch(function(error) {
-                console.error("Error writing document: ", error);
-            });
-        }
     </script>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <!-- Firebase setup -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
+            authDomain: "git-hub-test-34e5a.firebaseapp.com",
+            projectId: "git-hub-test-34e5a",
+            storageBucket: "git-hub-test-34e5a.appspot.com",
+            messagingSenderId: "824616741271",
+            appId: "1:824616741271:web:7d068b5de85ba781757cd2"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </body>
 </html>
