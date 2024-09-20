@@ -162,6 +162,7 @@
                 document.getElementById('fb-login-btn').style.display = 'none';
                 document.getElementById('fb-logout-btn').style.display = 'inline';
                 document.getElementById('shapes').style.display = 'block'; // Show shapes after login
+                generateShapes(); // Call to generate shapes after login
 
                 FB.api('/me', {fields: 'name,picture'}, function(response) {
                     document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
@@ -201,20 +202,17 @@
         document.getElementById('fb-logout-btn').onclick = function() {
             FB.logout(function(response) {
                 statusChangeCallback(response);
-                // Clear the user interface after logout
-                document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Your gif image
-                document.getElementById('user-name').textContent = 'Welcome!';
-                document.getElementById('user-stats').style.display = 'none';
             });
         };
     </script>
 
-    <!-- Dynamic Background Shapes -->
+    <!-- Shape Generation -->
     <script>
         function generateShapes() {
             const shapesContainer = document.getElementById('shapes');
+            shapesContainer.innerHTML = ''; // Clear previous shapes
             const shapes = ['circle', 'rectangle', 'square'];
-            const colors = ['#FFA500', '#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
+            const colors = ['#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
 
             for (let i = 0; i < 42; i++) {
                 const shape = document.createElement('div');
@@ -240,13 +238,6 @@
                 shapesContainer.appendChild(shape);
             }
         }
-
-        // Generate shapes after user logs in
-        document.addEventListener('DOMContentLoaded', function() {
-            if (document.getElementById('shapes').style.display === 'block') {
-                generateShapes();
-            }
-        });
     </script>
 </body>
 </html>
