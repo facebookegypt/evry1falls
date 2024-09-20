@@ -14,22 +14,22 @@
             background-color: #e0e0e0;
             color: #333;
             margin: 0;
+            padding: 0;
             overflow: hidden;
         }
 
         .container {
             background-color: #e0e0e0;
-            padding: 10px;
+            padding: 10px 20px;
             border-radius: 20px;
             box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
-            display: flex;
-            align-items: left;
-            justify-content: space-between;
-            height: 100px;
+            text-align: left;
             position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .container img {
@@ -41,48 +41,61 @@
             cursor: pointer;
         }
 
-        .container p {
+        .container h1 {
             font-size: 1em;
-            color: #333;
-            margin-left: 10px;
+            margin: 0;
         }
 
-        .stats p {
-            font-size: 1em;
+        .container p {
+            font-size: 0.9em;
             margin: 0;
             color: #333;
         }
 
-        .main {
-            display: flex;
-            flex-direction: column;
-            justify-content: left;
-            align-items: left;
-            height: 100vh;
+        .container button {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.9em;
+            border-radius: 20px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            margin: 0;
+            transition: box-shadow 0.3s ease;
         }
 
-        .hidden {
-            display: none;
+        .container button:hover {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
+        }
+
+        .stats {
+            display: flex;
+            align-items: center;
+        }
+
+        .stats p {
+            margin: 0 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container hidden" id="container">
+    <div class="container">
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture" onclick="openProfile()">
-        <p id="user-info">Welcome!</p>
-    </div>
-
-    <div class="main" id="login-section">
-        <button id="fb-login-btn">Login with Facebook</button>
+        <div class="stats">
+            <h1 id="user-name">Welcome!</h1>
+            <p id="user-age"></p>
+            <p id="user-friends"></p>
+        </div>
+        <button id="fb-logout-btn" style="display: none;">Logout</button>
     </div>
 
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId: '1238020140566279', 
-                cookie: true, 
-                xfbml: true, 
-                version: 'v20.0'
+                appId      : '1238020140566279', // Your Facebook App ID
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v20.0'
             });
 
             FB.getLoginStatus(function(response) {
@@ -90,9 +103,9 @@
             });
         };
 
-        (function(d, s, id) {
+        (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
+            if (d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
@@ -100,41 +113,35 @@
 
         function statusChangeCallback(response) {
             if (response.status === 'connected') {
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('container').classList.remove('hidden');
-                FB.api('/me', {fields: 'name,picture,birthday,age_range,friends'}, function(response) {
-                    const userName = response.name;
-                    const pictureUrl = response.picture.data.url;
-                    const birthday = new Date(response.birthday);
-                    const today = new Date();
-                    const age = calculateAge(birthday, today);
-                    const friendsCount = response.friends.summary.total_count;
+                FB.api('/me', {fields: 'name,birthday,age_range,picture,friends'}, function(response) {
+                    document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
+                    document.getElementById('profile-pic').src = response.picture.data.url;
 
-                    document.getElementById('profile-pic').src = pictureUrl;
-                    document.getElementById('user-info').textContent = `Welcome, ${userName}, you are now ${age.years} years, ${age.months} months, and ${age.days} days old. You have ${friendsCount} friend(s).`;
+                    const age = calculateAge(response.birthday);
+                    document.getElementById('user-age').textContent = 'You are ' + age.years + ' years, ' + age.months + ' months, ' + age.days + ' days old.';
+                    document.getElementById('user-friends').textContent = 'You have ' + response.friends.summary.total_count + ' friend(s).';
 
-                    // Save to Firestore
-                    firebase.firestore().collection('users').doc(response.id).set({
-                        name: userName,
-                        picture: pictureUrl,
-                        age: `${age.years} years, ${age.months} months, ${age.days} days`,
-                        friendsCount: friendsCount
-                    });
+                    // Show the logout button
+                    document.getElementById('fb-logout-btn').style.display = 'inline';
+
+                    // Store user data in Firestore
+                    storeUserData(response.name, response.picture.data.url, age);
                 });
             } else {
-                document.getElementById('login-section').classList.remove('hidden');
-                document.getElementById('container').classList.add('hidden');
+                document.getElementById('fb-logout-btn').style.display = 'none';
             }
         }
 
-        function calculateAge(birthDate, currentDate) {
-            let years = currentDate.getFullYear() - birthDate.getFullYear();
-            let months = currentDate.getMonth() - birthDate.getMonth();
-            let days = currentDate.getDate() - birthDate.getDate();
+        function calculateAge(birthday) {
+            const today = new Date();
+            const birthDate = new Date(birthday);
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
 
             if (days < 0) {
                 months--;
-                days += new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
             }
 
             if (months < 0) {
@@ -146,22 +153,34 @@
         }
 
         function openProfile() {
-            FB.api('/me?fields=link', function(response) {
+            FB.api('/me', {fields: 'link'}, function(response) {
                 window.open(response.link, '_blank');
             });
         }
 
-        document.getElementById('fb-login-btn').onclick = function() {
-            FB.login(function(response) {
-                statusChangeCallback(response);
-            }, {scope: 'public_profile,user_birthday,user_age_range,user_friends'});
-        };
+        function storeUserData(name, picture, age) {
+            const db = firebase.firestore();
+            db.collection('users').add({
+                name: name,
+                picture: picture,
+                age: age
+            });
+        }
 
+        document.getElementById('fb-logout-btn').onclick = function() {
+            FB.logout(function(response) {
+                document.getElementById('profile-pic').src = 'img/looking-good.gif';
+                document.getElementById('user-name').textContent = 'Welcome!';
+                document.getElementById('user-age').textContent = '';
+                document.getElementById('user-friends').textContent = '';
+                document.getElementById('fb-logout-btn').style.display = 'none';
+            });
+        };
     </script>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <!-- Firebase setup -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
