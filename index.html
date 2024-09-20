@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Login with Facebook to access your profile and view personalized stats.">
+    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
     <title>Neumorphism Facebook Login</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
@@ -15,58 +16,6 @@
             margin: 0;
             overflow: hidden;
             background: linear-gradient(to bottom right, #87CEFA, #B0E0E6);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align items to the top */
-        }
-
-        .container {
-            background-color: #e0e0e0;
-            padding: 10px;
-            border-radius: 20px;
-            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
-            text-align: left;
-            width: 100%; /* Full width */
-            height: 60px; /* Single line height */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: absolute; /* Absolute positioning to place it at the top */
-            top: 0; /* Ensure it is at the top */
-            z-index: 1;
-            padding: 10px 20px; /* Added padding for better spacing */
-        }
-
-        .container img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 4px solid #fff;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
-            margin-right: 30px; /* Space between picture and name */
-            cursor: pointer;
-        }
-
-        .container h1 {
-            font-size: 1em;
-            margin: 0; /* Remove margin */
-            flex-grow: 1; /* Allow this to grow */
-        }
-
-        .container button {
-            background-color: #e0e0e0;
-            border: none;
-            padding: 8px 15px;
-            font-size: 0.9em;
-            border-radius: 20px;
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
-            cursor: pointer;
-            margin-left: 30px; /* Space between name and button */
-        }
-
-        .container button:hover {
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
         }
 
         .shapes {
@@ -78,11 +27,57 @@
             z-index: -1;
             pointer-events: none;
         }
+
+        .container {
+            background-color: #e0e0e0;
+            padding: 10px; /* Adjusted padding */
+            border-radius: 20px;
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
+            text-align: left; /* Align text to the left */
+            width: 100%; /* Full width */
+            height: 60px; /* Fixed height */
+            position: absolute; /* Positioned at the top */
+            top: 0; /* Align to the top */
+            display: flex; /* Flexbox for layout */
+            align-items: center; /* Center vertically */
+            padding: 0 20px; /* Horizontal padding */
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        .container img {
+            width: 40px; /* Reduced size for better fit */
+            height: 40px; /* Reduced size for better fit */
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-right: 10px; /* Space between image and text */
+        }
+
+        .container h1 {
+            font-size: 1em;
+            margin: 0; /* No margin for h1 */
+            flex-grow: 1; /* Allow text to grow */
+        }
+
+        .container button {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 8px 15px; /* Adjusted padding */
+            font-size: 1em;
+            border-radius: 20px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            margin-left: 10px; /* Space between buttons and text */
+            transition: box-shadow 0.3s ease;
+        }
+
+        .container button:hover {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
+        }
     </style>
 </head>
 <body>
     <div class="shapes" id="shapes"></div>
-    <div class="container" id="container">
+    <div class="container">
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
         <h1 id="user-name">Welcome!</h1>
         <button id="fb-login-btn">Login with Facebook</button>
@@ -96,6 +91,7 @@
 
     <!-- Firebase Configuration -->
     <script>
+        // Your Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
             authDomain: "git-hub-test-34e5a.firebaseapp.com",
@@ -106,6 +102,7 @@
             appId: "1:824616741271:web:7d068b5de85ba781757cd2",
             measurementId: "G-TV39YCR646"
         };
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         var firestore = firebase.firestore();
     </script>
@@ -114,10 +111,10 @@
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId: '1238020140566279', // Your Facebook App ID
-                cookie: true,
-                xfbml: true,
-                version: 'v20.0'
+                appId      : '1238020140566279', // Your Facebook App ID
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v20.0'
             });
 
             FB.getLoginStatus(function(response) {
@@ -125,42 +122,35 @@
             });
         };
 
-        (function(d, s, id) {
+        (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
+            if (d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
         function statusChangeCallback(response) {
-            var container = document.getElementById('container');
             if (response.status === 'connected') {
                 document.getElementById('fb-login-btn').style.display = 'none';
                 document.getElementById('fb-logout-btn').style.display = 'inline';
-                document.getElementById('shapes').style.display = 'block'; // Show shapes after login
-                generateShapes(); // Generate shapes after login
-
-                FB.api('/me', { fields: 'name,picture' }, function(response) {
+                FB.api('/me', {fields: 'name,picture'}, function(response) {
                     document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
                     document.getElementById('profile-pic').src = response.picture.data.url;
-                    document.getElementById('profile-pic').onclick = function() {
-                        window.open('https://facebook.com/' + response.id, '_blank'); // Open profile in new window
-                    };
 
+                    // Store user data in Firestore
                     firestore.collection('users').doc(response.id).set({
                         name: response.name,
                         picture: response.picture.data.url
                     }).catch(function(error) {
-                        console.error('Error saving user data: ', error);
+                        console.error('Error writing document: ', error);
                     });
                 });
             } else {
                 document.getElementById('fb-login-btn').style.display = 'inline';
                 document.getElementById('fb-logout-btn').style.display = 'none';
-                document.getElementById('shapes').style.display = 'none'; // Hide shapes before login
-                document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Reset profile picture
-                document.getElementById('user-name').textContent = 'Welcome!'; // Reset user name
+                document.getElementById('profile-pic').src = 'img/looking-good.gif';
+                document.getElementById('user-name').textContent = 'Welcome!';
             }
         }
 
@@ -171,23 +161,25 @@
                 } else {
                     console.log('User cancelled login or failed.');
                 }
-            }, { scope: 'public_profile' });
+            }, {scope: 'public_profile'});
         };
 
         document.getElementById('fb-logout-btn').onclick = function() {
             FB.logout(function(response) {
                 statusChangeCallback(response);
+                // Clear the user interface after logout
+                document.getElementById('profile-pic').src = 'img/looking-good.gif';
+                document.getElementById('user-name').textContent = 'Welcome!';
             });
         };
     </script>
 
-    <!-- Shape Generation -->
+    <!-- Dynamic Background Shapes -->
     <script>
         function generateShapes() {
             const shapesContainer = document.getElementById('shapes');
-            shapesContainer.innerHTML = ''; // Clear previous shapes
             const shapes = ['circle', 'rectangle', 'square'];
-            const colors = ['#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
+            const colors = ['#FFA500', '#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
 
             for (let i = 0; i < 42; i++) {
                 const shape = document.createElement('div');
@@ -207,13 +199,9 @@
                     shape.style.borderRadius = '10%';
                 }
 
-                shape.style.position = 'absolute'; // Ensure shapes are positioned randomly
                 shape.style.top = Math.random() * 90 + '%';
-                shape.style.left = Math.random() * 90 + '%';
-
-                shapesContainer.appendChild(shape);
-            }
-        }
-    </script>
-</body>
-</html>
+                shape.style.left = Math.random() * 90%;
+                             shapesContainer.appendChild(shape);}}
+ generateShapes();
+</script>
+</body> </html>
