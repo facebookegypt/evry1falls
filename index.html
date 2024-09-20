@@ -31,6 +31,16 @@
             width: 100%;
             position: relative;
             z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .container.logged-in {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            max-width: 100%;
+            height: 60px;
         }
 
         .container img {
@@ -41,11 +51,26 @@
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
             margin-bottom: 20px;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .container.logged-in img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 0;
+            margin-left: 10px;
         }
 
         .container h1 {
             font-size: 1.5em;
             margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .container.logged-in h1 {
+            font-size: 1em;
+            margin: 0;
+            margin-left: 10px;
         }
 
         .container p {
@@ -64,6 +89,12 @@
             cursor: pointer;
             margin: 10px;
             transition: box-shadow 0.3s ease;
+        }
+
+        .container.logged-in button {
+            margin: 0;
+            padding: 8px 15px;
+            font-size: 0.9em;
         }
 
         .container button:hover {
@@ -100,7 +131,7 @@
 </head>
 <body>
     <div class="shapes" id="shapes"></div>
-    <div class="container">
+    <div class="container" id="container">
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
         <h1 id="user-name">Welcome!</h1>
         <button id="fb-login-btn">Login with Facebook</button>
@@ -158,10 +189,13 @@
         }(document, 'script', 'facebook-jssdk'));
 
         function statusChangeCallback(response) {
+            var container = document.getElementById('container');
             if (response.status === 'connected') {
                 document.getElementById('fb-login-btn').style.display = 'none';
                 document.getElementById('fb-logout-btn').style.display = 'inline';
                 document.getElementById('shapes').style.display = 'block'; // Show shapes after login
+                container.classList.add('logged-in'); // Apply new styles for logged in
+
                 generateShapes(); // Call to generate shapes after login
 
                 FB.api('/me', {fields: 'name,picture'}, function(response) {
@@ -175,29 +209,19 @@
                     firestore.collection('users').doc(response.id).set({
                         name: response.name,
                         picture: response.picture.data.url
+                    }).then(function() {
+                        console.log('User data saved to Firestore');
                     }).catch(function(error) {
-                        console.error('Error writing document: ', error);
+                        console.error('Error saving user data: ', error);
                     });
                 });
             } else {
                 document.getElementById('fb-login-btn').style.display = 'inline';
                 document.getElementById('fb-logout-btn').style.display = 'none';
-                document.getElementById('profile-pic').src = 'img/looking-good.gif';
-                document.getElementById('user-name').textContent = 'Welcome!';
-                document.getElementById('user-stats').style.display = 'none';
                 document.getElementById('shapes').style.display = 'none'; // Hide shapes before login
+                container.classList.remove('logged-in'); // Reset styles when logged out
             }
         }
-
-        document.getElementById('fb-login-btn').onclick = function() {
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    statusChangeCallback(response);
-                } else {
-                    console.log('User cancelled login or failed.');
-                }
-            }, {scope: 'public_profile'});
-        };
 
         document.getElementById('fb-logout-btn').onclick = function() {
             FB.logout(function(response) {
