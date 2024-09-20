@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Login with Facebook to access your profile and view personalized stats.">
-    <meta name="google-site-verification" content="wLd5RpntOn13Q149-gVDIb6YdlCHw_R-PLr0f6BGJdw" />
     <title>Neumorphism Facebook Login</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
@@ -41,6 +40,7 @@
             border: 4px solid #fff;
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
             margin-bottom: 20px;
+            cursor: pointer;
         }
 
         .container h1 {
@@ -87,6 +87,7 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+            display: none;
         }
 
         .shapes div {
@@ -160,9 +161,14 @@
             if (response.status === 'connected') {
                 document.getElementById('fb-login-btn').style.display = 'none';
                 document.getElementById('fb-logout-btn').style.display = 'inline';
+                document.getElementById('shapes').style.display = 'block'; // Show shapes after login
+
                 FB.api('/me', {fields: 'name,picture'}, function(response) {
                     document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
                     document.getElementById('profile-pic').src = response.picture.data.url;
+                    document.getElementById('profile-pic').onclick = function() {
+                        window.open('https://facebook.com/' + response.id, '_blank'); // Open profile in new window
+                    };
 
                     // Store user data in Firestore
                     firestore.collection('users').doc(response.id).set({
@@ -178,6 +184,7 @@
                 document.getElementById('profile-pic').src = 'img/looking-good.gif';
                 document.getElementById('user-name').textContent = 'Welcome!';
                 document.getElementById('user-stats').style.display = 'none';
+                document.getElementById('shapes').style.display = 'none'; // Hide shapes before login
             }
         }
 
@@ -234,7 +241,12 @@
             }
         }
 
-        generateShapes();
+        // Generate shapes after user logs in
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('shapes').style.display === 'block') {
+                generateShapes();
+            }
+        });
     </script>
 </body>
 </html>
