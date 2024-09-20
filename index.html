@@ -33,8 +33,9 @@
             justify-content: space-between;
             align-items: center;
             position: absolute; /* Absolute positioning to place it at the top */
-            top: 20px; /* Adjust this value as needed */
+            top: 0; /* Ensure it is at the top */
             z-index: 1;
+            padding: 10px 20px; /* Added padding for better spacing */
         }
 
         .container img {
@@ -76,7 +77,6 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            display: none;
         }
     </style>
 </head>
@@ -139,9 +139,7 @@
                 document.getElementById('fb-login-btn').style.display = 'none';
                 document.getElementById('fb-logout-btn').style.display = 'inline';
                 document.getElementById('shapes').style.display = 'block'; // Show shapes after login
-                container.classList.add('logged-in'); // Apply new styles for logged in
-
-                generateShapes(); // Call to generate shapes after login
+                generateShapes(); // Generate shapes after login
 
                 FB.api('/me', { fields: 'name,picture' }, function(response) {
                     document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
@@ -161,7 +159,8 @@
                 document.getElementById('fb-login-btn').style.display = 'inline';
                 document.getElementById('fb-logout-btn').style.display = 'none';
                 document.getElementById('shapes').style.display = 'none'; // Hide shapes before login
-                container.classList.remove('logged-in'); // Reset styles when logged out
+                document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Reset profile picture
+                document.getElementById('user-name').textContent = 'Welcome!'; // Reset user name
             }
         }
 
@@ -208,6 +207,7 @@
                     shape.style.borderRadius = '10%';
                 }
 
+                shape.style.position = 'absolute'; // Ensure shapes are positioned randomly
                 shape.style.top = Math.random() * 90 + '%';
                 shape.style.left = Math.random() * 90 + '%';
 
