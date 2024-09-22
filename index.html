@@ -83,13 +83,22 @@
             pointer-events: none;
             display: none; /* Hidden by default */
         }
+                /* Additional styles for last login time */
+        #last-login-time {
+            font-size: 0.9em;
+            color: #555;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="shapes" id="shapes"></div>
     <div class="container" id="container">
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
-        <h1 id="user-name">Welcome!</h1>
+        <div>
+            <h1 id="user-name">Welcome!</h1>
+            <p id="last-login-time"></p>
+        </div>
         <button id="fb-login-btn">Login with Facebook</button>
         <button id="fb-logout-btn" style="display: none;">Logout</button>
     </div>
@@ -137,7 +146,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        // Function to format date and time
+       // Function to format date and time
         function formatDate(date) {
             var options = {
                 weekday: 'long',    // dddd
@@ -150,6 +159,7 @@
             };
             return date.toLocaleString('en-US', options);
         }
+
         function statusChangeCallback(response) {
             var shapesContainer = document.getElementById('shapes');
             if (response.status === 'connected') {
@@ -184,9 +194,9 @@
                                 // Format and display the last login time
                                 var lastLoginDate = lastLoginTime.toDate();
                                 var formattedDate = formatDate(lastLoginDate);
-                                alert('Your last login was on ' + formattedDate);
+                                document.getElementById('last-login-time').textContent = 'Your last login was on ' + formattedDate;
                             } else {
-                                alert('This is your first login.');
+                                document.getElementById('last-login-time').textContent = 'This is your first login.';
                             }
                         }).catch(function(error) {
                             console.error('Error updating user data: ', error);
@@ -201,6 +211,7 @@
                 shapesContainer.style.display = 'none'; // Hide shapes
                 document.getElementById('profile-pic').src = 'img/looking-good.gif';
                 document.getElementById('user-name').textContent = 'Welcome!';
+                document.getElementById('last-login-time').textContent = '';
             }
         }
 
