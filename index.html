@@ -22,6 +22,7 @@
         }
 .container {
     background-color: rgba(224, 224, 224, 0.5); /* 50% transparent */
+    position: relative; /* Needed for absolute positioning of the last-login-time */
     border-radius: 20px;
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
     text-align: left;
@@ -89,6 +90,14 @@
             color: #555;
             margin-left: 10px;
         }
+        #last-login-time.bottom-position {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    font-size: 0.9em;
+    color: #555;
+    /* Add any other styling needed to match your design */
+}
     </style>
 </head>
 <body>
@@ -97,8 +106,8 @@
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
         <div>
             <h1 id="user-name">Welcome!</h1>
-            <p id="last-login-time"></p>
         </div>
+        <p id="last-login-time"></p>
         <button id="fb-login-btn">Login with Facebook</button>
         <button id="fb-logout-btn" style="display: none;">Logout</button>
     </div>
