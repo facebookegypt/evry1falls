@@ -44,12 +44,15 @@ function statusChangeCallback(response) {
         document.getElementById('fb-logout-btn').style.display = 'inline';
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
-
         FB.api('/me', { fields: 'name,picture' }, function (userResponse) {
             document.getElementById('user-name').textContent = 'Welcome, ' + userResponse.name + '!';
             document.getElementById('profile-pic').src = userResponse.picture.data.url;
             document.getElementById('profile-pic').onclick = function () {
                 window.open('profile.html', '_blank');
+                // After fetching user data
+    const lastLoginTime = new Date().toLocaleString(); // Get current date and time
+    document.getElementById('last-login').textContent = `Your last login was on ${lastLoginTime}.`;
+    document.getElementById('last-login').style.display = 'none'; // Ensure it starts hidden
             };
 
             var userId = userResponse.id;
