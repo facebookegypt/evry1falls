@@ -19,9 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     li.textContent = like;
                     likesList.appendChild(li);
                 });
-            } else {
-                console.log("No such document!");
-            }
+            } else {console.log("No such document!");}
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
