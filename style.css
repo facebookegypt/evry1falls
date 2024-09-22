@@ -12,6 +12,7 @@ body {
 }
 
 .container {
+    position: relative; /* Needed for absolute positioning of the last-login-time */
     background-color: rgba(224, 224, 224, 0.5); /* 50% transparent */
     border-radius: 20px;
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
@@ -92,9 +93,11 @@ body {
     pointer-events: none;
     display: none; /* Hidden by default */
 }
-#last-login {
-    margin-top: 10px;
-    font-size: 0.8em;
-    color: #666;
-    font-style: italic;
+#last-login-time.bottom-position {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    font-size: 0.9em;
+    color: #555;
+    /* Add any other styling needed to match your design */
 }
