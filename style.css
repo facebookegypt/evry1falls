@@ -20,8 +20,8 @@ body {
     position: absolute;
     top: 0; 
     z-index: 1;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
     display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
     align-items: center; /* Center items vertically */
 }
 
