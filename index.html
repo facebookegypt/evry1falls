@@ -99,6 +99,9 @@
     color: #555;
     /* Add any other styling needed to match your design */
 }
+        .alert{
+            top: 65px;
+        }
     </style>
 </head>
 <body>
@@ -108,7 +111,7 @@
         <button id="fb-login-btn">Login with Facebook</button>
         <button id="fb-logout-btn" style="display: none;">Logout</button>
     </div>
-    <div><p id="last-login-time"></p></div>
+    <div class="alert" id="alert"><p id="last-login-time"></p></div>
 
     <!-- Firebase App (v8) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
