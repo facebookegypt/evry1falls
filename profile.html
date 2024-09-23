@@ -4,16 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="profile.css"> <!-- Reference to external CSS file -->
-    <script src="profile.js"></script> <!-- Reference to external JS file -->
+    <link rel="stylesheet" href="profile.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
+            authDomain: "git-hub-test-34e5a.firebaseapp.com",
+            projectId: "git-hub-test-34e5a",
+            storageBucket: "git-hub-test-34e5a.appspot.com",
+            messagingSenderId: "824616741271",
+            appId: "1:824616741271:web:7d068b5de85ba781757cd2",
+            measurementId: "G-TV39YCR646"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    
 </head>
 <body>
     <div class="profile-card">
-        <img id="profile-pic" src="" alt="Profile Picture">
-        <h1 id="user-name"></h1> <!-- User name will be placed here -->
-        <p id="user-gender"></p> <!-- User gender will be placed here (Mr./Ms.) -->
-        <p id="user-hometown"></p> <!-- 2-line info about hometown will go here -->
-        <p id="user-likes"></p> <!-- Likes will be listed at the bottom of the card -->
+        <img id="profile-picture" class="profile-picture" alt="Profile Picture">
+        <h2 id="profile-name" class="profile-name">Mr/Ms. Name</h2>
+        <p id="profile-hometown" class="profile-hometown">Hometown info here...</p>
+        <ul id="profile-likes" class="profile-likes">
+            <li>Like 1</li>
+            <li>Like 2</li>
+        </ul>
     </div>
+
+    <script src="profile.js" defer></script>
 </body>
 </html>
