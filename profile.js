@@ -23,13 +23,14 @@ if (userId) {
             profileName.textContent = (userData.gender === 'male' ? 'Mr.' : 'Ms.') + ' ' + userData.name;
             profileHometown.textContent = userData.hometown || 'No hometown provided.';
 
-// Populate likes list
+console.log("User Likes:", userData.likes);
+            // Populate likes list
 profileLikes.innerHTML = ''; // Clear previous likes
 if (userData.likes && userData.likes.length > 0) {
     userData.likes.forEach(function(like) {
         const listItem = document.createElement('li');
-        // Assuming each like is an object with a 'name' property
-        listItem.textContent = like.name || 'Unnamed like';
+        // Change 'name' to the actual property you see in the logged object
+        listItem.textContent = like.title || like.name || 'Unnamed like';
         profileLikes.appendChild(listItem);
     });
 } else {
