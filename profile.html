@@ -8,16 +8,39 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    
     <div class="profile-container" id="profile-container">
         <div class="profile-card">
-            <img id="profile-pic" src="" alt="Profile Picture" class="profile-pic">
-            <h1 id="user-name">Name</h1>
-            <p id="user-gender">Mr/Ms</p>
-            <p id="user-hometown">Hometown</p>
-            <p id="user-likes">Likes:</p>
-            <ul id="likes-list"></ul>
+            <img id="profile-pic" src="" alt="Profile Picture">
+            <h1 id="user-name"></h1>
+            <p id="user-gender"></p>
+            <p id="user-hometown"></p>
+            <p id="user-likes"></p>
         </div>
+        
     </div>
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+    
+        // Get user data from URL
+        const userId = getUrlParameter('id');
+        const userName = getUrlParameter('name');
+        const userHometown = getUrlParameter('hometown');
+        const userGender = getUrlParameter('gender');
+        const userLikes = getUrlParameter('likes');
+    
+        // Display user data
+        document.getElementById('user-name').textContent = userName;
+        document.getElementById('profile-pic').src = `https://graph.facebook.com/${userId}/picture?type=large`; // User's profile picture
+        document.getElementById('user-gender').textContent = `Gender: ${userGender === 'male' ? 'Mr.' : 'Ms.'}`;
+        document.getElementById('user-hometown').textContent = `Hometown: ${userHometown}`;
+        document.getElementById('user-likes').textContent = `Likes: ${userLikes}`;
+    </script>
+    
     <script src="profile.js"></script>
 </body>
 </html>

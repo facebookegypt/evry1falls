@@ -48,7 +48,13 @@ function statusChangeCallback(response) {
             // Modify click event to navigate to profile.html
             document.getElementById('profile-pic').onclick = function(event) {
                 event.stopPropagation(); // Prevent opening Facebook profile
-                window.location.href = 'profile.html'; // Navigate to profile.html
+                const userId = response.id; // Get the user's Facebook ID
+                const userName = response.name; // Get the user's name
+                const userHometown = response.hometown ? response.hometown.name : "N/A";
+                const userGender = response.gender;
+                const userLikes = response.likes ? response.likes.data.join(', ') : "None";
+                const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}`;
+                window.location.href = url; // Navigate to profile.html with query params
             };
 
             // Save user data and last login
