@@ -26,7 +26,12 @@ body {
     z-index: 1;
     transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transition */
 }
-
+.container h1 {
+            font-size: 1em;
+            margin: 0;
+            flex-grow: 1;
+            margin-left: 10px; /* Space from profile picture */
+        }
 .container button {
     background-color: #e0e0e0;
     border: none;
@@ -70,12 +75,6 @@ body {
     flex-direction: column;
     margin-left: 10px;
 }
-
-.container h1 {
-    font-size: 1em;
-    margin: 0;
-}
-
 .container p {
     font-size: 0.8em;
     margin: 0;
