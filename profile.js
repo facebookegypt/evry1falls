@@ -1,34 +1,43 @@
 // Reference to Firestore
-var firestore = firebase.firestore();
+const firestore = firebase.firestore();
 
-// Get user ID (This would ideally come from your login process or Firebase Auth)
-var userId = "USER_ID"; // Replace with logic to get actual user ID
+// Extract user details from URL or set it manually for now
+const queryParams = new URLSearchParams(window.location.search);
+const userId = queryParams.get('id');
 
-// Retrieve user data from Firestore
-firestore.collection('users').doc(userId).get().then(function(doc) {
-    if (doc.exists) {
-        var userData = doc.data();
+// Check if user ID is available
+if (userId) {
+    // Retrieve user data from Firestore
+    firestore.collection('users').doc(userId).get().then(function(doc) {
+        if (doc.exists) {
+            const userData = doc.data();
+            const profilePicture = document.getElementById('profile-picture');
+            const profileName = document.getElementById('profile-name');
+            const profileHometown = document.getElementById('profile-hometown');
+            const profileLikes = document.getElementById('profile-likes');
 
-        // Populate profile details
-        document.getElementById('profile-picture').src = userData.picture || 'img/default-avatar.png';
-        document.getElementById('profile-name').textContent = (userData.gender === 'male' ? 'Mr.' : 'Ms.') + ' ' + userData.name;
-        document.getElementById('profile-hometown').textContent = userData.hometown || 'No hometown provided.';
-        
-        // Populate likes list
-        var likesList = document.getElementById('profile-likes');
-        likesList.innerHTML = ''; // Clear previous likes
-        if (userData.likes && userData.likes.length > 0) {
-            userData.likes.forEach(function(like) {
-                var listItem = document.createElement('li');
-                listItem.textContent = like;
-                likesList.appendChild(listItem);
-            });
+            // Populate profile details
+            profilePicture.src = userData.picture || 'img/default-avatar.png';
+            profileName.textContent = (userData.gender === 'male' ? 'Mr.' : 'Ms.') + ' ' + userData.name;
+            profileHometown.textContent = userData.hometown || 'No hometown provided.';
+
+            // Populate likes list
+            profileLikes.innerHTML = ''; // Clear previous likes
+            if (userData.likes && userData.likes.length > 0) {
+                userData.likes.forEach(function(like) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = like;
+                    profileLikes.appendChild(listItem);
+                });
+            } else {
+                profileLikes.innerHTML = '<li>No likes provided.</li>';
+            }
         } else {
-            likesList.innerHTML = '<li>No likes provided.</li>';
+            console.log("No such document!");
         }
-    } else {
-        console.log("No such document!");
-    }
-}).catch(function(error) {
-    console.log("Error getting document:", error);
-});
+    }).catch(function(error) {
+        console.error("Error getting document:", error);
+    });
+} else {
+    console.error("User ID not provided in the URL.");
+}
