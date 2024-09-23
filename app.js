@@ -45,15 +45,15 @@ function statusChangeCallback(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
 
-            // Add the click event for profile picture
-            document.getElementById('profile-pic').onclick = function() {
+            // Modify click event to navigate to profile.html
+            document.getElementById('profile-pic').onclick = function(event) {
+                event.stopPropagation(); // Prevent opening Facebook profile
                 window.location.href = 'profile.html'; // Navigate to profile.html
             };
-
             firestore.collection('users').doc(response.id).set({
                 name: response.name,
                 picture: response.picture.data.url,
-                // Make sure to include additional fields if necessary
+                // Include additional fields if necessary
             }).catch(function(error) {
                 console.error('Error saving user data: ', error);
             });
