@@ -26,6 +26,9 @@ body {
     z-index: 1;
     transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transition */
 }
+.container:hover {
+    background-color: rgba(224, 224, 224, 1); /* Fully opaque on hover */
+}
 .container h1 {
             font-size: 1em;
             margin: 0;
@@ -42,8 +45,11 @@ body {
     cursor: pointer;
     margin-left: 10px; /* Space between buttons */
     height: auto; /* Ensure height is not stretched */
+    transition: box-shadow 0.3s ease;
 }
-
+.container button:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
+}
 .container:hover h2#last-login {
     display: block; /* Show on hover */
 }
@@ -55,11 +61,6 @@ body {
     font-size: 0.8em; /* Adjust size as needed */
     color: #555; /* Adjust color as needed */
 }
-
-.container:hover {
-    background-color: rgba(224, 224, 224, 1); /* Fully opaque on hover */
-}
-
 .container img {
     width: 50px;
     height: 50px;
@@ -88,23 +89,6 @@ body {
     color: #666;
     font-style: italic;
 }
-
-.container button {
-    background-color: #e0e0e0;
-    border: none;
-    padding: 16px 30px;
-    font-size: 0.9em;
-    border-radius: 20px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-    margin-right: 10px;
-    transition: box-shadow 0.3s ease;
-}
-
-.container button:hover {
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
-}
-
 .shapes {
     position: absolute;
     top: 0;
