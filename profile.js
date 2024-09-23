@@ -5,6 +5,8 @@ const firestore = firebase.firestore();
 const queryParams = new URLSearchParams(window.location.search);
 const userId = queryParams.get('id');
 
+console.log("Attempting to access document with ID:", userId); // Log the ID
+
 // Check if user ID is available
 if (userId) {
     // Retrieve user data from Firestore
