@@ -23,17 +23,18 @@ if (userId) {
             profileName.textContent = (userData.gender === 'male' ? 'Mr.' : 'Ms.') + ' ' + userData.name;
             profileHometown.textContent = userData.hometown || 'No hometown provided.';
 
-            // Populate likes list
-            profileLikes.innerHTML = ''; // Clear previous likes
-            if (userData.likes && userData.likes.length > 0) {
-                userData.likes.forEach(function(like) {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = like;
-                    profileLikes.appendChild(listItem);
-                });
-            } else {
-                profileLikes.innerHTML = '<li>No likes provided.</li>';
-            }
+// Populate likes list
+profileLikes.innerHTML = ''; // Clear previous likes
+if (userData.likes && userData.likes.length > 0) {
+    userData.likes.forEach(function(like) {
+        const listItem = document.createElement('li');
+        // Assuming each like is an object with a 'name' property
+        listItem.textContent = like.name || 'Unnamed like';
+        profileLikes.appendChild(listItem);
+    });
+} else {
+    profileLikes.innerHTML = '<li>No likes provided.</li>';
+}
         } else {
             console.log("No such document!");
         }
