@@ -40,13 +40,33 @@ function statusChangeCallback(response) {
         document.getElementById('fb-logout-btn').style.display = 'inline';
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
-
-        FB.api('/me', { fields: 'name,picture,hometown,gender,likes' }, function(response) {
+        
+        FB.api('/me', { fields: 'name,picture' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
+
+            // Add the click event for profile picture
             document.getElementById('profile-pic').onclick = function() {
-                window.open('https://facebook.com/' + response.id, '_blank');
+                window.location.href = 'profile.html'; // Navigate to profile.html
             };
+
+            firestore.collection('users').doc(response.id).set({
+                name: response.name,
+                picture: response.picture.data.url,
+                // Make sure to include additional fields if necessary
+            }).catch(function(error) {
+                console.error('Error saving user data: ', error);
+            });
+        });
+    } else {
+        document.getElementById('fb-login-btn').style.display = 'inline';
+        document.getElementById('fb-logout-btn').style.display = 'none';
+        shapesContainer.style.display = 'none'; // Hide shapes
+        document.getElementById('profile-pic').src = 'img/looking-good.gif';
+        document.getElementById('user-name').textContent = 'Welcome!';
+    }
+}
+
 
             // Save user data and last login
             var currentDate = new Date();
