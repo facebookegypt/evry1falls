@@ -1,27 +1,34 @@
-// Firebase Initialization
+// Reference to Firestore
 var firestore = firebase.firestore();
 
-window.onload = function() {
-    var userId = localStorage.getItem('userId'); // Assuming userId is stored in localStorage after login
+// Get user ID (This would ideally come from your login process or Firebase Auth)
+var userId = "USER_ID"; // Replace with logic to get actual user ID
 
-    if (userId) {
-        firestore.collection('users').doc(userId).get().then(function(doc) {
-            if (doc.exists) {
-                var userData = doc.data();
+// Retrieve user data from Firestore
+firestore.collection('users').doc(userId).get().then(function(doc) {
+    if (doc.exists) {
+        var userData = doc.data();
 
-                // Populate user info
-                document.getElementById('profile-pic').src = userData.picture;
-                document.getElementById('user-name').textContent = userData.gender === 'male' ? 'Mr. ' + userData.name : 'Ms. ' + userData.name;
-                document.getElementById('user-gender').textContent = userData.gender === 'male' ? 'Male' : 'Female';
-                document.getElementById('user-hometown').textContent = userData.hometown || 'Hometown info not available';
-                document.getElementById('user-likes').textContent = userData.likes && userData.likes.length > 0 ? 'Likes: ' + userData.likes.join(', ') : 'No likes listed';
-            } else {
-                console.log("No such user document!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting user data:", error);
-        });
+        // Populate profile details
+        document.getElementById('profile-picture').src = userData.picture || 'img/default-avatar.png';
+        document.getElementById('profile-name').textContent = (userData.gender === 'male' ? 'Mr.' : 'Ms.') + ' ' + userData.name;
+        document.getElementById('profile-hometown').textContent = userData.hometown || 'No hometown provided.';
+        
+        // Populate likes list
+        var likesList = document.getElementById('profile-likes');
+        likesList.innerHTML = ''; // Clear previous likes
+        if (userData.likes && userData.likes.length > 0) {
+            userData.likes.forEach(function(like) {
+                var listItem = document.createElement('li');
+                listItem.textContent = like;
+                likesList.appendChild(listItem);
+            });
+        } else {
+            likesList.innerHTML = '<li>No likes provided.</li>';
+        }
     } else {
-        console.log("No user is logged in.");
+        console.log("No such document!");
     }
-};
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
