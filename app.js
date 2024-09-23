@@ -41,7 +41,7 @@ function statusChangeCallback(response) {
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
         
-        FB.api('/me', { fields: 'name,picture,hometown,gender,likes' }, function(response) {
+        FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
 
