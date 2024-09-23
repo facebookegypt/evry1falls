@@ -25,7 +25,7 @@ window.fbAsyncInit = function() {
     });
 };
 
-(function(d, s, id){
+(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) { return; }
     js = d.createElement(s); js.id = id;
@@ -41,7 +41,7 @@ function statusChangeCallback(response) {
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
         
-        FB.api('/me', { fields: 'name,picture' }, function(response) {
+        FB.api('/me', { fields: 'name,picture,hometown,gender,likes' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
 
@@ -50,23 +50,6 @@ function statusChangeCallback(response) {
                 event.stopPropagation(); // Prevent opening Facebook profile
                 window.location.href = 'profile.html'; // Navigate to profile.html
             };
-            firestore.collection('users').doc(response.id).set({
-                name: response.name,
-                picture: response.picture.data.url,
-                // Include additional fields if necessary
-            }).catch(function(error) {
-                console.error('Error saving user data: ', error);
-            });
-        });
-    } else {
-        document.getElementById('fb-login-btn').style.display = 'inline';
-        document.getElementById('fb-logout-btn').style.display = 'none';
-        shapesContainer.style.display = 'none'; // Hide shapes
-        document.getElementById('profile-pic').src = 'img/looking-good.gif';
-        document.getElementById('user-name').textContent = 'Welcome!';
-    }
-}
-
 
             // Save user data and last login
             var currentDate = new Date();
@@ -79,7 +62,7 @@ function statusChangeCallback(response) {
                 minute: 'numeric',
                 hour12: true
             });
-            
+
             firestore.collection('users').doc(response.id).set({
                 name: response.name,
                 picture: response.picture.data.url,
