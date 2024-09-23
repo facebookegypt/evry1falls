@@ -11,18 +11,20 @@ body {
     align-items: flex-start;
 }
 .container {
-    background-color: rgba(224, 224, 224, 0.5);
+     background-color: rgba(224, 224, 224, 0.5); /* 50% transparent */
+    position: relative; /* Needed for absolute positioning of the last-login-time */
     border-radius: 20px;
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
     text-align: left;
     width: 100%;
-    padding: 10px; /* Add padding to the container */
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
-    top: 0; 
+    top: 0; /* Adjusted for logged out state */
     z-index: 1;
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between items */
-    align-items: center; /* Center items vertically */
+    transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transition */
 }
 
 .container button {
