@@ -44,6 +44,7 @@ body {
 .container h2#last-login {
     display: none; /* Hide by default */
     margin-top: 5px; /* Space between welcome message and last login */
+    margin-left: 50px;
     font-size: 0.8em; /* Adjust size as needed */
     color: #555; /* Adjust color as needed */
 }
