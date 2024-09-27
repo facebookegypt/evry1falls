@@ -85,7 +85,7 @@ body {
 /* Style for the last login date/time */
 #last-login {
     margin-top: 10px;
-    font-size: 0.8em;
+    font-size: 0.4em;
     color: #666;
     font-style: italic;
 }
