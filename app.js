@@ -107,6 +107,7 @@ document.getElementById('fb-logout-btn').onclick = function() {
         statusChangeCallback(response);
         document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Reset profile picture
         document.getElementById('user-name').textContent = 'Welcome!';
+	document.getElementById('last-login').style.display = 'none'; // Clear last-login message
     });
 };
 
