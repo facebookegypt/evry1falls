@@ -92,7 +92,7 @@ body {
 }*/
 #last-login {
     position: fixed;
-    bottom: 10px; /* Adjust this value as needed */
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.8em;
