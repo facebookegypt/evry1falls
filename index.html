@@ -15,11 +15,11 @@
     <div class="container" id="container">
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
             <h1 id="user-name">Welcome!</h1>
-            <h2 id="last-login" style="display: none;">Your last login was on ...</h2> <!-- Placeholder for last login -->
         <button id="fb-login-btn">Login with Facebook</button>
         <button id="fb-logout-btn" style="display: none;">Logout</button>
     </div>
-
+<!-- Move last-login outside of container -->
+<h2 id="last-login" style="display: none;">Your last login was on ...</h2> <!-- Placeholder for last login -->
     <!-- Firebase App (v8) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
