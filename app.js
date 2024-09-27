@@ -117,7 +117,8 @@ function displayLastLogin(date) {
     lastLoginElement.textContent = lastLoginMessage;
     lastLoginElement.style.position = 'absolute';
     lastLoginElement.style.bottom = '0'; // Position at the bottom of the container
-    lastLoginElement.style.left = '10px'; // Margin from the left
+    lastLoginElement.style.left = '20px'; // Margin from the left
+    lastLoginElement.style.fontSize = '0.4em'; 
     lastLoginElement.style.color = '#333'; // Text color
     lastLoginElement.style.opacity = '0'; // Initially hidden
     lastLoginElement.style.transition = 'opacity 0.3s ease'; // Transition effect
