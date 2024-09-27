@@ -84,11 +84,21 @@ body {
 }
 
 /* Style for the last login date/time */
-#last-login {
+/*#last-login {
     margin-top: 10px;
     font-size: 0.4em;
     color: #666;
     font-style: italic;
+}*/
+#last-login {
+    position: fixed;
+    bottom: 10px; /* Adjust this value as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    color: #666;
+    font-style: italic;
+    display: none; /* Initially hidden */
 }
 .shapes {
     position: absolute;
