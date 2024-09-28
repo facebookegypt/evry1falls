@@ -80,6 +80,7 @@ function statusChangeCallback(response) {
             }).then(() => {
                 // Display last login message
                 displayLastLogin(formattedDate);
+		    console.log('last login.');
             }).catch(function(error) {
                 console.error('Error saving user data: ', error);
             });
