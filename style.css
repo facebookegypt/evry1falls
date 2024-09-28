@@ -119,6 +119,7 @@ body {
 
 /* Textbox style */
 .post-text {
+	    width: -webkit-fill-available;
     font-size: 1em;
     border-radius: 10px;
     border: 1px solid #ccc; /* Slightly darker border */
