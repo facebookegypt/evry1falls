@@ -114,24 +114,24 @@ document.getElementById('fb-logout-btn').onclick = function() {
 // Display last login message
 function displayLastLogin(date) {
     var lastLoginMessage = 'Your last login was on ' + date;
-	// Create the div for last-login message
+    
+    // Create the div for last-login message
     var lastLoginElement = document.createElement('div');
-	// Assign an ID to the div so we can style it
+    
+    // Assign an ID to the div so we can style it
     lastLoginElement.setAttribute('id', 'last-login');
-	// Set the text content for the last-login message
+    
+    // Set the text content for the last-login message
     lastLoginElement.textContent = lastLoginMessage;
-	
-    lastLoginElement.style.position = 'absolute';
-    lastLoginElement.style.bottom = '0'; // Position at the bottom of the container
-    lastLoginElement.style.left = '70px'; // Margin from the left
-	lastLoginElement.style.fontSize = '0.7em'; 
-    lastLoginElement.style.color = '#333'; // Text color
-	// Apply additional styles if needed (optional, since we're using the styles from style.css)
+    
+    // Apply additional styles if needed (optional, since we're using the styles from style.css)
     lastLoginElement.style.opacity = '0'; // Initially hidden
     lastLoginElement.style.transition = 'opacity 0.3s ease'; // Transition effect
-// Append to the body (since it should be at the bottom of the page, not in the container)
+
+    // Append to the body (since it should be at the bottom of the page, not in the container)
     document.body.appendChild(lastLoginElement);
-     // Show on hover
+
+    // Show on hover
     var container = document.getElementById('container');
     container.onmouseover = function() {
         lastLoginElement.style.opacity = '1'; // Show on hover
