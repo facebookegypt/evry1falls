@@ -40,7 +40,8 @@ function statusChangeCallback(response) {
         document.getElementById('fb-logout-btn').style.display = 'inline';
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
-        
+        // Show the post box only if user is logged in
+	    document.getElementById('post-box').style.display = 'block'; // Show the box for logged-in users
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
@@ -84,6 +85,8 @@ function statusChangeCallback(response) {
             });
         });
     } else {
+	    // Hide the post box when user is logged out
+	    document.getElementById('post-box').style.display = 'none'; // Hide the box for logged-out users
         document.getElementById('fb-login-btn').style.display = 'inline';
         document.getElementById('fb-logout-btn').style.display = 'none';
         shapesContainer.style.display = 'none'; // Hide shapes
