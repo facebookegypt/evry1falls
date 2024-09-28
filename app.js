@@ -114,13 +114,10 @@ document.getElementById('fb-logout-btn').onclick = function() {
 // Display last login message
 function displayLastLogin(date) {
     var lastLoginMessage = 'Your last login was on ' + date;
-    
     // Create the div for last-login message
     var lastLoginElement = document.createElement('div');
-    
     // Assign an ID to the div so we can style it
     lastLoginElement.setAttribute('id', 'last-login');
-    
     // Set the text content for the last-login message
     lastLoginElement.textContent = lastLoginMessage;
     // Apply additional styles if needed (optional, since we're using the styles from style.css)
@@ -138,8 +135,6 @@ function generateShapes() {
     shapesContainer.innerHTML = ''; // Clear previous shapes
     const shapes = ['circle', 'rectangle', 'square'];
     const colors = ['#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
-                displayLastLogin(formattedDate);
-		    console.log("Displaying last login message:", date);
     for (let i = 0; i < 42; i++) {
         const shape = document.createElement('div');
         shape.style.width = Math.random() * 50 + 20 + 'px';
