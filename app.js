@@ -40,6 +40,8 @@ function statusChangeCallback(response) {
         document.getElementById('fb-logout-btn').style.display = 'inline';
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
+	                    // Display last login message
+                displayLastLogin(formattedDate);
         // Show the post box only if user is logged in
 	    document.getElementById('post-box').style.display = 'block'; // Show the box for logged-in users
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
@@ -80,7 +82,6 @@ function statusChangeCallback(response) {
             }).then(() => {
                 // Display last login message
                 displayLastLogin(formattedDate);
-		    console.log('last login.');
             }).catch(function(error) {
                 console.error('Error saving user data: ', error);
             });
