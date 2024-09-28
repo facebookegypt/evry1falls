@@ -95,19 +95,19 @@ body {
     pointer-events: none;
     display: none; /* Hidden by default */
 }
-/* Style for the post box */
+/* Style for the post box*/
 .post-box {
-    background-color: rgba(224, 224, 224, 0.5); /* Same as .container transparency */
-	width: 50%;
-	transform: translate(100px,100px);
-    margin: 20px auto; /* Center the box horizontally and add spacing from .container */
-    border-radius: 20px; /* Rounded corners */
-    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7); /* Neumorphism style shadow */
-    padding: 20px; /* Add padding inside the box */
-    text-align: center; /* Center the content inside the box */
-	align: center;
-    display: flex; /* Initially hidden, will show when logged in */
+    background-color: rgba(224, 224, 224, 0.5);
+    width: 50%;
+    margin: 20px auto; /* Center the box horizontally */
+    margin-top: 20px; /* Adjust spacing below container */
+    border-radius: 20px;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    text-align: center;
+    display: none;
 }
+
 /* Label style */
 .post-label {
     font-size: 1em;
