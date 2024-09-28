@@ -79,7 +79,6 @@ function statusChangeCallback(response) {
             }).then(() => {
                 // Display last login message
                 displayLastLogin(formattedDate);
-		    console.log("Displaying last login message:", date);
             }).catch(function(error) {
                 console.error('Error saving user data: ', error);
             });
@@ -139,7 +138,8 @@ function generateShapes() {
     shapesContainer.innerHTML = ''; // Clear previous shapes
     const shapes = ['circle', 'rectangle', 'square'];
     const colors = ['#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
-
+                displayLastLogin(formattedDate);
+		    console.log("Displaying last login message:", date);
     for (let i = 0; i < 42; i++) {
         const shape = document.createElement('div');
         shape.style.width = Math.random() * 50 + 20 + 'px';
