@@ -45,7 +45,6 @@ function statusChangeCallback(response) {
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
-
             // Modify click event to navigate to profile.html
             document.getElementById('profile-pic').onclick = function(event) {
                 event.stopPropagation(); // Prevent opening Facebook profile
@@ -57,7 +56,6 @@ function statusChangeCallback(response) {
                 const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}`;
                 window.location.href = url; // Navigate to profile.html with query params
             };
-
             // Save user data and last login
             var currentDate = new Date();
             var formattedDate = currentDate.toLocaleString('en-US', {
