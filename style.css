@@ -100,7 +100,7 @@ body {
     background-color: rgba(224, 224, 224, 0.5);
     width: 50%;
     margin: 20px auto; /* Center the box horizontally */
-    margin-top: 20px; /* Adjust spacing below container */
+    margin-top: 90px; /* Adjust spacing below container */
     border-radius: 20px;
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
     padding: 20px;
