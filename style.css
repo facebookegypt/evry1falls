@@ -77,9 +77,9 @@ body {
 /* Style for the last login date/time */
 #last-login {
     position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    transform: translateX(0);
     font-size: 0.8em;
     color: #666;
     font-style: italic;
