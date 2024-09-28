@@ -104,9 +104,8 @@ body {
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7); /* Neumorphism style shadow */
     padding: 20px; /* Add padding inside the box */
     text-align: center; /* Center the content inside the box */
-	top: 50px;
+    display: none; /* Initially hidden, will show when logged in */
 }
-
 /* Label style */
 .post-label {
     font-size: 1em;
