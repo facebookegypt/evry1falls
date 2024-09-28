@@ -123,22 +123,13 @@ function displayLastLogin(date) {
     
     // Set the text content for the last-login message
     lastLoginElement.textContent = lastLoginMessage;
-    
     // Apply additional styles if needed (optional, since we're using the styles from style.css)
     lastLoginElement.style.opacity = '0'; // Initially hidden
     lastLoginElement.style.transition = 'opacity 0.3s ease'; // Transition effect
-
     // Append to the body (since it should be at the bottom of the page, not in the container)
     document.body.appendChild(lastLoginElement);
-
-    // Show on hover
-    var container = document.getElementById('container');
-    container.onmouseover = function() {
-        lastLoginElement.style.opacity = '1'; // Show on hover
-    };
-    container.onmouseleave = function() {
-        lastLoginElement.style.opacity = '0'; // Hide when not hovered
-    };
+    // Optionally show on hover or make it visible
+    lastLoginElement.style.display = 'block';
 }
 
 // Shape Generation
