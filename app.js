@@ -122,7 +122,7 @@ function displayLastLogin(date) {
     // Set the text content for the last-login message
     lastLoginElement.textContent = lastLoginMessage;
     // Apply additional styles if needed (optional, since we're using the styles from style.css)
-    lastLoginElement.style.opacity = '0'; // Initially hidden
+    lastLoginElement.style.opacity = '1'; // Initially hidden
     lastLoginElement.style.transition = 'opacity 0.3s ease'; // Transition effect
     // Append to the body (since it should be at the bottom of the page, not in the container)
     document.body.appendChild(lastLoginElement);
