@@ -33,6 +33,7 @@ window.fbAsyncInit = function() {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
+// Facebook login status callback
 function statusChangeCallback(response) {
     var shapesContainer = document.getElementById('shapes');
     if (response.status === 'connected') {
@@ -40,16 +41,18 @@ function statusChangeCallback(response) {
         document.getElementById('fb-logout-btn').style.display = 'inline';
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
-        // Show the post box only if user is logged in
-	    document.getElementById('post-box').style.display = 'block'; // Show the box for logged-in users
+        document.getElementById('post-box').style.display = 'block'; // Show the box for logged-in users
+
+        // Get user info
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
-		// Post Box logic: Capture and share the post content
+
+            // Share Button logic
             document.querySelector('.fb-share-button').addEventListener('click', function(e) {
                 e.preventDefault(); // Prevent default behavior
 
-                // Get the content of the textarea (post text)
+                // Get the post text from the textarea
                 const postText = document.getElementById('post-text').value;
 
                 if (postText.trim() === "") {
@@ -57,11 +60,11 @@ function statusChangeCallback(response) {
                     return;
                 }
 
-                // Open the Facebook share dialog with the postText included
+                // Open the Facebook Share Dialog
                 FB.ui({
                     method: 'share',
-                    href: 'https://github.com/facebookegypt/evry1falls', // The link you want to share
-                    quote: postText // This adds the user's input as the text in the Facebook share
+                    href: 'https://github.com/facebookegypt/evry1falls', // The link to share
+                    quote: postText // Add the text from the user
                 }, function(response) {
                     if (response && !response.error_message) {
                         alert('Post shared successfully!');
@@ -73,17 +76,19 @@ function statusChangeCallback(response) {
                 // Clear the textarea after sharing
                 document.getElementById('post-text').value = "";
             });
+
             // Modify click event to navigate to profile.html
             document.getElementById('profile-pic').onclick = function(event) {
                 event.stopPropagation(); // Prevent opening Facebook profile
-                const userId = response.id; // Get the user's Facebook ID
-                const userName = response.name; // Get the user's name
+                const userId = response.id;
+                const userName = response.name;
                 const userHometown = response.hometown ? response.hometown.name : "N/A";
                 const userGender = response.gender;
                 const userLikes = response.likes ? response.likes.data.join(', ') : "None";
                 const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}`;
-                window.location.href = url; // Navigate to profile.html with query params
+                window.location.href = url;
             };
+
             // Save user data and last login
             var currentDate = new Date();
             var formattedDate = currentDate.toLocaleString('en-US', {
@@ -104,15 +109,13 @@ function statusChangeCallback(response) {
                 gender: response.gender,
                 likes: response.likes ? response.likes.data : []
             }).then(() => {
-                // Display last login message
                 displayLastLogin(formattedDate);
             }).catch(function(error) {
                 console.error('Error saving user data: ', error);
             });
         });
     } else {
-	    // Hide the post box when user is logged out
-	    document.getElementById('post-box').style.display = 'none'; // Hide the box for logged-out users
+        document.getElementById('post-box').style.display = 'none'; // Hide the box for logged-out users
         document.getElementById('fb-login-btn').style.display = 'inline';
         document.getElementById('fb-logout-btn').style.display = 'none';
         shapesContainer.style.display = 'none'; // Hide shapes
@@ -120,6 +123,7 @@ function statusChangeCallback(response) {
         document.getElementById('user-name').textContent = 'Welcome!';
     }
 }
+
 document.getElementById('fb-login-btn').onclick = function() {
     FB.login(function(response) {
         if (response.authResponse) {
@@ -135,14 +139,14 @@ document.getElementById('fb-logout-btn').onclick = function() {
         statusChangeCallback(response);
         document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Reset profile picture
         document.getElementById('user-name').textContent = 'Welcome!';
-	document.getElementById('last-login').style.display = 'none'; // Clear last-login message
+        document.getElementById('last-login').style.display = 'none'; // Clear last-login message
     });
 };
 
 // Display last login message
 function displayLastLogin(date) {
     var lastLoginElement = document.getElementById('last-login');
-	lastLoginElement.textContent = 'Your last login was on ' + date;
+    lastLoginElement.textContent = 'Your last login was on ' + date;
     lastLoginElement.style.display = 'block'; // Show last login
 }
 
