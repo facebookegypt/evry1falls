@@ -114,20 +114,23 @@ document.getElementById('fb-logout-btn').onclick = function() {
 
 // Display last login message
 function displayLastLogin(date) {
-    var lastLoginMessage = 'Your last login was on ' + date;
+    var lastLoginElement = document.getElementById('last-login');
+	lastLoginElement.textContent = 'Your last login was on ' + date;
+    lastLoginElement.style.display = 'block'; // Show last login
+    //var lastLoginMessage = 'Your last login was on ' + date;
     // Create the div for last-login message
-    var lastLoginElement = document.createElement('div');
+   // var lastLoginElement = document.createElement('div');
     // Assign an ID to the div so we can style it
-    lastLoginElement.setAttribute('id', 'last-login');
+    //lastLoginElement.setAttribute('id', 'last-login');
     // Set the text content for the last-login message
-    lastLoginElement.textContent = lastLoginMessage;
+    //lastLoginElement.textContent = lastLoginMessage;
     // Apply additional styles if needed (optional, since we're using the styles from style.css)
-    lastLoginElement.style.opacity = '1'; // Initially hidden
-    lastLoginElement.style.transition = 'opacity 0.3s ease'; // Transition effect
+    //lastLoginElement.style.opacity = '1'; // Initially hidden
+    //lastLoginElement.style.transition = 'opacity 0.3s ease'; // Transition effect
     // Append to the body (since it should be at the bottom of the page, not in the container)
-    document.body.appendChild(lastLoginElement);
+    //document.body.appendChild(lastLoginElement);
     // Optionally show on hover or make it visible
-    lastLoginElement.style.display = 'block';
+    //lastLoginElement.style.display = 'block';
 }
 
 // Shape Generation
