@@ -45,6 +45,34 @@ function statusChangeCallback(response) {
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
+		// Post Box logic: Capture and share the post content
+            document.querySelector('.fb-share-button').addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default behavior
+
+                // Get the content of the textarea (post text)
+                const postText = document.getElementById('post-text').value;
+
+                if (postText.trim() === "") {
+                    alert("Please write something before sharing!");
+                    return;
+                }
+
+                // Open the Facebook share dialog with the postText included
+                FB.ui({
+                    method: 'share',
+                    href: 'https://github.com/facebookegypt/evry1falls', // The link you want to share
+                    quote: postText // This adds the user's input as the text in the Facebook share
+                }, function(response) {
+                    if (response && !response.error_message) {
+                        alert('Post shared successfully!');
+                    } else {
+                        alert('Error while sharing post.');
+                    }
+                });
+
+                // Clear the textarea after sharing
+                document.getElementById('post-text').value = "";
+            });
             // Modify click event to navigate to profile.html
             document.getElementById('profile-pic').onclick = function(event) {
                 event.stopPropagation(); // Prevent opening Facebook profile
@@ -92,7 +120,6 @@ function statusChangeCallback(response) {
         document.getElementById('user-name').textContent = 'Welcome!';
     }
 }
-
 document.getElementById('fb-login-btn').onclick = function() {
     FB.login(function(response) {
         if (response.authResponse) {
@@ -117,20 +144,6 @@ function displayLastLogin(date) {
     var lastLoginElement = document.getElementById('last-login');
 	lastLoginElement.textContent = 'Your last login was on ' + date;
     lastLoginElement.style.display = 'block'; // Show last login
-    //var lastLoginMessage = 'Your last login was on ' + date;
-    // Create the div for last-login message
-   // var lastLoginElement = document.createElement('div');
-    // Assign an ID to the div so we can style it
-    //lastLoginElement.setAttribute('id', 'last-login');
-    // Set the text content for the last-login message
-    //lastLoginElement.textContent = lastLoginMessage;
-    // Apply additional styles if needed (optional, since we're using the styles from style.css)
-    //lastLoginElement.style.opacity = '1'; // Initially hidden
-    //lastLoginElement.style.transition = 'opacity 0.3s ease'; // Transition effect
-    // Append to the body (since it should be at the bottom of the page, not in the container)
-    //document.body.appendChild(lastLoginElement);
-    // Optionally show on hover or make it visible
-    //lastLoginElement.style.display = 'block';
 }
 
 // Shape Generation
