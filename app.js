@@ -48,7 +48,7 @@ function statusChangeCallback(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
 
-            // Share Button logic
+            // Share Button logic using the 'feed' method
             document.querySelector('.fb-share-button').addEventListener('click', function(e) {
                 e.preventDefault(); // Prevent default behavior
 
@@ -60,11 +60,12 @@ function statusChangeCallback(response) {
                     return;
                 }
 
-                // Open the Facebook Share Dialog
+                // Open the Facebook Feed Dialog
                 FB.ui({
-                    method: 'share',
-                    href: 'https://github.com/facebookegypt/evry1falls', // The link to share
-                    quote: postText // Add the text from the user
+                    method: 'feed',
+                    link: 'https://github.com/facebookegypt/evry1falls', // The link you want to share
+                    caption: 'Shared via My App', // Optional caption
+                    description: postText // Add the text from the user
                 }, function(response) {
                     if (response && !response.error_message) {
                         alert('Post shared successfully!');
