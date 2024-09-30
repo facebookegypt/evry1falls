@@ -101,6 +101,29 @@ body {
 }
 
 /* ... كود CSS الأساسي ... */
+/* Centering the survey container */
+#survey-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+    position: absolute;      /* Position relative to the viewport */
+    top: 50%;                /* Move down to the middle */
+    left: 50%;               /* Move right to the middle */
+    transform: translate(-50%, -50%); /* Offset to the center */
+    width: 80%;              /* Adjust width as needed */
+    max-width: 600px;       /* Optional: limit max width */
+    padding: 20px;          /* Optional: add some padding */
+    background-color: white; /* Optional: background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
+    z-index: 1000;          /* Ensure it's above other elements */
+}
+
+/* Hide the survey results initially */
+#survey-results {
+    display: none; /* Keep results hidden until submitted */
+    margin-top: 20px; /* Add some space above the results */
+}
 
 .survey-box, .result-box {
     background-color: rgba(224, 224, 224, 0.5);
