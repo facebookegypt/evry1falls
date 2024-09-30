@@ -41,6 +41,7 @@ function statusChangeCallback(response) {
         document.getElementById('fb-logout-btn').style.display = 'inline';
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
+        document.getElementById('survey-container').style.display = 'block'; // show survey container
             // Get user info
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
@@ -128,7 +129,6 @@ document.getElementById('fb-logout-btn').onclick = function() {
         document.getElementById('survey-container').style.display = 'none'; // Hide survey container
     });
 };
-document.getElementById('survey-container').style.display = 'block'; // show survey container
 // Survey form submission
 document.getElementById('survey-form').onsubmit = function(event) {
     event.preventDefault(); // Prevent default form submission
