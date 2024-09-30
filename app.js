@@ -41,12 +41,6 @@ function statusChangeCallback(response) {
         document.getElementById('fb-logout-btn').style.display = 'inline';
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
-        // Get user info
-        FB.api('/me', { fields: 'name,picture,hometown,gender' }, function(response) {
-            document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
-            document.getElementById('profile-pic').src = response.picture.data.url;
-            // Show survey container
-            document.getElementById('survey-container').style.display = 'block';
             // Get user info
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
