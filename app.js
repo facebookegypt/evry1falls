@@ -58,7 +58,7 @@ function statusChangeCallback(response) {
             };
             // Save user data
             saveUserData(response);
-        }));
+        });
     } else {
         document.getElementById('fb-login-btn').style.display = 'inline';
         document.getElementById('fb-logout-btn').style.display = 'none';
