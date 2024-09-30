@@ -1,97 +1,46 @@
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #e0e0e0;
-    color: #333;
-    margin: 0;
-    overflow: hidden;
-    background: linear-gradient(to bottom right, #87CEFA, #B0E0E6);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items:flex-start;
-}
+/* ... كود CSS الأساسي ... */
 
-.container {
-    background-color: rgba(224, 224, 224, 0.5); /* 50% transparent */
-    position: fixed; /* Changed to relative */
+.survey-box, .result-box {
+    background-color: rgba(224, 224, 224, 0.5);
+    width: 50%;
+    margin: 20px auto;
     border-radius: 20px;
     box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
-    text-align: left;
-    width: 100%;
-    height: 60px;
+    padding: 20px;
+    text-align: center;
+}
+
+.survey-box form {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    top: 0; /* Adjusted for logged out state */
-    z-index: 1;
-    transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transition */
-    margin-bottom: 20px; /* Added margin below to create space for the post box */
+    flex-direction: column;
 }
-.container:hover {
-    background-color: rgba(224, 224, 224, 1); /* Fully opaque on hover */
+
+.survey-box label {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
-.container h1 {
-            font-size: 1em;
-            margin: 0;
-            flex-grow: 1;
-            margin-left: 10px; /* Space from profile picture */
-        }
-.container button {
+
+.survey-box select {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
+
+.result-box button {
     background-color: #e0e0e0;
     border: none;
-    padding-top: 8px; /* Adjust padding as needed */
-	padding-bottom: 8px; /* Adjust padding as needed */
-    font-size: 0.9em;
+    padding: 8px;
+    font-size: 1em;
     border-radius: 20px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
     cursor: pointer;
-    margin-left: 10px; /* Space between buttons */
-    height: auto; /* Ensure height is not stretched */
-    transition: box-shadow 0.3s ease;
-	margin-right: 10px;
+    margin: 10px;
 }
-.container button:hover {
+
+.result-box button:hover {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
-}
-.container img {
-    width: 40px;
-    height: 40px;
-    border-radius: 40%;
-    border: 4px solid #fff;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.container .text-area {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-}
-.container p {
-    font-size: 0.8em;
-    margin: 0;
-    color: #555;
-}
-
-/* Style for the last login date/time */
-#last-login {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    transform: translateX(0);
-    font-size: 0.8em;
-    color: #666;
-    font-style: italic;
-    display: none; /* Initially hidden */
-}
-.shapes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-    display: none; /* Hidden by default */
 }
