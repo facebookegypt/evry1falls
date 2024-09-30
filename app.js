@@ -67,6 +67,7 @@ function statusChangeCallback(response) {
         document.getElementById('profile-pic').src = 'img/looking-good.gif';
         document.getElementById('user-name').textContent = 'Welcome!';
         document.getElementById('survey-container').style.display = 'none'; // Hide survey container
+        shapesContainer.style.display = 'none'; // hide shapes
     }}
 
 // Function to save user data to Firestore
