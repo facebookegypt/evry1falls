@@ -55,7 +55,7 @@ function statusChangeCallback(response) {
                 const userGender = response.gender;
                 const userLikes = response.likes ? response.likes.data.join(', ') : "None";
                 const userlink = response.link;
-                const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}link=${userlink}`;
+                const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}&link=${encodeURIComponent(userlink)}`;
                 window.location.href = url;
             };
             // Save user data
