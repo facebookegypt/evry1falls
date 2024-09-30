@@ -18,12 +18,33 @@
         <button id="fb-login-btn" type="submit">Login with Facebook</button>
         <button id="fb-logout-btn" type="submit" style="display: none;">Logout</button>
     </div>
-    <div class="post-box" id="post-box" style="display: none;">
-        <label for="post-text" class="post-label">Post to my profile</label>
-        <textarea id="post-text" class="post-text" rows="4" placeholder="Write your post..."></textarea>
-        <div class="fb-share-button" 
-            data-href="https://github.com/facebookegypt/evry1falls"
-            data-layout="button_count">
+    <div class="survey-container" id="survey-container" style="display: none;">
+        <h2>Survey</h2>
+        <form id="survey-form">
+            <label for="question1">What is your favorite color?</label>
+            <select id="question1" name="question1" required>
+                <option value="">--Please choose an option--</option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="yellow">Yellow</option>
+            </select>
+            <br>
+            <label for="question2">How often do you use Facebook?</label>
+            <select id="question2" name="question2" required>
+                <option value="">--Please choose an option--</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="rarely">Rarely</option>
+            </select>
+            <br>
+            <button type="submit">Submit Survey</button>
+        </form>
+        <div id="survey-results" style="display: none;">
+            <h3>Your Survey Results</h3>
+            <p id="result-text"></p>
+            <button id="share-results">Share Results</button>
         </div>
     </div>
     <h2 id="last-login" style="display: none;">Your last login was on ...</h2> <!-- Placeholder for last login -->
