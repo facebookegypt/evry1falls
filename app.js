@@ -58,7 +58,6 @@ function statusChangeCallback(response) {
             };
             // Save user data
             saveUserData(response);
-            document.getElementById('survey-container').style.display = 'block'; // show survey container
         });
     } else {
         document.getElementById('fb-login-btn').style.display = 'inline';
@@ -129,7 +128,7 @@ document.getElementById('fb-logout-btn').onclick = function() {
         document.getElementById('survey-container').style.display = 'none'; // Hide survey container
     });
 };
-
+document.getElementById('survey-container').style.display = 'block'; // show survey container
 // Survey form submission
 document.getElementById('survey-form').onsubmit = function(event) {
     event.preventDefault(); // Prevent default form submission
