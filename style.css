@@ -115,10 +115,14 @@ body {
     max-width: 600px;       /* Optional: limit max width */
     padding: 20px;          /* Optional: add some padding */
     background-color: white; /* Optional: background color */
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
+	transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transition */
     z-index: 1000;          /* Ensure it's above other elements */
 }
-
+#survey-container:hover {
+    background-color: rgba(224, 224, 224, 1); /* Fully opaque on hover */
+}
 /* Hide the survey results initially */
 #survey-results {
     display: none; /* Keep results hidden until submitted */
