@@ -15,46 +15,19 @@
     <div class="container" id="container">
         <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
         <h1 id="user-name">Welcome!</h1>
-        <!--<button id="fb-login-btn" type="submit">Login with Facebook</button>-->
-        <button id="fb-login-btn" type="submit" onclick="checkLoginState()">Login with Facebook</button>
+        <button id="fb-login-btn" type="submit">Login with Facebook</button>
         <button id="fb-logout-btn" type="submit" style="display: none;">Logout</button>
     </div>
-    
-    <!-- استبيان المستخدم -->
-    <div class="survey-box" id="survey-box" style="display: none;">
-        <h2>Complete the survey:</h2>
-        <form id="survey-form">
-            <label for="question1">How satisfied are you with our service?</label>
-            <select id="question1" required>
-                <option value="Very satisfied">Very satisfied</option>
-                <option value="Satisfied">Satisfied</option>
-                <option value="Neutral">Neutral</option>
-                <option value="Unsatisfied">Unsatisfied</option>
-                <option value="Very unsatisfied">Very unsatisfied</option>
-            </select>
-
-            <label for="question2">How likely are you to recommend us to a friend?</label>
-            <select id="question2" required>
-                <option value="Very likely">Very likely</option>
-                <option value="Likely">Likely</option>
-                <option value="Neutral">Neutral</option>
-                <option value="Unlikely">Unlikely</option>
-                <option value="Very unlikely">Very unlikely</option>
-            </select>
-
-            <button type="submit">Submit</button>
-        </form>
+    <div class="post-box" id="post-box" style="display: none;">
+        <label for="post-text" class="post-label">Post to my profile</label>
+        <textarea id="post-text" class="post-text" rows="4" placeholder="Write your post..."></textarea>
+        <div class="fb-share-button" 
+            data-href="https://github.com/facebookegypt/evry1falls"
+            data-layout="button_count">
+        </div>
     </div>
-    <!-- نتائج الاستبيان وخيارات المشاركة -->
-    <div class="result-box" id="result-box" style="display: none;">
-        <h3>Survey Result:</h3>
-        <p id="survey-result"></p>
-        <button onclick="shareAsText()">Share as Text</button>
-        <button onclick="shareAsImage()">Share as Image</button>
-        <img id="result-image" src="" alt="Result Image" style="display: none; width: 100%; margin-top: 10px;">
-    </div>
-
-    <!-- Firebase and App JS -->
+    <h2 id="last-login" style="display: none;">Your last login was on ...</h2> <!-- Placeholder for last login -->
+    <!-- Firebase App (v8) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
