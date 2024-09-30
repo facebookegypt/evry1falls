@@ -11,7 +11,6 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
-
 // Facebook SDK
 window.fbAsyncInit = function() {
     FB.init({
