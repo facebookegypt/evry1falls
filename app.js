@@ -35,93 +35,55 @@ window.fbAsyncInit = function() {
 
 // Facebook login status callback
 function statusChangeCallback(response) {
-    var shapesContainer = document.getElementById('shapes');
     if (response.status === 'connected') {
         document.getElementById('fb-login-btn').style.display = 'none';
         document.getElementById('fb-logout-btn').style.display = 'inline';
-        shapesContainer.style.display = 'block'; // Show shapes
-        generateShapes();
-        document.getElementById('post-box').style.display = 'block'; // Show the box for logged-in users
 
         // Get user info
-        FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
+        FB.api('/me', { fields: 'name,picture,hometown,gender' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
 
-            // Add your share button logic here if needed
-            
-            // Modify click event to navigate to profile.html
-            document.getElementById('profile-pic').onclick = function(event) {
-                event.stopPropagation(); // Prevent opening Facebook profile
-                const userId = response.id;
-                const userName = response.name;
-                const userHometown = response.hometown ? response.hometown.name : "N/A";
-                const userGender = response.gender;
-                const userLikes = response.likes ? response.likes.data.join(', ') : "None";
-                const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}`;
-                window.location.href = url;
-            };
+            // Show survey container
+            document.getElementById('survey-container').style.display = 'block';
 
-            // Save user data and last login
-            var currentDate = new Date();
-            var formattedDate = currentDate.toLocaleString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
-            });
-
-            firestore.collection('users').doc(response.id).set({
-                name: response.name,
-                picture: response.picture.data.url,
-                lastLogin: formattedDate,
-                hometown: response.hometown ? response.hometown.name : "N/A",
-                gender: response.gender,
-                likes: response.likes ? response.likes.data : []
-            }).then(() => {
-                displayLastLogin(formattedDate);
-            }).catch(function(error) {
-                console.error('Error saving user data: ', error);
-            });
+            // Save user data
+            saveUserData(response);
         });
     } else {
-        document.getElementById('post-box').style.display = 'none'; // Hide the box for logged-out users
         document.getElementById('fb-login-btn').style.display = 'inline';
         document.getElementById('fb-logout-btn').style.display = 'none';
-        shapesContainer.style.display = 'none'; // Hide shapes
         document.getElementById('profile-pic').src = 'img/looking-good.gif';
         document.getElementById('user-name').textContent = 'Welcome!';
+        document.getElementById('survey-container').style.display = 'none'; // Hide survey container
     }
 }
 
-// Add this function to check login state
-function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
+// Function to save user data to Firestore
+function saveUserData(user) {
+    var currentDate = new Date();
+    var formattedDate = currentDate.toLocaleString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+    });
+
+    firestore.collection('users').doc(user.id).set({
+        name: user.name,
+        picture: user.picture.data.url,
+        lastLogin: formattedDate,
+        hometown: user.hometown ? user.hometown.name : "N/A",
+        gender: user.gender
+    }).then(() => {
+        displayLastLogin(formattedDate);
+    }).catch(function(error) {
+        console.error('Error saving user data: ', error);
     });
 }
-
-document.getElementById('fb-login-btn').onclick = function() {
-    FB.login(function(response) {
-        if (response.authResponse) {
-            statusChangeCallback(response);
-        } else {
-            console.log('User cancelled login or failed.');
-        }
-    }, { scope: 'public_profile,email,user_hometown,user_gender,user_likes' });
-};
-
-document.getElementById('fb-logout-btn').onclick = function() {
-    FB.logout(function(response) {
-        statusChangeCallback(response);
-        document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Reset profile picture
-        document.getElementById('user-name').textContent = 'Welcome!';
-        document.getElementById('last-login').style.display = 'none'; // Clear last-login message
-    });
-};
 
 // Display last login message
 function displayLastLogin(date) {
@@ -130,24 +92,56 @@ function displayLastLogin(date) {
     lastLoginElement.style.display = 'block'; // Show last login
 }
 
-// Shape Generation
-function generateShapes() {
-    const shapesContainer = document.getElementById('shapes');
-    shapesContainer.innerHTML = ''; // Clear previous shapes
-    const shapes = ['circle', 'rectangle', 'square'];
-    const colors = ['#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
-    for (let i = 0; i < 42; i++) {
-        const shape = document.createElement('div');
-        shape.style.width = Math.random() * 50 + 20 + 'px';
-        shape.style.height = shape.style.width;
-        shape.style.backgroundColor = 'transparent';
-        shape.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
-        shape.style.borderWidth = '2px';
-        shape.style.borderStyle = 'solid';
-        shape.style.borderRadius = Math.random() < 0.5 ? '50%' : '0';
-        shape.style.position = 'absolute';
-        shape.style.left = Math.random() * 100 + 'vw';
-        shape.style.top = Math.random() * 100 + 'vh';
-        shapesContainer.appendChild(shape);
-    }
+// Check login state
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
 }
+
+// Facebook login button
+document.getElementById('fb-login-btn').onclick = function() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            statusChangeCallback(response);
+        } else {
+            console.log('User cancelled login or failed.');
+        }
+    }, { scope: 'public_profile,email,user_hometown,user_gender' });
+};
+
+// Facebook logout button
+document.getElementById('fb-logout-btn').onclick = function() {
+    FB.logout(function(response) {
+        statusChangeCallback(response);
+        document.getElementById('profile-pic').src = 'img/looking-good.gif'; // Reset profile picture
+        document.getElementById('user-name').textContent = 'Welcome!';
+        document.getElementById('last-login').style.display = 'none'; // Clear last-login message
+        document.getElementById('survey-container').style.display = 'none'; // Hide survey container
+    });
+};
+
+// Survey form submission
+document.getElementById('survey-form').onsubmit = function(event) {
+    event.preventDefault(); // Prevent default form submission
+    const question1 = document.getElementById('question1').value;
+    const question2 = document.getElementById('question2').value;
+
+    // Display survey results
+    const resultText = `Favorite Color: ${question1}<br>Facebook Usage: ${question2}`;
+    document.getElementById('result-text').innerHTML = resultText;
+    document.getElementById('survey-results').style.display = 'block';
+};
+
+// Share results functionality
+document.getElementById('share-results').onclick = function() {
+    const resultsText = document.getElementById('result-text').innerHTML;
+    const blob = new Blob([resultsText], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'survey_results.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+};
