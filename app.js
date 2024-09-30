@@ -58,6 +58,7 @@ function statusChangeCallback(response) {
             };
             // Save user data
             saveUserData(response);
+            document.getElementById('survey-container').style.display = 'block'; // show survey container
         });
     } else {
         document.getElementById('fb-login-btn').style.display = 'inline';
@@ -112,7 +113,6 @@ document.getElementById('fb-login-btn').onclick = function() {
     FB.login(function(response) {
         if (response.authResponse) {
             statusChangeCallback(response);
-                            document.getElementById('survey-container').style.display = 'block'; // show survey container
         } else {
             console.log('User cancelled login or failed.');
         }
