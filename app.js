@@ -39,11 +39,11 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         document.getElementById('fb-login-btn').style.display = 'none';
         document.getElementById('fb-logout-btn').style.display = 'inline';
+        document.getElementById('survey-container').style.display = 'block'; // show survey container
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
-        document.getElementById('survey-container').style.display = 'block'; // show survey container
             // Get user info
-        FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
+        FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes,link' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
              // Modify click event to navigate to profile.html
@@ -54,7 +54,8 @@ function statusChangeCallback(response) {
                 const userHometown = response.hometown ? response.hometown.name : "N/A";
                 const userGender = response.gender;
                 const userLikes = response.likes ? response.likes.data.join(', ') : "None";
-                const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}`;
+                const userlink = response.link ? response.link;
+                const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}link=${userlink}`;
                 window.location.href = url;
             };
             // Save user data
@@ -86,7 +87,8 @@ function saveUserData(user) {
         picture: user.picture.data.url,
         lastLogin: formattedDate,
         hometown: user.hometown ? user.hometown.name : "N/A",
-        gender: user.gender
+        gender: user.gender,
+        link: user.link
     }).then(() => {
         displayLastLogin(formattedDate);
     }).catch(function(error) {
