@@ -55,7 +55,6 @@ function statusChangeCallback(response) {
                 const userLikes = response.likes ? response.likes.data.join(', ') : "None";
                 const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}`;
                 window.location.href = url;
-                document.getElementById('survey-container').style.display = 'block'; // show survey container
             };
             // Save user data
             saveUserData(response);
@@ -113,6 +112,7 @@ document.getElementById('fb-login-btn').onclick = function() {
     FB.login(function(response) {
         if (response.authResponse) {
             statusChangeCallback(response);
+                            document.getElementById('survey-container').style.display = 'block'; // show survey container
         } else {
             console.log('User cancelled login or failed.');
         }
