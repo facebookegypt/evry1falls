@@ -64,15 +64,14 @@ function statusChangeCallback(response) {
             };
             // Save user data
             saveUserData(response);
-        });
+        }));
     } else {
         document.getElementById('fb-login-btn').style.display = 'inline';
         document.getElementById('fb-logout-btn').style.display = 'none';
         document.getElementById('profile-pic').src = 'img/looking-good.gif';
         document.getElementById('user-name').textContent = 'Welcome!';
         document.getElementById('survey-container').style.display = 'none'; // Hide survey container
-    }
-}
+    }}
 
 // Function to save user data to Firestore
 function saveUserData(user) {
