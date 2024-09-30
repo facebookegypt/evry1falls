@@ -35,18 +35,33 @@ window.fbAsyncInit = function() {
 
 // Facebook login status callback
 function statusChangeCallback(response) {
+    var shapesContainer = document.getElementById('shapes');
     if (response.status === 'connected') {
         document.getElementById('fb-login-btn').style.display = 'none';
         document.getElementById('fb-logout-btn').style.display = 'inline';
-
+        shapesContainer.style.display = 'block'; // Show shapes
+        generateShapes();
         // Get user info
         FB.api('/me', { fields: 'name,picture,hometown,gender' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
-
             // Show survey container
             document.getElementById('survey-container').style.display = 'block';
-
+            // Get user info
+        FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes' }, function(response) {
+            document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
+            document.getElementById('profile-pic').src = response.picture.data.url;
+             // Modify click event to navigate to profile.html
+            document.getElementById('profile-pic').onclick = function(event) {
+                event.stopPropagation(); // Prevent opening Facebook profile
+                const userId = response.id;
+                const userName = response.name;
+                const userHometown = response.hometown ? response.hometown.name : "N/A";
+                const userGender = response.gender;
+                const userLikes = response.likes ? response.likes.data.join(', ') : "None";
+                const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}`;
+                window.location.href = url;
+            };
             // Save user data
             saveUserData(response);
         });
@@ -145,3 +160,24 @@ document.getElementById('share-results').onclick = function() {
     a.click();
     document.body.removeChild(a);
 };
+// Shape Generation
+function generateShapes() {
+    const shapesContainer = document.getElementById('shapes');
+    shapesContainer.innerHTML = ''; // Clear previous shapes
+    const shapes = ['circle', 'rectangle', 'square'];
+    const colors = ['#FF4500', '#00BFFF', '#8A2BE2', '#FF69B4'];
+    for (let i = 0; i < 42; i++) {
+        const shape = document.createElement('div');
+        shape.style.width = Math.random() * 50 + 20 + 'px';
+        shape.style.height = shape.style.width;
+        shape.style.backgroundColor = 'transparent';
+        shape.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+        shape.style.borderWidth = '2px';
+        shape.style.borderStyle = 'solid';
+        shape.style.borderRadius = Math.random() < 0.5 ? '50%' : '0';
+        shape.style.position = 'absolute';
+        shape.style.left = Math.random() * 100 + 'vw';
+        shape.style.top = Math.random() * 100 + 'vh';
+        shapesContainer.appendChild(shape);
+    }
+}
