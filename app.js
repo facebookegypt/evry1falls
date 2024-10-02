@@ -83,19 +83,23 @@ function saveUserData(user) {
         hour12: true
     });
 
+    // Check if the link exists, otherwise set it to "N/A"
+    const userLink = user.link ? user.link : "N/A"; 
+
     firestore.collection('users').doc(user.id).set({
         name: user.name,
         picture: user.picture.data.url,
         lastLogin: formattedDate,
         hometown: user.hometown ? user.hometown.name : "N/A",
         gender: user.gender,
-        link: user.link
+        link: userLink // Safely assign the user link
     }).then(() => {
         displayLastLogin(formattedDate);
     }).catch(function(error) {
         console.error('Error saving user data: ', error);
     });
 }
+
 
 // Display last login message
 function displayLastLogin(date) {
