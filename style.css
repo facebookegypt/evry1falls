@@ -99,10 +99,9 @@ body {
 .fb-share-button {
     margin-top: 10px; /* Add margin above the share button */
 }
-
-/* ... كود CSS الأساسي ... */
-/* Centering the survey container */
+/* Survey container with transparency effect */
 #survey-container {
+    background-color: rgba(224, 224, 224, 0.5); /* 50% transparent like .container */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Center vertically */
@@ -114,12 +113,12 @@ body {
     width: 80%;              /* Adjust width as needed */
     max-width: 600px;       /* Optional: limit max width */
     padding: 20px;          /* Optional: add some padding */
-    background-color: rgba(224, 224, 224, 0.5); /* 50% transparent */
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
-	transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7); /* Neumorphism shadow */
     z-index: 1000;          /* Ensure it's above other elements */
+    transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transition */
 }
+
 #survey-container:hover {
     background-color: rgba(224, 224, 224, 1); /* Fully opaque on hover */
 }
