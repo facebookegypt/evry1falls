@@ -116,14 +116,6 @@ function checkLoginState() {
 }
 
 // Facebook login button
-FB.login(function(response) {
-    if (response.authResponse) {
-        statusChangeCallback(response);
-    } else {
-        console.log('User cancelled login or failed.');
-    }
-}, { scope: 'public_profile,email,user_hometown,user_gender,user_link' }); 
-
 document.getElementById('fb-login-btn').onclick = function() {
     FB.login(function(response) {
         if (response.authResponse) {
