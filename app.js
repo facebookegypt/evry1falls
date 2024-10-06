@@ -42,11 +42,13 @@ function statusChangeCallback(response) {
         document.getElementById('survey-container').style.display = 'block'; // show survey container
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
-            // Get user info
+
+        // Get user info
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes,link' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
-             // Modify click event to navigate to profile.html
+
+            // Modify click event to navigate to profile.html
             document.getElementById('profile-pic').onclick = function(event) {
                 event.stopPropagation(); // Prevent opening Facebook profile
                 const userId = response.id;
@@ -58,6 +60,7 @@ function statusChangeCallback(response) {
                 const url = `profile.html?id=${userId}&name=${encodeURIComponent(userName)}&hometown=${encodeURIComponent(userHometown)}&gender=${userGender}&likes=${encodeURIComponent(userLikes)}&link=${userlink}`;
                 window.location.href = url;
             };
+
             // Save user data
             saveUserData(response);
         });
@@ -68,7 +71,8 @@ function statusChangeCallback(response) {
         document.getElementById('user-name').textContent = 'Welcome!';
         document.getElementById('survey-container').style.display = 'none'; // Hide survey container
         shapesContainer.style.display = 'none'; // hide shapes
-    }}
+    }
+}
 
 // Function to save user data to Firestore
 function saveUserData(user) {
@@ -97,6 +101,7 @@ function saveUserData(user) {
         console.error('Error saving user data: ', error);
     });
 }
+
 // Display last login message
 function displayLastLogin(date) {
     var lastLoginElement = document.getElementById('last-login');
@@ -132,6 +137,7 @@ document.getElementById('fb-logout-btn').onclick = function() {
         document.getElementById('survey-container').style.display = 'none'; // Hide survey container
     });
 };
+
 // Survey form submission
 document.getElementById('survey-form').onsubmit = function(event) {
     event.preventDefault(); // Prevent default form submission
@@ -156,6 +162,26 @@ document.getElementById('share-results').onclick = function() {
     a.click();
     document.body.removeChild(a);
 };
+
+// Function to delete user data from Firestore
+function deleteUserData(userId) {
+    firestore.collection('users').doc(userId).delete()
+        .then(() => {
+            console.log("User data deleted successfully");
+            // Optionally, you can redirect or show a confirmation message
+        })
+        .catch((error) => {
+            console.error("Error deleting user data: ", error);
+        });
+}
+
+// Example usage: Call this function when you want to delete user data
+// For example, add a button to delete user data in your HTML
+document.getElementById('delete-account-btn').onclick = function() {
+    const userId = 'the_user_id_here'; // Get this dynamically based on the logged-in user
+    deleteUserData(userId);
+};
+
 // Shape Generation
 function generateShapes() {
     const shapesContainer = document.getElementById('shapes');
