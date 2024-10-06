@@ -15,7 +15,7 @@ var firestore = firebase.firestore();
 // Facebook SDK
 window.fbAsyncInit = function() {
     FB.init({
-        appId: '1238020140566279',
+        appId: '880835337346722', //'1238020140566279',
         cookie: true,
         xfbml: true,
         version: 'v20.0'
