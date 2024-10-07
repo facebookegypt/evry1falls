@@ -33,7 +33,8 @@ window.fbAsyncInit = function() {
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
+// Variables to store user data
+let currentUserId = ''; // This will hold the logged-in user's ID
 // Facebook login status callback
 function statusChangeCallback(response) {
     var shapesContainer = document.getElementById('shapes');
@@ -51,7 +52,8 @@ function statusChangeCallback(response) {
 
             // Show the delete account button for logged in users
             document.getElementById('delete-account-btn').style.display = 'inline';
-
+             // Store the current user's ID
+            currentUserId = response.id; // Save the user ID for later use
             // Modify click event to navigate to profile.html
             document.getElementById('profile-pic').onclick = function(event) {
                 event.stopPropagation(); // Prevent opening Facebook profile
@@ -170,6 +172,15 @@ document.getElementById('share-results').onclick = function() {
     document.body.removeChild(a);
 };
 
+// Add the delete account button functionality
+document.getElementById('delete-account-btn').onclick = function() {
+    if (currentUserId) {
+        deleteUserData(currentUserId); // Use the dynamically set user ID
+    } else {
+        console.error("No user is currently logged in.");
+    }
+};
+
 // Function to delete user data from Firestore
 function deleteUserData(userId) {
     firestore.collection('users').doc(userId).delete()
@@ -180,14 +191,7 @@ function deleteUserData(userId) {
         .catch((error) => {
             console.error("Error deleting user data: ", error);
         });
-}
-
-// Button for deletion
-document.getElementById('delete-account-btn').onclick = function() {
-    const userId = 'the_user_id_here'; // Replace this with the actual user ID dynamically
-    deleteUserData(userId);
 };
-
 // Shape Generation
 function generateShapes() {
     const shapesContainer = document.getElementById('shapes');
