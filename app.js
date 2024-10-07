@@ -4,18 +4,19 @@ var firebaseConfig = {
     authDomain: "git-hub-test-34e5a.firebaseapp.com",
     databaseURL: "https://git-hub-test-34e5a-default-rtdb.firebaseio.com",
     projectId: "git-hub-test-34e5a",
-    storageBucket: "git-hub-test-34e5a.appspot.com",
+    storageBucket: "git-hub-test-34e5a",
     messagingSenderId: "824616741271",
     appId: "1:824616741271:web:7d068b5de85ba781757cd2",
     measurementId: "G-TV39YCR646"
 };
+
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 
 // Facebook SDK
 window.fbAsyncInit = function() {
     FB.init({
-        appId: '880835337346722', //'1238020140566279',
+        appId: '880835337346722', // Your Facebook App ID
         cookie: true,
         xfbml: true,
         version: 'v20.0'
@@ -39,7 +40,7 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         document.getElementById('fb-login-btn').style.display = 'none';
         document.getElementById('fb-logout-btn').style.display = 'inline';
-        document.getElementById('survey-container').style.display = 'block'; // show survey container
+        document.getElementById('survey-container').style.display = 'block'; // Show survey container
         shapesContainer.style.display = 'block'; // Show shapes
         generateShapes();
 
@@ -47,6 +48,9 @@ function statusChangeCallback(response) {
         FB.api('/me', { fields: 'id,name,picture,hometown,gender,likes,link' }, function(response) {
             document.getElementById('user-name').textContent = 'Welcome, ' + response.name + '!';
             document.getElementById('profile-pic').src = response.picture.data.url;
+
+            // Show the delete account button for logged in users
+            document.getElementById('delete-account-btn').style.display = 'inline';
 
             // Modify click event to navigate to profile.html
             document.getElementById('profile-pic').onclick = function(event) {
@@ -70,7 +74,10 @@ function statusChangeCallback(response) {
         document.getElementById('profile-pic').src = 'img/looking-good.gif';
         document.getElementById('user-name').textContent = 'Welcome!';
         document.getElementById('survey-container').style.display = 'none'; // Hide survey container
-        shapesContainer.style.display = 'none'; // hide shapes
+        shapesContainer.style.display = 'none'; // Hide shapes
+
+        // Hide the delete account button for logged out users
+        document.getElementById('delete-account-btn').style.display = 'none'; // Hide the button when logged out
     }
 }
 
@@ -124,7 +131,7 @@ document.getElementById('fb-login-btn').onclick = function() {
         } else {
             console.log('User cancelled login or failed.');
         }
-    }, { scope: 'public_profile,email,user_hometown,user_gender,user_link' });// Add 'user_link' permission
+    }, { scope: 'public_profile,email,user_hometown,user_gender,user_link' }); // Add 'user_link' permission
 };
 
 // Facebook logout button
@@ -175,10 +182,9 @@ function deleteUserData(userId) {
         });
 }
 
-// Example usage: Call this function when you want to delete user data
-// For example, add a button to delete user data in your HTML
+// Button for deletion
 document.getElementById('delete-account-btn').onclick = function() {
-    const userId = 'the_user_id_here'; // Get this dynamically based on the logged-in user
+    const userId = 'the_user_id_here'; // Replace this with the actual user ID dynamically
     deleteUserData(userId);
 };
 
