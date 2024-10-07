@@ -40,7 +40,7 @@ body {
     background-color: #e0e0e0;
     border: none;
     padding-top: 8px; /* Adjust padding as needed */
-	padding-bottom: 8px; /* Adjust padding as needed */
+    padding-bottom: 8px; /* Adjust padding as needed */
     font-size: 0.9em;
     border-radius: 20px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
@@ -48,7 +48,7 @@ body {
     margin-left: 10px; /* Space between buttons */
     height: auto; /* Ensure height is not stretched */
     transition: box-shadow 0.3s ease;
-	margin-right: 10px;
+    margin-right: 10px;
 }
 .container button:hover {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
@@ -247,15 +247,18 @@ body {
 }
 
 .footer-right button {
-    background-color: #ff4d4d;
+    background-color: #e0e0e0;
     border: none;
-    padding: 10px 20px;
+    padding-top: 8px; /* Adjust padding as needed */
+    padding-bottom: 8px; /* Adjust padding as needed */
     font-size: 0.9em;
     border-radius: 20px;
-    color: #fff;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7); /* Neumorphism button effect */
+    margin-left: 10px; /* Space between buttons */
+    height: auto; /* Ensure height is not stretched */
+    transition: box-shadow 0.3s ease;
+    margin-right: 10px;
 }
 
 .footer-right button:hover {
