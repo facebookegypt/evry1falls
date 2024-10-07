@@ -172,3 +172,21 @@ body {
 .result-box button:hover {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
 }
+/* Add this to your existing style.css */
+
+#delete-account-btn {
+    background-color: #ff4d4d; /* A red background for visibility */
+    color: white; /* Text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding */
+    font-size: 1em; /* Font size */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    margin: 10px 0; /* Margin for spacing */
+    display: inline-block; /* Inline block */
+    transition: background-color 0.3s; /* Transition effect for hover */
+}
+
+#delete-account-btn:hover {
+    background-color: #ff1a1a; /* Darker red on hover */
+}
