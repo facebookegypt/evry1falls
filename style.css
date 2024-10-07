@@ -215,7 +215,15 @@ body {
 .site-footer:hover {
     background-color: rgba(224, 224, 224, 1); /* Fully opaque on hover */
 }
+.site-footer a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
+.site-footer a:hover {
+    color: #007bff; /* Change to blue on hover */
+}
 .footer-container {
     display: flex;
     justify-content: space-between;
