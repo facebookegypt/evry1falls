@@ -277,3 +277,42 @@ body {
     max-width: 100%; /* Ensure they don’t exceed the screen width */
     box-sizing: border-box; /* Include padding and borders in the element's width and height */
 }
+.footer-social {
+    text-align: center;
+    padding: 10px;
+}
+
+.footer-social h4 {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.social-icons {
+    list-style-type: none;
+    padding: 0;
+}
+
+.social-icons li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #007bff; /* Change color on hover */
+}
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-left, .footer-center, .footer-right, .footer-social {
+        margin-bottom: 10px;
+    }
+}
