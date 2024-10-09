@@ -1,16 +1,16 @@
 body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
     font-family: 'Poppins', sans-serif;
     background-color: #e0e0e0;
     color: #333;
-    margin: 0;
-    overflow: hidden;
     background: linear-gradient(to bottom right, #87CEFA, #B0E0E6);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items:flex-start;
 }
-
 .container {
     background-color: rgba(224, 224, 224, 0.5); /* 50% transparent */
     position: fixed; /* Changed to relative */
@@ -62,7 +62,6 @@ body {
     margin-left: 10px;
     cursor: pointer;
 }
-
 .container .text-area {
     display: flex;
     flex-direction: column;
@@ -73,7 +72,6 @@ body {
     margin: 0;
     color: #555;
 }
-
 /* Style for the last login date/time */
 #last-login {
     position: fixed;
@@ -245,7 +243,6 @@ body {
     color: #666;
     text-align: center;
 }
-
 .footer-right button {
     background-color: #e0e0e0;
     border: none;
@@ -260,18 +257,23 @@ body {
     transition: box-shadow 0.3s ease;
     margin-right: 10px;
 }
-
 .footer-right button:hover {
     background-color: #ff1a1a;
 }
-
 @media (max-width: 768px) {
+     .container, .footer, .site-footer, .footer-container, #survey-container, .profile-card {
+        width: 100%; /* Make sure elements take up full width on smaller screens */
+     }
     .footer-container {
         flex-direction: column;
         text-align: center;
     }
-    
     .footer-left, .footer-center, .footer-right {
         margin-bottom: 10px;
     }
+}
+/* Ensure all sections adjust within the screen width */
+.container, .footer, .site-footer, .footer-container, #survey-container, .profile-card {
+    max-width: 100%; /* Ensure they don’t exceed the screen width */
+    box-sizing: border-box; /* Include padding and borders in the element's width and height */
 }
