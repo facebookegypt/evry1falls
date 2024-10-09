@@ -302,6 +302,10 @@ body {
 .social-icons a:hover {
     color: #007bff; /* Change color on hover */
 }
+.social-icons i {
+    font-size: 24px; /* Adjust size as needed */
+    margin-right: 8px; /* Spacing between icon and text */
+}
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
