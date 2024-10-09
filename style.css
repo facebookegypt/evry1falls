@@ -180,7 +180,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
     z-index: 1000; /* Ensure it's above other elements */
 }
-
 #delete-account-btn {
     display: none; /* Initially hidden, will show when logged in */
     background-color: #e0e0e0;
@@ -281,29 +280,24 @@ body {
     text-align: center;
     padding: 10px;
 }
-
 .footer-social h4 {
     margin-bottom: 10px;
     font-size: 0.9em;
     color: #333;
 }
-
 .social-icons {
     list-style-type: none;
     padding: 0;
 }
-
 .social-icons li {
     display: inline-block;
     margin: 0 10px;
 }
-
 .social-icons a {
     text-decoration: none;
     color: #333;
     transition: color 0.3s ease;
 }
-
 .social-icons a:hover {
     color: #007bff; /* Change color on hover */
 }
