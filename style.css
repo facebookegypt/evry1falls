@@ -9,16 +9,20 @@ text-align:left;width:100%;height:60px;display:flex;justify-content:space-betwee
 }
 .container:hover{background-color:#e0e0e0}.container h1{font-size:1em;margin:0;flex-grow:1;margin-left:10px}.container button{background-color:#e0e0e0;border:none;padding-top:8px;padding-bottom:8px;font-size:.9em;border-radius:20px;
 box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
-cursor:pointer;margin-left:10px;height:auto;transition:box-shadow 0.3s ease;margin-right:10px}.container button:hover
-box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);}
-.container img{
-  width: 40px;
-  height: 40px;
-  border-radius: 40%;
-  border: 4px solid #fff;
-  box-shadow: 4px 4px 10px rgb(0 0 0 / .1), -4px -4px 10px rgb(255 255 255 / .7);
-  margin-left:10px;
-  cursor:pointer
+cursor:pointer;margin-left:10px;height:auto;transition:box-shadow 0.3s ease;margin-right:10px
+ }
+.container button:hover
+{
+box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
+}
+.container img 
+{
+     width: 40px;
+     height: 40px;
+     border-radius: 40%;
+     border: 4px solid #fff;
+     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
+     margin-left: 10px;cursor: pointer;
 }
 .container.text-area{display:flex;flex-direction:column;margin-left:10px}.container p{font-size:.8em;margin:0;color:#555}}#last-login{font-size:.8em;color:#666;font-style:italic;display:none}.shapes{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:none}.fb-share-button{margin-top:10px}#survey-container{background-color:rgb(224 224 224 / .5);display:flex;flex-direction:column;justify-content:center;align-items:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;max-width:600px;padding:20px;border-radius:20px;box-shadow:8px 8px 15px rgb(0 0 0 / .1),-8px-8px 15px rgb(255 255 255 / .7);z-index:1000;transition:background-color 0.3s ease,opacity 0.3s ease}#survey-container:hover{background-color:#e0e0e0}#survey-results{display:none;margin-top:20px}.survey-box,.result-box{background-color:rgb(224 224 224 / .5);width:50%;margin:20px auto;border-radius:20px;
 box-shadow: 8px 8px 15px rgb(0 0 0 / .1),-8px-8px 15px rgb(255 255 255 / .7);
