@@ -73,7 +73,7 @@ body {
     margin: 0;
     color: #555;
 }
-/* Style for the last login date/time */
+/* Style for the last login date/time 
 #last-login {
     position: fixed;
     bottom: 0;
@@ -83,6 +83,12 @@ body {
     color: #666;
     font-style: italic;
     display: none; /* Initially hidden */
+}
+#last-login {
+    font-size: 0.8em;
+    color: #666;
+    font-style: italic;
+    display: none; /* Keep it hidden initially */
 }
 .shapes {
     position: absolute;
@@ -236,7 +242,17 @@ body {
     font-size: 0.9em;
     color: #333;
 }
-
+/* Adjust the footer-center to align the last-login at the bottom */
+.footer-center {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
+    flex-grow: 1; /* Ensure it occupies available space */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align to the bottom */
+}
 .footer-center h4 {
     margin: 0;
     font-size: 0.9em;
