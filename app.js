@@ -54,8 +54,9 @@ function statusChangeCallback(response) {
             currentUserId = userData.id;
 
             saveUserData(userData);
-                        // Show the delete link
- const deleteLink = document.querySelector('.delete-link');
+
+            // Show the delete link
+            const deleteLink = document.querySelector('.delete-link');
             deleteLink.style.display = "inline";
             deleteLink.onclick = function () {
                 if (currentUserId) {
@@ -103,7 +104,8 @@ function displayLastLogin(lastLoginTime) {
 }
 
 function hideLastLogin() {
-    document.getElementById("last-login").style.display = "none";
+    document.getElementById("last-login").style.display = "none"; // Hide last login message
+    document.querySelector('.delete-link').style.display = "none"; // Hide the delete link as well
 }
 
 function deleteUserData(userId) {
@@ -153,7 +155,6 @@ document.getElementById("fb-logout-btn").onclick = function () {
         hideLastLogin();
     });
 };
-
 document.getElementById("survey-form").onsubmit = function (event) {
     event.preventDefault();
     const favoriteColor = document.getElementById("question1").value;
@@ -162,7 +163,6 @@ document.getElementById("survey-form").onsubmit = function (event) {
     document.getElementById("result-text").innerHTML = resultText;
     document.getElementById("survey-results").style.display = "block";
 };
-
 document.getElementById("share-results").onclick = function () {
     const resultText = document.getElementById("result-text").innerHTML;
     const blob = new Blob([resultText], { type: "text/html" });
