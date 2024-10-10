@@ -205,7 +205,7 @@ body {
     background-color: rgba(224, 224, 224, 0.5); /* Transparent like .container */
     padding: 20px 0;
     width: 100%;
-    position: fixed;
+    position: fixed; /* Changed to sticky so footer moves up if needed */
     bottom: 0;
     left: 0;
     display: flex;
@@ -215,7 +215,6 @@ body {
     z-index: 10;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 }
-
 .site-footer:hover {
     background-color: rgba(224, 224, 224, 1); /* Fully opaque on hover */
 }
@@ -231,11 +230,18 @@ body {
 .footer-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Align items to the top to prevent footer growth from pushing content */
     width: 80%;
     max-width: 1200px;
 }
-
+/* Last-login styling inside footer-left */
+.footer-last-login {
+    font-size: 0.8em; /* Maintain smaller font size */
+    color: #666;
+    font-style: italic;
+    margin-top: 10px; /* Add a slight margin from other elements */
+    display: none; /* Hidden by default, shown on login */
+}
 .footer-left h4, .footer-left p {
     margin: 0;
     padding: 0;
@@ -322,6 +328,7 @@ body {
     font-size: 24px; /* Adjust size as needed */
     margin-right: 8px; /* Spacing between icon and text */
 }
+/* Media query to ensure responsive design */
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
@@ -329,8 +336,5 @@ body {
     }
     .footer-left, .footer-center, .footer-right, .footer-social {
         margin-bottom: 10px;
-    }
-    .footer-social, .social-icons {
-        width:100%
     }
 }
