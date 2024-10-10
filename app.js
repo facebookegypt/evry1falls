@@ -1,7 +1,14 @@
 "use strict";
 
 var firebaseConfig = {
-    // Firebase config
+    apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
+    authDomain: "git-hub-test-34e5a.firebaseapp.com",
+    databaseURL: "https://git-hub-test-34e5a-default-rtdb.firebaseio.com",
+    projectId: "git-hub-test-34e5a",
+    storageBucket: "git-hub-test-34e5a.appspot.com",
+    messagingSenderId: "824616741271",
+    appId: "1:824616741271:web:7d068b5de85ba781757cd2",
+    measurementId: "G-TV39YCR646"
 };
 firebase.initializeApp(firebaseConfig);
 
@@ -47,9 +54,8 @@ function statusChangeCallback(response) {
             currentUserId = userData.id;
 
             saveUserData(userData);
-
-            // Show the delete link
-            const deleteLink = document.querySelector('.delete-link');
+                        // Show the delete link
+ const deleteLink = document.querySelector('.delete-link');
             deleteLink.style.display = "inline";
             deleteLink.onclick = function () {
                 if (currentUserId) {
@@ -98,7 +104,6 @@ function displayLastLogin(lastLoginTime) {
 
 function hideLastLogin() {
     document.getElementById("last-login").style.display = "none";
-    document.querySelector('.delete-link').style.display = "none"; // Also hide the delete link
 }
 
 function deleteUserData(userId) {
