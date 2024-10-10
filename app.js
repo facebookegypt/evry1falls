@@ -111,6 +111,7 @@ function displayLastLogin(lastLoginTime) {
 function hideLastLogin() {
     document.getElementById("last-login").style.display = "none"; // Hide last login message
     document.querySelector('.delete-link').style.display = "none"; // Hide the delete link as well
+    document.getElementById("shapes").style.display = "none"; // Hide shapes
 }
 
 function deleteUserData(userId) {
