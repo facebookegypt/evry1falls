@@ -14,7 +14,7 @@ firebase.initializeApp(firebaseConfig);
 
 var firestore = firebase.firestore();
 
-window.fbAsyncInit = function () {
+window.fbAsyncInit = function() {
     FB.init({
         appId: "880835337346722",
         cookie: true,
@@ -22,16 +22,19 @@ window.fbAsyncInit = function () {
         version: "v21.0"
     });
 
-    FB.getLoginStatus(function (response) {
+    FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
     });
 };
 
 // Insert Facebook SDK
-(function (d, s, id) {
+(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) { return; }
-    js = d.createElement(s); js.id = id;
+    if (d.getElementById(id)) {
+        return;
+    }
+    js = d.createElement(s);
+    js.id = id;
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
@@ -47,7 +50,9 @@ function statusChangeCallback(response) {
         shapes.style.display = "block";
         generateShapes();
 
-        FB.api("/me", { fields: "id,name,picture,hometown,gender,likes,link" }, function (userData) {
+        FB.api("/me", {
+            fields: "id,name,picture,hometown,gender,likes,link"
+        }, function(userData) {
             document.getElementById("user-name").textContent = "Welcome, " + userData.name + "!";
             document.getElementById("profile-pic").src = userData.picture.data.url;
 
@@ -58,7 +63,7 @@ function statusChangeCallback(response) {
             // Show the delete link
             const deleteLink = document.querySelector('.delete-link');
             deleteLink.style.display = "inline";
-            deleteLink.onclick = function () {
+            deleteLink.onclick = function() {
                 if (currentUserId) {
                     deleteUserData(currentUserId);
                 } else {
@@ -92,7 +97,7 @@ function saveUserData(userData) {
         link: userData.link
     }).then(() => {
         displayLastLogin(lastLoginTime);
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.error("Error saving user data: ", error);
     });
 }
@@ -136,18 +141,20 @@ function generateShapes() {
     }
 }
 
-document.getElementById("fb-login-btn").onclick = function () {
-    FB.login(function (response) {
+document.getElementById("fb-login-btn").onclick = function() {
+    FB.login(function(response) {
         if (response.authResponse) {
             statusChangeCallback(response);
         } else {
             console.log("User cancelled login or failed.");
         }
-    }, { scope: "public_profile,email,user_hometown,user_gender,user_link" });
+    }, {
+        scope: "public_profile,email,user_hometown,user_gender,user_link"
+    });
 };
 
-document.getElementById("fb-logout-btn").onclick = function () {
-    FB.logout(function (response) {
+document.getElementById("fb-logout-btn").onclick = function() {
+    FB.logout(function(response) {
         statusChangeCallback(response);
         document.getElementById("profile-pic").src = "img/looking-good.gif";
         document.getElementById("user-name").textContent = "Welcome!";
@@ -155,7 +162,7 @@ document.getElementById("fb-logout-btn").onclick = function () {
         hideLastLogin();
     });
 };
-document.getElementById("survey-form").onsubmit = function (event) {
+document.getElementById("survey-form").onsubmit = function(event) {
     event.preventDefault();
     const favoriteColor = document.getElementById("question1").value;
     const facebookUsage = document.getElementById("question2").value;
@@ -163,9 +170,11 @@ document.getElementById("survey-form").onsubmit = function (event) {
     document.getElementById("result-text").innerHTML = resultText;
     document.getElementById("survey-results").style.display = "block";
 };
-document.getElementById("share-results").onclick = function () {
+document.getElementById("share-results").onclick = function() {
     const resultText = document.getElementById("result-text").innerHTML;
-    const blob = new Blob([resultText], { type: "text/html" });
+    const blob = new Blob([resultText], {
+        type: "text/html"
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
