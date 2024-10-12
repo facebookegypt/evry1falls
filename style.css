@@ -19,14 +19,14 @@ body {
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
   text-align: left;
   width: 100%;
-  height: 60px;
+  height: 50px; /* Reduced height */
   display: flex;
   justify-content: space-between;
   align-items: center;
   top: 0;
   z-index: 1;
   transition: background-color 0.3s ease, opacity 0.3s ease;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Reduced margin */
 }
 
 .container:hover {
@@ -37,22 +37,18 @@ body {
   font-size: 1em;
   margin: 0;
   flex-grow: 1;
-  margin-left: 10px;
+  margin-left: 5px; /* Reduced left margin */
 }
 
 .container button {
   background-color: #e0e0e0;
   border: none;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 5px 10px; /* Reduced padding */
   font-size: 0.9em;
   border-radius: 20px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 15px rgba(255, 255, 255, 0.7);
   cursor: pointer;
-  margin-left: 10px;
-  height: auto;
   transition: box-shadow 0.3s ease;
-  margin-right: 10px;
 }
 
 .container button:hover {
@@ -64,15 +60,14 @@ body {
   height: 40px;
   border-radius: 40%;
   border: 4px solid #fff;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
-  margin-left: 10px;
-  cursor: pointer;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 15px rgba(255, 255, 255, 0.7);
+  margin-left: 5px; /* Reduced margin */
 }
 
 .container .text-area {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: 5px; /* Reduced margin */
 }
 
 .container p {
@@ -115,7 +110,7 @@ body {
   transform: translate(-50%, -50%);
   width: 80%;
   max-width: 600px;
-  padding: 20px;
+  padding: 10px; /* Reduced padding */
   border-radius: 20px;
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
   z-index: 1000;
@@ -128,16 +123,17 @@ body {
 
 #survey-results {
   display: none;
-  margin-top: 20px;
+  margin-top: 10px; /* Reduced margin */
 }
 
-.survey-box, .result-box {
+.survey-box,
+.result-box {
   background-color: rgba(224, 224, 224, 0.5);
   width: 50%;
-  margin: 20px auto;
+  margin: 10px auto; /* Reduced margin */
   border-radius: 20px;
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
-  padding: 20px;
+  padding: 10px; /* Reduced padding */
   text-align: center;
 }
 
@@ -148,28 +144,28 @@ body {
 
 .survey-box label {
   font-size: 1.1em;
-  margin-bottom: 10px;
+  margin-bottom: 5px; /* Reduced margin */
   font-weight: 600;
 }
 
 .survey-box select {
-  padding: 10px;
+  padding: 5px; /* Reduced padding */
   font-size: 1em;
   border-radius: 10px;
   border: 1px solid #ccc;
   box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.7);
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Reduced margin */
 }
 
 .result-box button {
   background-color: #e0e0e0;
   border: none;
-  padding: 8px;
+  padding: 5px; /* Reduced padding */
   font-size: 1em;
   border-radius: 20px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.7);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 15px rgba(255, 255, 255, 0.7);
   cursor: pointer;
-  margin: 10px;
+  margin: 5px; /* Reduced margin */
 }
 
 .result-box button:hover {
@@ -180,7 +176,7 @@ body {
   position: fixed;
   bottom: 0;
   right: 0;
-  padding: 10px;
+  padding: 5px; /* Reduced padding */
   background-color: rgba(224, 224, 224, 0.5);
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -191,7 +187,7 @@ body {
   display: none;
   background-color: #e0e0e0;
   border: none;
-  padding: 8px 16px;
+  padding: 5px 10px; /* Reduced padding */
   font-size: 0.9em;
   border-radius: 20px;
   cursor: pointer;
@@ -203,14 +199,14 @@ body {
 
 /* Updated Footer Styling */
 .site-footer {
-  padding: 10px 0; /* Reduced padding for a more compact footer */
+  padding: 10px 0; /* Reduced padding */
   background-color: rgba(224, 224, 224, 0.5);
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Changed to space-between */
   align-items: center;
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
   z-index: 10;
@@ -235,7 +231,7 @@ body {
   font-size: 0.8em;
   color: #666;
   font-style: italic;
-  margin-top: 10px;
+  margin-top: 5px; /* Reduced margin */
   display: none;
 }
 
@@ -259,7 +255,7 @@ a.delete-link {
   display: inline;
 }
 
-/* Flexbox Layout for Footer */
+/* Updated Footer Styling */
 .footer-container {
   display: flex;
   justify-content: space-between;
@@ -267,7 +263,7 @@ a.delete-link {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 15px; /* Horizontal padding for the footer */
+  padding: 0 10px; /* Reduced horizontal padding for the footer */
 }
 
 .footer-left {
@@ -290,7 +286,7 @@ a.delete-link {
 }
 
 .footer-social ul li {
-  margin-left: 15px;
+  margin-left: 10px; /* Reduced margin */
 }
 
 .footer-social ul li a {
@@ -302,6 +298,7 @@ a.delete-link {
 .footer-social ul li a:hover {
   color: #007bff;
 }
+
 /* Media Query for Mobile */
 @media (max-width: 768px) {
   .container {
@@ -309,17 +306,24 @@ a.delete-link {
     flex-direction: column;
     align-items: center;
   }
+
   #survey-container {
     width: 90%;
   }
+
   .footer-container {
     flex-direction: column;
     align-items: center;
   }
+
   .footer-social {
     margin-top: 10px;
   }
-  .footer-left h4, .footer-left p, .footer-social h4 {
-    font-size: 0.8em;
+
+  .footer-left h4,
+  .footer-left p,
+  .footer-social h4 {
+    font-size: 0.8em; /* Reduced font size */
+    margin-bottom: 2px; /* Reduced bottom margin */
   }
 }
