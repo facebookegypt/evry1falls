@@ -11,6 +11,7 @@ body {
   justify-content: center;
   align-items: flex-start;
 }
+
 .container {
   background-color: rgba(224, 224, 224, 0.5);
   position: fixed;
@@ -27,15 +28,18 @@ body {
   transition: background-color 0.3s ease, opacity 0.3s ease;
   margin-bottom: 20px;
 }
+
 .container:hover {
   background-color: #e0e0e0;
 }
+
 .container h1 {
   font-size: 1em;
   margin: 0;
   flex-grow: 1;
   margin-left: 10px;
 }
+
 .container button {
   background-color: #e0e0e0;
   border: none;
@@ -50,9 +54,11 @@ body {
   transition: box-shadow 0.3s ease;
   margin-right: 10px;
 }
+
 .container button:hover {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
 }
+
 .container img {
   width: 40px;
   height: 40px;
@@ -62,22 +68,26 @@ body {
   margin-left: 10px;
   cursor: pointer;
 }
+
 .container .text-area {
   display: flex;
   flex-direction: column;
   margin-left: 10px;
 }
+
 .container p {
   font-size: 0.8em;
   margin: 0;
   color: #555;
 }
+
 #last-login {
   font-size: 0.8em;
   color: #666;
   font-style: italic;
   display: none;
 }
+
 .shapes {
   position: absolute;
   top: 0;
@@ -88,9 +98,11 @@ body {
   pointer-events: none;
   display: none;
 }
+
 .fb-share-button {
   margin-top: 10px;
 }
+
 #survey-container {
   background-color: rgba(224, 224, 224, 0.5);
   display: flex;
@@ -109,13 +121,16 @@ body {
   z-index: 1000;
   transition: background-color 0.3s ease;
 }
+
 #survey-container:hover {
   background-color: #e0e0e0;
 }
+
 #survey-results {
   display: none;
   margin-top: 20px;
 }
+
 .survey-box, .result-box {
   background-color: rgba(224, 224, 224, 0.5);
   width: 50%;
@@ -125,15 +140,18 @@ body {
   padding: 20px;
   text-align: center;
 }
+
 .survey-box form {
   display: flex;
   flex-direction: column;
 }
+
 .survey-box label {
   font-size: 1.1em;
   margin-bottom: 10px;
   font-weight: 600;
 }
+
 .survey-box select {
   padding: 10px;
   font-size: 1em;
@@ -142,6 +160,7 @@ body {
   box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.1), inset -4px -4px 10px rgba(255, 255, 255, 0.7);
   margin-bottom: 20px;
 }
+
 .result-box button {
   background-color: #e0e0e0;
   border: none;
@@ -152,6 +171,7 @@ body {
   cursor: pointer;
   margin: 10px;
 }
+
 .result-box button:hover {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
 }
@@ -166,6 +186,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
+
 #delete-account-btn {
   display: none;
   background-color: #e0e0e0;
@@ -175,11 +196,14 @@ body {
   border-radius: 20px;
   cursor: pointer;
 }
+
 #delete-account-btn:hover {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
 }
+
+/* Updated Footer Styling */
 .site-footer {
-  padding: 15px 0; /* Reduced padding for a more compact footer */
+  padding: 10px 0; /* Reduced padding for a more compact footer */
   background-color: rgba(224, 224, 224, 0.5);
   width: 100%;
   position: fixed;
@@ -192,41 +216,50 @@ body {
   z-index: 10;
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
+
 .site-footer:hover {
   background-color: #e0e0e0;
 }
+
 .site-footer a {
   color: #333;
   text-decoration: none;
   transition: color 0.3s ease;
 }
+
 .site-footer a:hover {
   color: #007bff;
 }
+
 .footer-last-login {
   font-size: 0.8em;
   color: #666;
   font-style: italic;
   margin-top: 10px;
   display: none;
-  }
-.delete-link {
-    margin-top: 5px; /* Add some spacing if needed */
-    font-family: 'Roboto', sans-serif; /* Use the Roboto font */
-    font-weight: 400; /* Set the font weight */
-    transition: color 0.3s ease, font-size 0.3s ease;
 }
+
+.delete-link {
+  margin-top: 5px; /* Add some spacing if needed */
+  font-family: 'Roboto', sans-serif; /* Use the Roboto font */
+  font-weight: 400; /* Set the font weight */
+  transition: color 0.3s ease, font-size 0.3s ease;
+}
+
 .delete-link:hover {
   text-decoration: underline;
   font-size: 0.95em; /* Slight font increase */
 }
+
 a.delete-link {
-  color:red;
+  color: red;
 }
+
 .logged-in .delete-link {
   display: inline;
 }
-/* Updated Footer Styling */
+
+/* Flexbox Layout for Footer */
 .footer-container {
   display: flex;
   justify-content: space-between;
@@ -234,89 +267,59 @@ a.delete-link {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 15px; /* Horizontal padding for the footer */
 }
+
 .footer-left {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-.footer-left h4, .footer-left p {
-  margin: 0;
-  padding: 0;
-  font-size: 0.9em;
-  color: #333;
-}
-.footer-center {
-  margin: 0;
-  font-size: 0.9em;
-  color: #666;
-  text-align: center;
-  flex-grow: 1;
+
+.footer-social {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-.footer-center h4 {
-  margin: 0;
-  font-size: .9em;
-  color: #666;
-  text-align: center;
-}
-.footer-right button {
-  background-color: #e0e0e0;
-  border: none;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: .9em;
-  border-radius: 20px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, .1), -4px -4px 10px rgba(255, 255, 255, .7);
-  cursor: pointer;
-  margin-left: 10px;
-  height: auto;
-  transition: box-shadow 0.3s ease;
-  margin-right: 10px;
-}
-.footer-right button:hover {
-  background-color:#ff1a1a
-}
-.container, .footer, .site-footer, .footer-container, #survey-container, .profile-card {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-.social-icons a, .footer-social ul li a {
-  text-decoration: none;
-  color: #333;
-  transition: color 0.3s ease;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.social-icons a:hover, .footer-social ul li a:hover {
+.footer-social ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-social ul li {
+  margin-left: 15px;
+}
+
+.footer-social ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.footer-social ul li a:hover {
   color: #007bff;
 }
+/* Media Query for Mobile */
 @media (max-width: 768px) {
   .container {
     width: 100%;
     flex-direction: column;
     align-items: center;
   }
-
   #survey-container {
     width: 90%;
   }
-
   .footer-container {
     flex-direction: column;
     align-items: center;
   }
-
   .footer-social {
     margin-top: 10px;
   }
-   .footer-left h4, .footer-left p, .footer-social h4 {
+  .footer-left h4, .footer-left p, .footer-social h4 {
     font-size: 0.8em;
   }
 }
