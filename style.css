@@ -225,7 +225,7 @@ body {
   position: absolute;
   right: 0;
   bottom: 0; /* Align to bottom of the footer */
-  padding: 0px 10px 0px 0px;
+  padding: 0px 30px 0px 0px;
   text-align: right;
 }
 
@@ -239,16 +239,15 @@ body {
 .footer-social ul li {
   margin-left: 10px;
 }
-
-.footer-social ul li a {
+.footer-social ul li a i {
+  font-size: 24px; /* Set consistent size for icons */
   color: #333;
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.footer-social ul li a:hover {
-  color: #007bff;
+.footer-social ul li a i:hover {
+  color: #007bff; /* Change color on hover */
+  transform: scale(1.1); /* Slight scale increase on hover */
 }
 
 /* Mobile Styles */
