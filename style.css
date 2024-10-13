@@ -180,7 +180,7 @@ body {
 /* Footer Styles */
 .site-footer {
   background-color: rgba(224, 224, 224, 0.5);
-  padding: 20px 0;
+  padding: 10px 0;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -196,10 +196,10 @@ body {
 .footer-container {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr; /* Column 1 wider than others */
-  gap: 20px; /* Space between columns */
-  width: 80%;
+  gap: 5px; /* Space between columns */
+  width: 90%;
   max-width: 1200px;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .footer-left {
@@ -221,7 +221,7 @@ body {
 .footer-social {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items:flex-start;
 }
 
 .footer-social ul {
