@@ -1,4 +1,5 @@
 "use strict";
+
 var firebaseConfig = {
     apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
     authDomain: "git-hub-test-34e5a.firebaseapp.com",
@@ -10,9 +11,11 @@ var firebaseConfig = {
     measurementId: "G-TV39YCR646"
 };
 firebase.initializeApp(firebaseConfig);
+
 var firestore = firebase.firestore();
 var auth = firebase.auth();
 
+// Facebook SDK initialization
 window.fbAsyncInit = function() {
     FB.init({
         appId: "880835337346722",
@@ -39,6 +42,25 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 let currentUserId = "";
+
+// Check if a user is logged in (Facebook or Google) when the page is reloaded
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // Google user is logged in
+        currentUserId = user.uid;
+        document.getElementById("google-login-btn").style.display = "none";
+        document.getElementById("fb-login-btn").style.display = "none";
+        document.getElementById("fb-logout-btn").style.display = "inline";
+        document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
+        document.getElementById("profile-pic").src = user.photoURL;
+        document.getElementById("survey-container").style.display = "block";
+        displayLastLogin(user.metadata.lastSignInTime);
+    } else {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+});
 
 function statusChangeCallback(response) {
     var shapes = document.getElementById("shapes");
@@ -179,6 +201,7 @@ document.getElementById("fb-login-btn").onclick = function() {
         scope: "public_profile,email,user_hometown,user_gender,user_link"
     });
 };
+
 document.getElementById("fb-logout-btn").onclick = function() {
     FB.logout(function(response) {
         statusChangeCallback(response);
@@ -188,6 +211,7 @@ document.getElementById("fb-logout-btn").onclick = function() {
         hideLastLogin();
     });
 };
+
 document.getElementById("survey-form").onsubmit = function(event) {
     event.preventDefault();
     const favoriteColor = document.getElementById("question1").value;
@@ -196,6 +220,7 @@ document.getElementById("survey-form").onsubmit = function(event) {
     document.getElementById("result-text").innerHTML = resultText;
     document.getElementById("survey-results").style.display = "block";
 };
+
 document.getElementById("share-results").onclick = function() {
     const resultText = document.getElementById("result-text").innerHTML;
     const blob = new Blob([resultText], {
