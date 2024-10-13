@@ -180,7 +180,7 @@ body {
 /* Footer Styles */
 .site-footer {
   background-color: rgba(224, 224, 224, 0.5);
-  padding: 10px 0;
+  padding: 10px 0px 0px 10px;
   width: 100%;
   position: fixed;
   bottom: 0;
