@@ -221,7 +221,11 @@ body {
 .footer-social {
   display: flex;
   flex-direction: column;
-  align-items:flex-start;
+  align-items: flex-end;
+  position: absolute;
+  right: 0;
+  bottom: 0; /* Align to bottom of the footer */
+  text-align: right;
 }
 
 .footer-social ul {
@@ -251,11 +255,13 @@ body {
   .footer-container {
     grid-template-columns: 1fr; /* Single column layout for mobile */
     text-align: center;
+    position: static;
   }
 
   .footer-social {
     align-items: center;
     margin-top: 20px;
+    position: static;
   }
 
   .footer-social ul {
