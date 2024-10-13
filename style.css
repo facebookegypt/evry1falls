@@ -195,7 +195,7 @@ body {
 
 .footer-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 equal columns */
+  grid-template-columns: 1.5fr 1fr 1fr 1fr; /* Column 1 wider than others */
   gap: 20px; /* Space between columns */
   width: 80%;
   max-width: 1200px;
