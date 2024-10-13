@@ -1,4 +1,5 @@
 "use strict";
+
 var firebaseConfig = {
     apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
     authDomain: "git-hub-test-34e5a.firebaseapp.com",
@@ -12,11 +13,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 var firestore = firebase.firestore();
-var auth = firebase.auth();
-let currentUserId = "";
-let isGoogleUser = false; // To check if the user is logged in via Google
 
-// Facebook SDK initialization
 window.fbAsyncInit = function() {
     FB.init({
         appId: "880835337346722",
@@ -42,33 +39,13 @@ window.fbAsyncInit = function() {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-// Check if a user is logged in (Facebook or Google) when the page is reloaded
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        // Google user is logged in
-        currentUserId = user.uid;
-        isGoogleUser = true;
-        document.getElementById("google-login-btn").style.display = "none";
-        document.getElementById("fb-login-btn").style.display = "none";
-        document.getElementById("fb-logout-btn").style.display = "inline";
-        document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
-        document.getElementById("profile-pic").src = user.photoURL;
-        document.getElementById("survey-container").style.display = "block";
-        displayLastLogin(user.metadata.lastSignInTime);
-        showDeleteLink(); // Show delete link for Google users
-    } else {
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
-    }
-});
+let currentUserId = "";
+let isGoogleUser = false; // To track if the user is signed in with Google
 
 function statusChangeCallback(response) {
     var shapes = document.getElementById("shapes");
     if (response.status === "connected") {
-        isGoogleUser = false; // Facebook login, so not Google
         document.getElementById("fb-login-btn").style.display = "none";
-        document.getElementById("google-login-btn").style.display = "none";
         document.getElementById("fb-logout-btn").style.display = "inline";
         document.getElementById("survey-container").style.display = "block";
         shapes.style.display = "block";
@@ -81,17 +58,40 @@ function statusChangeCallback(response) {
             document.getElementById("profile-pic").src = userData.picture.data.url;
 
             currentUserId = userData.id;
-
             saveUserData(userData);
-            showDeleteLink(); // Show delete link for Facebook users
+
+            // Show the delete link
+            showDeleteLink();
         });
     } else {
         document.getElementById("fb-login-btn").style.display = "inline";
-        document.getElementById("google-login-btn").style.display = "inline";
         document.getElementById("fb-logout-btn").style.display = "none";
         hideLastLogin();
     }
 }
+
+// Google Sign-In
+document.getElementById("google-login-btn").onclick = function() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithRedirect(provider);
+};
+
+// Handle redirect result
+firebase.auth().getRedirectResult().then((result) => {
+    if (result.user) {
+        var user = result.user;
+        currentUserId = user.uid;
+        isGoogleUser = true;
+
+        document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
+        document.getElementById("profile-pic").src = user.photoURL;
+
+        saveGoogleUserData(user);
+        showDeleteLink(); // Show delete link for Google users
+    }
+}).catch((error) => {
+    console.error("Error after redirect:", error);
+});
 
 function saveUserData(userData) {
     var lastLoginTime = new Date().toLocaleString("en-US", {
@@ -117,6 +117,30 @@ function saveUserData(userData) {
     });
 }
 
+function saveGoogleUserData(user) {
+    var lastLoginTime = new Date().toLocaleString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true
+    });
+    firestore.collection("users").doc(user.uid).set({
+        name: user.displayName,
+        picture: user.photoURL,
+        lastLogin: lastLoginTime,
+        hometown: "N/A", // No hometown info for Google users
+        gender: "N/A", // No gender info for Google users
+        link: user.email // Using email as a link
+    }).then(() => {
+        displayLastLogin(lastLoginTime);
+    }).catch(function(error) {
+        console.error("Error saving Google user data: ", error);
+    });
+}
+
 function displayLastLogin(lastLoginTime) {
     var lastLoginElement = document.getElementById("last-login");
     lastLoginElement.textContent = "Your last login was on " + lastLoginTime;
@@ -129,13 +153,18 @@ function hideLastLogin() {
     document.getElementById("shapes").style.display = "none"; // Hide shapes
 }
 
-// Show delete link for both Google and Facebook users
 function showDeleteLink() {
     const deleteLink = document.querySelector('.delete-link');
     deleteLink.style.display = "inline";
     deleteLink.onclick = function() {
         if (currentUserId) {
             deleteUserData(currentUserId);
+            // Log out the user after deletion
+            firebase.auth().signOut().then(() => {
+                console.log("User signed out after data deletion.");
+            }).catch((error) => {
+                console.error("Error signing out:", error);
+            });
         } else {
             console.error("No user is currently logged in.");
         }
@@ -145,19 +174,6 @@ function showDeleteLink() {
 function deleteUserData(userId) {
     firestore.collection("users").doc(userId).delete().then(() => {
         console.log("User data deleted successfully");
-        if (isGoogleUser) {
-            auth.signOut().then(() => {
-                console.log("Google user signed out after data deletion.");
-                window.location.reload(); // Refresh the page after logout
-            }).catch((error) => {
-                console.error("Error signing out Google user: ", error);
-            });
-        } else {
-            FB.logout(function(response) {
-                statusChangeCallback(response); // Update the UI after logout
-                console.log("Facebook user logged out and data deleted.");
-            });
-        }
     }).catch((error) => {
         console.error("Error deleting user data: ", error);
     });
@@ -183,51 +199,6 @@ function generateShapes() {
     }
 }
 
-// Google Sign-In
-document.getElementById("google-login-btn").onclick = function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider).then((result) => {
-        var user = result.user;
-
-        document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
-        document.getElementById("profile-pic").src = user.photoURL;
-
-        currentUserId = user.uid;
-        isGoogleUser = true;
-
-        saveGoogleUserData(user);
-
-        document.getElementById("google-login-btn").style.display = "none";
-        document.getElementById("fb-login-btn").style.display = "none";
-        document.getElementById("fb-logout-btn").style.display = "inline";
-        document.getElementById("survey-container").style.display = "block";
-        showDeleteLink(); // Show delete link for Google users
-    }).catch((error) => {
-        console.error("Google sign-in error:", error);
-    });
-};
-
-function saveGoogleUserData(user) {
-    var lastLoginTime = new Date().toLocaleString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true
-    });
-    firestore.collection("users").doc(user.uid).set({
-        name: user.displayName,
-        picture: user.photoURL,
-        lastLogin: lastLoginTime
-    }).then(() => {
-        displayLastLogin(lastLoginTime);
-    }).catch(function(error) {
-        console.error("Error saving Google user data: ", error);
-    });
-}
-
 document.getElementById("fb-login-btn").onclick = function() {
     FB.login(function(response) {
         if (response.authResponse) {
@@ -241,22 +212,13 @@ document.getElementById("fb-login-btn").onclick = function() {
 };
 
 document.getElementById("fb-logout-btn").onclick = function() {
-    if (isGoogleUser) {
-        auth.signOut().then(() => {
-            console.log("Google user logged out.");
-            window.location.reload();
-        }).catch((error) => {
-            console.error("Error logging out Google user:", error);
-        });
-    } else {
-        FB.logout(function(response) {
-            statusChangeCallback(response);
-            document.getElementById("profile-pic").src = "img/looking-good.gif";
-            document.getElementById("user-name").textContent = "Welcome!";
-            document.getElementById("survey-container").style.display = "none";
-            hideLastLogin();
-        });
-    }
+    FB.logout(function(response) {
+        statusChangeCallback(response);
+        document.getElementById("profile-pic").src = "img/looking-good.gif";
+        document.getElementById("user-name").textContent = "Welcome!";
+        document.getElementById("survey-container").style.display = "none";
+        hideLastLogin();
+    });
 };
 
 document.getElementById("survey-form").onsubmit = function(event) {
