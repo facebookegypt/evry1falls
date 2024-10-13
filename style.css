@@ -177,6 +177,7 @@ body {
 #delete-account-btn:hover {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
 }
+/* Footer Styles */
 .site-footer {
   background-color: rgba(224, 224, 224, 0.5);
   padding: 20px 0;
@@ -191,135 +192,73 @@ body {
   z-index: 10;
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
-.site-footer:hover {
-  background-color: #e0e0e0;
-}
-.site-footer a {
-  color: #333;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.site-footer a:hover {
-  color: #007bff;
-}
+
 .footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 equal columns */
+  gap: 20px; /* Space between columns */
   width: 80%;
   max-width: 1200px;
+  align-items: flex-start;
 }
-.footer-last-login {
-  font-size: 0.8em;
-  color: #666;
-  font-style: italic;
-  margin-top: 10px;
-  display: none;
-  }
-.delete-link {
-    margin-top: 5px; /* Add some spacing if needed */
-    font-family: 'Roboto', sans-serif; /* Use the Roboto font */
-    font-weight: 400; /* Set the font weight */
-}
-.delete-link:hover {
-    text-decoration: underline;
-}
-a.delete-link {
-  color:red;
-}
-.logged-in .delete-link {
-  display: inline;
-}
-.footer-left h4, .footer-left p {
-  margin: 0;
-  padding: 0;
-  font-size: 0.9em;
-  color: #333;
-}
-.footer-center {
-  margin: 0;
-  font-size: 0.9em;
-  color: #666;
-  text-align: center;
-  flex-grow: 1;
+
+.footer-left {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.footer-left h4,
+.footer-left p,
+.footer-left a,
+.footer-last-login {
+  margin: 5px 0; /* Reduced margin for compact spacing */
+}
+
+.footer-blank {
+  /* Blank columns */
+}
+
+.footer-social {
+  display: flex;
+  flex-direction: column;
   align-items: flex-end;
 }
-.footer-center h4 {
-  margin: 0;
-  font-size: .9em;
-  color: #666;
-  text-align: center;
-}
-.footer-right button {
-  background-color: #e0e0e0;
-  border: none;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: .9em;
-  border-radius: 20px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, .1), -4px -4px 10px rgba(255, 255, 255, .7);
-  cursor: pointer;
-  margin-left: 10px;
-  height: auto;
-  transition: box-shadow 0.3s ease;
-  margin-right: 10px;
-}
-.footer-right button:hover {
-  background-color:#ff1a1a
-}
-@media (max-width: 768px) {
-    .container, .footer, .site-footer, .footer-container, #survey-container, .profile-card {
-        width: 100%;
-    }
-}
-.footer-container {
-  flex-direction: column;
-  text-align: center;
-}
-.footer-left, .footer-center, .footer-right {
-  margin-bottom: 10px;
-}
-.container, .footer, .site-footer, .footer-container, #survey-container, .profile-card {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-.footer-social {
-  text-align: center;
-  padding: 10px;
-}
-.footer-social h4 {
-  margin-bottom: 10px;
-  font-size: 0.9em;
-  color: #333;
-}
-.social-icons {
+
+.footer-social ul {
+  display: flex;
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
-.social-icons li {
-  display: inline-block;
-  margin: 0 10px;
+
+.footer-social ul li {
+  margin-left: 10px;
 }
-.social-icons a {
-  text-decoration: none;
+
+.footer-social ul li a {
   color: #333;
+  text-decoration: none;
+  font-size: 16px;
   transition: color 0.3s ease;
 }
-.social-icons a:hover {
+
+.footer-social ul li a:hover {
   color: #007bff;
 }
-.social-icons i {
-  font-size: 24px;
-  margin-right: 8px;
-}
+
+/* Mobile Styles */
 @media (max-width: 768px) {
   .footer-container {
-    flex-direction: column;
+    grid-template-columns: 1fr; /* Single column layout for mobile */
     text-align: center;
   }
-  .footer-left, .footer-center, .footer-right, .footer-social {
-    margin-bottom: 10px;
+
+  .footer-social {
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .footer-social ul {
+    justify-content: center;
   }
 }
