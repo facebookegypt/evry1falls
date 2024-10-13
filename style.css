@@ -195,7 +195,7 @@ body {
 
 .footer-container {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr; /* Column 1 wider than others */
+  grid-template-columns: 2.5fr 1fr 1fr 1fr; /* Column 1 wider than others */
   gap: 5px; /* Space between columns */
   width: 90%;
   max-width: 1200px;
@@ -211,7 +211,7 @@ body {
 .footer-left p,
 .footer-left a,
 .footer-last-login {
-  margin: 5px 0; /* Reduced margin for compact spacing */
+  margin: 1px 0; /* Reduced margin for compact spacing */
 }
 
 .footer-blank {
