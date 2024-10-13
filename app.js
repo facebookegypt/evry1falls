@@ -66,6 +66,11 @@ function statusChangeCallback(response) {
             deleteLink.onclick = function() {
                 if (currentUserId) {
                     deleteUserData(currentUserId);
+                    // Log out the user after deleting data
+                    FB.logout(function(response) {
+                        statusChangeCallback(response); // Update the UI after logout
+                        console.log("User logged out and data deleted.");
+                    });
                 } else {
                     console.error("No user is currently logged in.");
                 }
@@ -163,6 +168,7 @@ document.getElementById("fb-logout-btn").onclick = function() {
         hideLastLogin();
     });
 };
+
 document.getElementById("survey-form").onsubmit = function(event) {
     event.preventDefault();
     const favoriteColor = document.getElementById("question1").value;
@@ -171,6 +177,7 @@ document.getElementById("survey-form").onsubmit = function(event) {
     document.getElementById("result-text").innerHTML = resultText;
     document.getElementById("survey-results").style.display = "block";
 };
+
 document.getElementById("share-results").onclick = function() {
     const resultText = document.getElementById("result-text").innerHTML;
     const blob = new Blob([resultText], {
