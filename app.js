@@ -1,6 +1,4 @@
 "use strict";
-
-// Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
     authDomain: "git-hub-test-34e5a.firebaseapp.com",
@@ -12,12 +10,10 @@ var firebaseConfig = {
     measurementId: "G-TV39YCR646"
 };
 firebase.initializeApp(firebaseConfig);
-
 var firestore = firebase.firestore();
 var auth = firebase.auth();
 let currentUserId = "";
 let isGoogleUser = false; // To check if the user is logged in via Google
-
 // Facebook SDK initialization
 window.fbAsyncInit = function() {
     FB.init({
@@ -31,7 +27,6 @@ window.fbAsyncInit = function() {
         statusChangeCallback(response);
     });
 };
-
 // Insert Facebook SDK
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -188,18 +183,18 @@ function generateShapes() {
 // Google Sign-In using redirect
 document.getElementById("google-login-btn").onclick = function() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithRedirect(provider);
+    auth.signInWithRedirect(provider); // Use redirect instead of pop-up
 };
 
-// Handle redirect result after Google sign-in
-auth.getRedirectResult().then((result) => {
+// Handle the redirect result after login
+auth.getRedirectResult().then(function(result) {
     if (result.user) {
         var user = result.user;
-        document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
-        document.getElementById("profile-pic").src = user.photoURL;
-
         currentUserId = user.uid;
         isGoogleUser = true;
+
+        document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
+        document.getElementById("profile-pic").src = user.photoURL;
 
         saveGoogleUserData(user);
 
@@ -207,10 +202,10 @@ auth.getRedirectResult().then((result) => {
         document.getElementById("fb-login-btn").style.display = "none";
         document.getElementById("fb-logout-btn").style.display = "inline";
         document.getElementById("survey-container").style.display = "block";
-        showDeleteLink();
+        showDeleteLink(); // Show delete link for Google users
     }
-}).catch((error) => {
-    console.error("Google sign-in redirect error:", error);
+}).catch(function(error) {
+    console.error("Google redirect error:", error);
 });
 
 function saveGoogleUserData(user) {
