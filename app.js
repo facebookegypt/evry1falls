@@ -102,28 +102,30 @@ function statusChangeCallback(response) {
     }
 }
 
-function saveUserData(userData) {
+async function saveUserData(userData) {
+  try {
     var lastLoginTime = new Date().toLocaleString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true
     });
-    firestore.collection("users").doc(userData.id).set({
-        name: userData.name,
-        picture: userData.picture.data.url,
-        lastLogin: lastLoginTime,
-        hometown: userData.hometown ? userData.hometown.name : "N/A",
-        gender: userData.gender,
-        link: userData.link
-    }).then(() => {
-        displayLastLogin(lastLoginTime);
-    }).catch(function(error) {
-        console.error("Error saving user data: ", error);
+    await firestore.collection("users").doc(userData.id).set({
+      name: userData.name,
+      picture: userData.picture.data.url,
+      lastLogin: lastLoginTime,
+      hometown: userData.hometown ? userData.hometown.name : "N/A",
+      gender: userData.gender,
+      link: userData.link
     });
+    displayLastLogin(lastLoginTime);
+  } catch (error) {
+    console.error("Error saving user data: ", error);
+    alert("There was an issue saving your data. Please try again later.");
+  }
 }
 
 function displayLastLogin(lastLoginTime) {
