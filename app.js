@@ -1,5 +1,4 @@
 "use strict";
-
 var firebaseConfig = {
     apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
     authDomain: "git-hub-test-34e5a.firebaseapp.com",
@@ -30,7 +29,6 @@ window.fbAsyncInit = function() {
         statusChangeCallback(response);
     });
 };
-
 // Insert Facebook SDK
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
