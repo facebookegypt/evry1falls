@@ -187,25 +187,23 @@ document.getElementById("google-login-btn").onclick = function() {
     var provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider).then((result) => {
         var user = result.user;
-
+        // Update UI after successful Google login
         document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
         document.getElementById("profile-pic").src = user.photoURL;
-
         currentUserId = user.uid;
         isGoogleUser = true;
 
+        // Save Google user data and display last login
         saveGoogleUserData(user);
-
         document.getElementById("google-login-btn").style.display = "none";
         document.getElementById("fb-login-btn").style.display = "none";
         document.getElementById("fb-logout-btn").style.display = "inline";
         document.getElementById("survey-container").style.display = "block";
-        showDeleteLink(); // Show delete link for Google users
+        showDeleteLink();
     }).catch((error) => {
         console.error("Google sign-in error:", error);
     });
 };
-
 function saveGoogleUserData(user) {
     var lastLoginTime = new Date().toLocaleString("en-US", {
         weekday: "long",
