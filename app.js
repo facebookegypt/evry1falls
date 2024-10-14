@@ -102,32 +102,31 @@ function statusChangeCallback(response) {
     }
 }
 
-async function saveUserData(userData) {
-  try {
+function saveUserData(userData) {
     var lastLoginTime = new Date().toLocaleString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true
     });
-    await firestore.collection("users").doc(userData.id).set({
-      name: userData.name,
-      picture: userData.picture.data.url,
-      lastLogin: lastLoginTime,
-      hometown: userData.hometown ? userData.hometown.name : "N/A",
-      gender: userData.gender,
-      link: userData.link
-    });
-    displayLastLogin(lastLoginTime);
-  } catch (error) {
-    console.error("Error saving user data: ", error);
-    alert("There was an issue saving your data. Please try again later.");
-  }
-}
 
+    // Use userData.id (from Facebook API) or userData.uid (from Google API) as the document ID
+    firestore.collection("users").doc(userData.id || userData.uid).set({
+        name: userData.name,
+        picture: userData.picture.data.url,
+        lastLogin: lastLoginTime,
+        hometown: userData.hometown ? userData.hometown.name : "N/A",
+        gender: userData.gender,
+        link: userData.link
+    }).then(() => {
+        displayLastLogin(lastLoginTime);
+    }).catch(function(error) {
+        console.error("Error saving user data: ", error);
+    });
+}
 function displayLastLogin(lastLoginTime) {
     var lastLoginElement = document.getElementById("last-login");
     lastLoginElement.textContent = "Your last login was on " + lastLoginTime;
@@ -219,11 +218,12 @@ function saveGoogleUserData(user) {
         minute: "numeric",
         hour12: true
     });
+    // Use user.uid as the document ID for Google users
     firestore.collection("users").doc(user.uid).set({
         name: user.displayName,
         picture: user.photoURL,
         lastLogin: lastLoginTime
-    }).then(() => {
+    }).then(function() {
         displayLastLogin(lastLoginTime);
     }).catch(function(error) {
         console.error("Error saving Google user data: ", error);
