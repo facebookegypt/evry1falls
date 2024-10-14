@@ -101,7 +101,6 @@ function statusChangeCallback(response) {
         hideLastLogin();
     }
 }
-
 function saveUserData(userData) {
     var lastLoginTime = new Date().toLocaleString("en-US", {
         weekday: "long",
@@ -113,8 +112,7 @@ function saveUserData(userData) {
         hour12: true
     });
 
-    // Use userData.id (from Facebook API) or userData.uid (from Google API) as the document ID
-    firestore.collection("users").doc(userData.id || userData.uid).set({
+    firestore.collection("users").doc(userData.id).set({
         name: userData.name,
         picture: userData.picture.data.url,
         lastLogin: lastLoginTime,
@@ -207,7 +205,6 @@ auth.getRedirectResult().then(function(result) {
 }).catch(function(error) {
     console.error("Google redirect error:", error);
 });
-
 function saveGoogleUserData(user) {
     var lastLoginTime = new Date().toLocaleString("en-US", {
         weekday: "long",
@@ -218,18 +215,17 @@ function saveGoogleUserData(user) {
         minute: "numeric",
         hour12: true
     });
-    // Use user.uid as the document ID for Google users
+
     firestore.collection("users").doc(user.uid).set({
         name: user.displayName,
         picture: user.photoURL,
         lastLogin: lastLoginTime
-    }).then(function() {
+    }).then(() => {
         displayLastLogin(lastLoginTime);
     }).catch(function(error) {
         console.error("Error saving Google user data: ", error);
     });
 }
-
 document.getElementById("fb-login-btn").onclick = function() {
     FB.login(function(response) {
         if (response.authResponse) {
