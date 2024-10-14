@@ -1,4 +1,6 @@
 "use strict";
+
+// Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
     authDomain: "git-hub-test-34e5a.firebaseapp.com",
@@ -29,6 +31,7 @@ window.fbAsyncInit = function() {
         statusChangeCallback(response);
     });
 };
+
 // Insert Facebook SDK
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -182,28 +185,34 @@ function generateShapes() {
     }
 }
 
-// Google Sign-In
+// Google Sign-In using redirect
 document.getElementById("google-login-btn").onclick = function() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider).then((result) => {
+    auth.signInWithRedirect(provider);
+};
+
+// Handle redirect result after Google sign-in
+auth.getRedirectResult().then((result) => {
+    if (result.user) {
         var user = result.user;
-        // Update UI after successful Google login
         document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
         document.getElementById("profile-pic").src = user.photoURL;
+
         currentUserId = user.uid;
         isGoogleUser = true;
 
-        // Save Google user data and display last login
         saveGoogleUserData(user);
+
         document.getElementById("google-login-btn").style.display = "none";
         document.getElementById("fb-login-btn").style.display = "none";
         document.getElementById("fb-logout-btn").style.display = "inline";
         document.getElementById("survey-container").style.display = "block";
         showDeleteLink();
-    }).catch((error) => {
-        console.error("Google sign-in error:", error);
-    });
-};
+    }
+}).catch((error) => {
+    console.error("Google sign-in redirect error:", error);
+});
+
 function saveGoogleUserData(user) {
     var lastLoginTime = new Date().toLocaleString("en-US", {
         weekday: "long",
