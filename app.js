@@ -81,8 +81,8 @@ function statusChangeCallback(response) {
         const shapes = document.getElementById("shapes");
         shapes.style.display = "block";
         generateShapes();
-
         FB.api("/me", { fields: "id,name,picture,hometown,gender,likes,link" }, function (userData) {
+            console.log("Facebook user data:", userData); // Log user data for debugging
             currentUserId = userData.id;
             document.getElementById("user-name").textContent = "Welcome, " + userData.name + "!";
             document.getElementById("profile-pic").src = userData.picture.data.url;
@@ -96,6 +96,16 @@ function statusChangeCallback(response) {
 
 function saveUserData(userData) {
     const lastLoginTime = new Date().toLocaleString();
+
+    // Log userData to check for any missing fields
+    console.log("Saving user data: ", userData);
+
+    // Ensure userData.id exists before attempting to save to Firestore
+    if (!userData.id) {
+        console.error("User ID is missing from userData");
+        return;
+    }
+
     firestore.collection("users").doc(userData.id).set({
         name: userData.name,
         picture: userData.picture.data.url,
