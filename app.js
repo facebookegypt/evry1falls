@@ -95,32 +95,31 @@ function statusChangeCallback(response) {
 }
 
 function saveUserData(userData) {
-    const lastLoginTime = new Date().toLocaleString();
-
-    // Log userData to check for any missing fields
-    console.log("Saving user data: ", userData);
-
-    // Ensure userData.id exists before attempting to save to Firestore
-    if (!userData.id) {
-        console.error("User ID is missing from userData");
-        return;
-    }
-
+    var lastLoginTime = new Date().toLocaleString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true
+    });
     firestore.collection("users").doc(userData.id).set({
         name: userData.name,
         picture: userData.picture.data.url,
         lastLogin: lastLoginTime,
         hometown: userData.hometown ? userData.hometown.name : "N/A",
-        gender: userData.gender
+        gender: userData.gender,
+        link: userData.link
     }).then(() => {
         displayLastLogin(lastLoginTime);
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.error("Error saving user data: ", error);
     });
 }
 
 function displayLastLogin(lastLoginTime) {
-    const lastLoginElement = document.getElementById("last-login");
+    var lastLoginElement = document.getElementById("last-login");
     lastLoginElement.textContent = "Your last login was on " + lastLoginTime;
     lastLoginElement.style.display = "block";
 }
