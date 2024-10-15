@@ -1,6 +1,6 @@
 "use strict";
 
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
     authDomain: "git-hub-test-34e5a.firebaseapp.com",
     databaseURL: "https://git-hub-test-34e5a-default-rtdb.firebaseio.com",
@@ -12,13 +12,13 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-var firestore = firebase.firestore();
-var auth = firebase.auth();
+const firestore = firebase.firestore();
+const auth = firebase.auth();
 let currentUserId = "";
-let isGoogleUser = false; // To check if the user is logged in via Google
+let isGoogleUser = false; // To track if the user is logged in via Google
 
 // Facebook SDK initialization
-window.fbAsyncInit = function() {
+window.fbAsyncInit = function () {
     FB.init({
         appId: "880835337346722",
         cookie: true,
@@ -26,14 +26,14 @@ window.fbAsyncInit = function() {
         version: "v21.0"
     });
 
-    FB.getLoginStatus(function(response) {
+    FB.getLoginStatus(function (response) {
         statusChangeCallback(response);
     });
 };
 
 // Insert Facebook SDK
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
+(function (d, s, id) {
+    let js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {
         return;
     }
@@ -43,98 +43,89 @@ window.fbAsyncInit = function() {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-// Check if a user is logged in (Facebook or Google) when the page is reloaded
-firebase.auth().onAuthStateChanged(function(user) {
+// Check if a user is logged in when the page is reloaded
+firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        // Google user is logged in
         currentUserId = user.uid;
-        isGoogleUser = true;
-        document.getElementById("google-login-btn").style.display = "none";
-        document.getElementById("fb-login-btn").style.display = "none";
-        document.getElementById("fb-logout-btn").style.display = "inline";
+        isGoogleUser = user.providerData[0].providerId === 'google.com';
+
+        // Update UI elements
         document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
         document.getElementById("profile-pic").src = user.photoURL;
         document.getElementById("survey-container").style.display = "block";
-        displayLastLogin(user.metadata.lastSignInTime);
-        showDeleteLink(); // Show delete link for Google users
+        document.getElementById("google-login-btn").style.display = "none";
+        document.getElementById("fb-login-btn").style.display = "none";
+        document.getElementById("fb-logout-btn").style.display = "inline";
+
+        // Display last login time
+        if (isGoogleUser) {
+            saveGoogleUserData(user);
+        } else {
+            saveUserData({
+                id: user.uid,
+                name: user.displayName,
+                picture: user.photoURL
+            });
+        }
+        showDeleteLink();
     } else {
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response); // Facebook login
         });
     }
 });
 
 function statusChangeCallback(response) {
-    var shapes = document.getElementById("shapes");
     if (response.status === "connected") {
-        isGoogleUser = false; // Facebook login, so not Google
-        document.getElementById("fb-login-btn").style.display = "none";
-        document.getElementById("google-login-btn").style.display = "none";
-        document.getElementById("fb-logout-btn").style.display = "inline";
-        document.getElementById("survey-container").style.display = "block";
+        isGoogleUser = false; // Facebook login
+        const shapes = document.getElementById("shapes");
         shapes.style.display = "block";
         generateShapes();
 
-        FB.api("/me", {
-            fields: "id,name,picture,hometown,gender,likes,link"
-        }, function(userData) {
+        FB.api("/me", { fields: "id,name,picture,hometown,gender,likes,link" }, function (userData) {
+            currentUserId = userData.id;
             document.getElementById("user-name").textContent = "Welcome, " + userData.name + "!";
             document.getElementById("profile-pic").src = userData.picture.data.url;
-
-            currentUserId = userData.id;
-
             saveUserData(userData);
             showDeleteLink(); // Show delete link for Facebook users
         });
     } else {
-        document.getElementById("fb-login-btn").style.display = "inline";
-        document.getElementById("google-login-btn").style.display = "inline";
-        document.getElementById("fb-logout-btn").style.display = "none";
         hideLastLogin();
     }
 }
 
 function saveUserData(userData) {
-    var lastLoginTime = new Date().toLocaleString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true
-    });
+    const lastLoginTime = new Date().toLocaleString();
     firestore.collection("users").doc(userData.id).set({
         name: userData.name,
         picture: userData.picture.data.url,
         lastLogin: lastLoginTime,
         hometown: userData.hometown ? userData.hometown.name : "N/A",
-        gender: userData.gender,
-        link: userData.link
+        gender: userData.gender
     }).then(() => {
         displayLastLogin(lastLoginTime);
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.error("Error saving user data: ", error);
     });
 }
 
 function displayLastLogin(lastLoginTime) {
-    var lastLoginElement = document.getElementById("last-login");
+    const lastLoginElement = document.getElementById("last-login");
     lastLoginElement.textContent = "Your last login was on " + lastLoginTime;
     lastLoginElement.style.display = "block";
 }
 
 function hideLastLogin() {
-    document.getElementById("last-login").style.display = "none"; // Hide last login message
-    document.querySelector('.delete-link').style.display = "none"; // Hide the delete link as well
-    document.getElementById("shapes").style.display = "none"; // Hide shapes
+    document.getElementById("last-login").style.display = "none";
+    document.querySelector('.delete-link').style.display = "none";
+    document.getElementById("shapes").style.display = "none";
 }
 
 // Show delete link for both Google and Facebook users
 function showDeleteLink() {
     const deleteLink = document.querySelector('.delete-link');
     deleteLink.style.display = "inline";
-    deleteLink.onclick = function() {
+    deleteLink.onclick = function () {
         if (currentUserId) {
             deleteUserData(currentUserId);
         } else {
@@ -154,8 +145,8 @@ function deleteUserData(userId) {
                 console.error("Error signing out Google user: ", error);
             });
         } else {
-            FB.logout(function(response) {
-                statusChangeCallback(response); // Update the UI after logout
+            FB.logout(function (response) {
+                statusChangeCallback(response);
                 console.log("Facebook user logged out and data deleted.");
             });
         }
@@ -170,7 +161,7 @@ function generateShapes() {
     const colors = ["#FF4500", "#00BFFF", "#8A2BE2", "#FF69B4"];
     for (let i = 0; i < 42; i++) {
         const shape = document.createElement("div");
-        shape.style.width = 50 * Math.random() + 20 + "px";
+        shape.style.width = Math.random() * 50 + 20 + "px";
         shape.style.height = shape.style.width;
         shape.style.backgroundColor = "transparent";
         shape.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
@@ -184,73 +175,65 @@ function generateShapes() {
     }
 }
 
-// Google Sign-In
-document.getElementById("google-login-btn").onclick = function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
+// Google Sign-In using Popup
+document.getElementById("google-login-btn").onclick = function () {
+    const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider).then((result) => {
-        var user = result.user;
-
-        document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
-        document.getElementById("profile-pic").src = user.photoURL;
-
-        currentUserId = user.uid;
-        isGoogleUser = true;
-
-        saveGoogleUserData(user);
-
-        document.getElementById("google-login-btn").style.display = "none";
-        document.getElementById("fb-login-btn").style.display = "none";
-        document.getElementById("fb-logout-btn").style.display = "inline";
-        document.getElementById("survey-container").style.display = "block";
-        showDeleteLink(); // Show delete link for Google users
+        handleGoogleUserLogin(result.user);
     }).catch((error) => {
         console.error("Google sign-in error:", error);
     });
 };
 
+function handleGoogleUserLogin(user) {
+    currentUserId = user.uid;
+    isGoogleUser = true;
+
+    document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
+    document.getElementById("profile-pic").src = user.photoURL;
+
+    saveGoogleUserData(user);
+    document.getElementById("google-login-btn").style.display = "none";
+    document.getElementById("fb-login-btn").style.display = "none";
+    document.getElementById("fb-logout-btn").style.display = "inline";
+    document.getElementById("survey-container").style.display = "block";
+    showDeleteLink();
+}
+
 function saveGoogleUserData(user) {
-    var lastLoginTime = new Date().toLocaleString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true
-    });
+    const lastLoginTime = new Date().toLocaleString();
     firestore.collection("users").doc(user.uid).set({
         name: user.displayName,
         picture: user.photoURL,
         lastLogin: lastLoginTime
     }).then(() => {
         displayLastLogin(lastLoginTime);
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.error("Error saving Google user data: ", error);
     });
 }
 
-document.getElementById("fb-login-btn").onclick = function() {
-    FB.login(function(response) {
+// Facebook login
+document.getElementById("fb-login-btn").onclick = function () {
+    FB.login(function (response) {
         if (response.authResponse) {
             statusChangeCallback(response);
         } else {
             console.log("User cancelled login or failed.");
         }
-    }, {
-        scope: "public_profile,email,user_hometown,user_gender,user_link"
-    });
+    }, { scope: "public_profile,email,user_hometown,user_gender,user_link" });
 };
 
-document.getElementById("fb-logout-btn").onclick = function() {
+// Logout for both Google and Facebook
+document.getElementById("fb-logout-btn").onclick = function () {
     if (isGoogleUser) {
         auth.signOut().then(() => {
-            console.log("Google user logged out.");
             window.location.reload();
         }).catch((error) => {
             console.error("Error logging out Google user:", error);
         });
     } else {
-        FB.logout(function(response) {
+        FB.logout(function (response) {
             statusChangeCallback(response);
             document.getElementById("profile-pic").src = "img/looking-good.gif";
             document.getElementById("user-name").textContent = "Welcome!";
@@ -258,27 +241,4 @@ document.getElementById("fb-logout-btn").onclick = function() {
             hideLastLogin();
         });
     }
-};
-
-document.getElementById("survey-form").onsubmit = function(event) {
-    event.preventDefault();
-    const favoriteColor = document.getElementById("question1").value;
-    const facebookUsage = document.getElementById("question2").value;
-    const resultText = `Favorite Color: ${favoriteColor}<br>Facebook Usage: ${facebookUsage}`;
-    document.getElementById("result-text").innerHTML = resultText;
-    document.getElementById("survey-results").style.display = "block";
-};
-
-document.getElementById("share-results").onclick = function() {
-    const resultText = document.getElementById("result-text").innerHTML;
-    const blob = new Blob([resultText], {
-        type: "text/html"
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "survey_results.html";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
 };
