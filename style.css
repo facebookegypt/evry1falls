@@ -137,6 +137,9 @@ body {
   max-width: 1200px;
   align-items: center;
 }
+.footer-container:hover {
+  background-color: #e0e0e0;
+}
 .footer-left {
   display: flex;
   flex-direction: column;
