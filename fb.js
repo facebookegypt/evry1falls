@@ -75,7 +75,7 @@ function saveUserData(userData) {
     }).then(() => {
         displayLastLogin(lastLoginTime);
     }).catch(function(error) {
-        console.error("Error saving user data: ", error);
+        console.error("Error saving user data: ", error + currentUserId);
     });
 }
 
