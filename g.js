@@ -40,7 +40,6 @@ function handleGoogleUserLogin(user) {
     document.getElementById("google-login-btn").style.display = "none";
     document.getElementById("fb-login-btn").style.display = "none";
     document.getElementById("logout-btn").style.display = "inline";
-    document.getElementById("survey-container").style.display = "block";
     shapes.style.display = "block";
     generateShapes();
 }
@@ -84,7 +83,6 @@ document.getElementById("logout-btn").onclick = function() {
         document.getElementById("google-login-btn").style.display = "inline";
         document.getElementById("fb-login-btn").style.display = "inline";
         document.getElementById("logout-btn").style.display = "none";
-        document.getElementById("survey-container").style.display = "none";
         document.getElementById("last-login").style.display = "none";
     }).catch((error) => {
         console.error("Logout error:", error);
