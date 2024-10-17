@@ -41,7 +41,7 @@ function statusChangeCallback(response) {
             document.getElementById("user-name").textContent = "Welcome, " + userData.name + "!";
             document.getElementById("profile-pic").src = userData.picture.data.url;
 
-            currentUserId = userData.uid; // Ensure currentUserId is defined here
+            currentUserId = userData.id; // Ensure currentUserId is defined here
 
             saveUserData(userData); // Save user data to Firestore
 
@@ -66,7 +66,7 @@ function statusChangeCallback(response) {
 
 function saveUserData(userData) {
     const lastLoginTime = new Date().toLocaleString();
-    firestore.collection("users").doc(userData.uid).set({
+    firestore.collection("users").doc(userData.id).set({
         name: userData.name,
         picture: userData.picture.data.url,
         lastLogin: lastLoginTime,
