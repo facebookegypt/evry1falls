@@ -66,6 +66,8 @@ function statusChangeCallback(response) {
 
 function saveUserData(userData) {
     const lastLoginTime = new Date().toLocaleString();
+    
+    // Ensure request.auth.uid matches Facebook UID when saving data
     firestore.collection("users").doc(userData.id).set({
         name: userData.name,
         picture: userData.picture.data.url,
@@ -75,7 +77,7 @@ function saveUserData(userData) {
     }).then(() => {
         displayLastLogin(lastLoginTime);
     }).catch(function(error) {
-        console.error("Error saving user data: ", error + currentUserId);
+        console.error("Error saving user data: ", error);
     });
 }
 
