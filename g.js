@@ -12,6 +12,12 @@ firebase.auth().onAuthStateChanged(function(user) {
 // Initialize Google authentication
 document.getElementById("google-login-btn").onclick = function() {
     var provider = new firebase.auth.GoogleAuthProvider();
+
+    // Add prompt to enforce account selection
+    provider.setCustomParameters({
+        prompt: 'select_account'  // This forces Google to show the account selection prompt
+    });
+
     auth.signInWithPopup(provider).then((result) => {
         var user = result.user;
         handleGoogleUserLogin(user); // Call this function to handle the logged-in state
@@ -22,7 +28,6 @@ document.getElementById("google-login-btn").onclick = function() {
 
 // Handle Google user login
 function handleGoogleUserLogin(user) {
-
     document.getElementById("user-name").textContent = "Welcome, " + user.displayName + "!";
     document.getElementById("profile-pic").src = user.photoURL;
 
@@ -36,8 +41,8 @@ function handleGoogleUserLogin(user) {
     document.getElementById("fb-login-btn").style.display = "none";
     document.getElementById("logout-btn").style.display = "inline";
     document.getElementById("survey-container").style.display = "block";
-	shapes.style.display = "block";
-        generateShapes();
+    shapes.style.display = "block";
+    generateShapes();
 }
 
 // Save Google user data
