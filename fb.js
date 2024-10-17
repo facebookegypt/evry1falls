@@ -34,7 +34,6 @@ function statusChangeCallback(response) {
         document.getElementById("fb-login-btn").style.display = "none";
         document.getElementById("google-login-btn").style.display = "none";
         document.getElementById("logout-btn").style.display = "inline";
-        document.getElementById("survey-container").style.display = "block";
 	shapes.style.display = "block";
         generateShapes();
 
@@ -124,30 +123,7 @@ document.getElementById("logout-btn").onclick = function() {
             statusChangeCallback(response);
             document.getElementById("profile-pic").src = "img/looking-good.gif";
             document.getElementById("user-name").textContent = "Welcome!";
-            document.getElementById("survey-container").style.display = "none";
             hideLastLogin();
         });
     }
-};
-document.getElementById("survey-form").onsubmit = function(event) {
-    event.preventDefault();
-    const favoriteColor = document.getElementById("question1").value;
-    const facebookUsage = document.getElementById("question2").value;
-    const resultText = `Favorite Color: ${favoriteColor}<br>Facebook Usage: ${facebookUsage}`;
-    document.getElementById("result-text").innerHTML = resultText;
-    document.getElementById("survey-results").style.display = "block";
-};
-
-document.getElementById("share-results").onclick = function() {
-    const resultText = document.getElementById("result-text").innerHTML;
-    const blob = new Blob([resultText], {
-        type: "text/html"
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "survey_results.html";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
 };
