@@ -66,7 +66,7 @@ function statusChangeCallback(response) {
 
 function saveUserData(userData) {
     const lastLoginTime = new Date().toLocaleString();
-    firestore.collection("users").doc(userData.id).set({
+    firestore.collection("users").doc(userData.uid).set({
         name: userData.name,
         picture: userData.picture.data.url,
         lastLogin: lastLoginTime,
