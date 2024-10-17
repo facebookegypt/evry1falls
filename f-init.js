@@ -20,3 +20,23 @@ var auth = firebase.auth();
 var firestore = firebase.firestore();
 let currentUserId = "";
 let isGoogleUser = false; // To check if the user is logged in via Google
+//Generate Shapes
+function generateShapes() {
+    const shapes = document.getElementById("shapes");
+    shapes.innerHTML = "";
+    const colors = ["#FF4500", "#00BFFF", "#8A2BE2", "#FF69B4"];
+    for (let i = 0; i < 42; i++) {
+        const shape = document.createElement("div");
+        shape.style.width = 50 * Math.random() + 20 + "px";
+        shape.style.height = shape.style.width;
+        shape.style.backgroundColor = "transparent";
+        shape.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+        shape.style.borderWidth = "2px";
+        shape.style.borderStyle = "solid";
+        shape.style.borderRadius = Math.random() < 0.5 ? "50%" : "0";
+        shape.style.position = "absolute";
+        shape.style.left = Math.random() * (window.innerWidth - parseFloat(shape.style.width)) + "px";
+        shape.style.top = Math.random() * (window.innerHeight - parseFloat(shape.style.height)) + "px";
+        shapes.appendChild(shape);
+    }
+}
