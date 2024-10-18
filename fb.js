@@ -1,8 +1,4 @@
 "use strict";
-
-//let currentUserId = "";
-//let isGoogleUser = false; // Track whether the user logged in via Google or Facebook
-
 window.fbAsyncInit = function() {
     FB.init({
         appId: "880835337346722",
@@ -68,7 +64,7 @@ function saveUserData(userData) {
     const lastLoginTime = new Date().toLocaleString();
     
     // Ensure request.auth.uid matches Facebook UID when saving data
-    firestore.collection("users").doc(userData.id).set({
+    firestore.collection("users").doc(userData.uid).set({
         name: userData.name,
         picture: userData.picture.data.url,
         lastLogin: lastLoginTime,
