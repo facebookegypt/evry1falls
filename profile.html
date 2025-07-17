@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="profile.css">
+
+    <!-- Correct Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBdDxwmuS9w0VnfYzLL2ptYBI4GYUWuZqQ",
+            authDomain: "git-hub-test-34e5a.firebaseapp.com",
+            projectId: "git-hub-test-34e5a",
+            storageBucket: "git-hub-test-34e5a.appspot.com",
+            messagingSenderId: "824616741271",
+            appId: "1:824616741271:web:7d068b5de85ba781757cd2",
+            measurementId: "G-TV39YCR646"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+</head>
+<body>
+    <div class="profile-card">
+        <img id="profile-picture" class="profile-picture" alt="Profile Picture">
+        <h2 id="profile-name" class="profile-name">Mr/Ms. Name</h2>
+        <p id="profile-hometown" class="profile-hometown">Hometown info here...</p>
+        <ul id="profile-likes" class="profile-likes">
+            <li>Like 1</li>
+            <li>Like 2</li>
+        </ul>
+    </div>
+
+    <script src="profile.js" defer></script>
+</body>
+</html>

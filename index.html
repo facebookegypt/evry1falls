@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login with Facebook to access your profile and view personalized stats.">
+    <meta name="google-adsense-account" content="ca-pub-6340254487227270">
+    <title>Neumorphism Facebook Login</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <div class="shapes" id="shapes"></div>
+    <div class="container" id="container">
+    <img id="profile-pic" src="img/looking-good.gif" alt="Profile Picture">
+    <h1 id="user-name">Welcome!</h1>
+    <button id="fb-login-btn">Login with Facebook</button>
+    <button id="fb-logout-btn" style="display: none;">Logout</button>
+        <h2 id="last-login" style="display: none;">Your last login was on ...</h2> <!-- Placeholder -->
+</div>
+    <!-- Firebase App (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
